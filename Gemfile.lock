@@ -37,8 +37,11 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     arel (6.0.2)
+    bcrypt (3.1.7)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap-sass (3.2.0.0)
+      sass (~> 3.2)
     builder (3.2.2)
     byebug (5.0.0)
       columnize (= 0.9.0)
@@ -141,6 +144,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bcrypt (~> 3.1.7)
+  bootstrap-sass (= 3.2.0.0)
   byebug
   coffee-rails (~> 4.1.0)
   jbuilder (~> 2.0)

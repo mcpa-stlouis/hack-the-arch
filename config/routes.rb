@@ -1,4 +1,18 @@
 Rails.application.routes.draw do
+  get 'submissions/new'
+
+  get 'hint_requests/new'
+
+  get 'hints/new'
+
+  get 'problems/new'
+
+  get 'bracket/new'
+
+  get 'teams/new'
+
+  get 'users/new'
+
   root 'welcome#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
