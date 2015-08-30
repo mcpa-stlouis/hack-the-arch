@@ -1,4 +1,0 @@
-== README
-
-* Ruby version 2.2.2p95
-<tt>rake doc:app</tt>.
