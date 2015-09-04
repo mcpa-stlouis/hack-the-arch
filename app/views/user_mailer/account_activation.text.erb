@@ -1,0 +1,10 @@
+Hello <%= @user.fname %>!
+
+Thanks for supporting the MCPA and welcome to HackTheArch! Please click on the link below to activate your account:
+
+<%= edit_account_activation_url(@user.activation_token, email: @user.email) %>
+
+Best of luck!
+-The HackTheArch Team
+
+- Note: Please do not reply to this e-mail.  If you have questions, please e-mail: contact.stlouis@milcyber.org
