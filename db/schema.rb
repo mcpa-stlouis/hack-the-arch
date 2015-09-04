@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150830170136) do
+ActiveRecord::Schema.define(version: 20150904001331) do
 
   create_table "brackets", force: :cascade do |t|
     t.string   "name"
@@ -55,10 +55,11 @@ ActiveRecord::Schema.define(version: 20150830170136) do
     t.string   "lname"
     t.string   "email"
     t.string   "tid"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.string   "password_digest"
     t.string   "remember_digest"
+    t.boolean  "admin",           default: false
   end
 
 end
