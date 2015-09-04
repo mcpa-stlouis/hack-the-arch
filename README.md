@@ -12,3 +12,6 @@ Contact
 -------
 * [Paul Jordan](http://paullj1.com) @ paullj1[at]gmail[dot]com
 
+Acknowledgements
+----------------
+* Base code derived from the [Rails Tutorial](http://railstutorial.org) by Michael Hartl
