@@ -1,0 +1,8 @@
+<li>
+  <%= link_to problem.name + " : " + problem.points.to_s, problem %>
+  <% if current_user.admin? %>
+    | <%= link_to "edit", edit_problem_path(problem) %>
+    | <%= link_to "delete", problem, method: :delete,
+                                   	 data: { confirm: "You sure?" } %>
+  <% end %>
+</li>

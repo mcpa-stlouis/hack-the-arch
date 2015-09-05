@@ -1,0 +1,17 @@
+<%= form_for(@problem) do |f| %>
+	<%= render 'shared/error_messages' %>
+	
+	<%= f.label :name %>
+  <%= f.text_field :name, class: 'form-control' %>
+
+	<%= f.label :category %>
+  <%= f.text_field :category, class: 'form-control' %>
+
+	<%= f.label :description %>
+  <%= f.text_area :description, class: 'form-control' %>
+
+  <%= f.label :points %>
+  <%= f.text_field :points, class: 'form-control' %>
+
+  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+<% end %>

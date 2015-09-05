@@ -1,0 +1,10 @@
+<% provide(:title, 'Problems') %>
+<h1>Problems</h1>
+<%= link_to "Create", new_problem_path %>
+<%= will_paginate %>
+
+<ul class="problems">
+  <%= render @problems %>
+</ul>
+
+<%= will_paginate %>
