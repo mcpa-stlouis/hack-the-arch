@@ -1,0 +1,21 @@
+<form class="admin col-md-12" id="admin_settings_1" action="/settings" accept-charset="UTF-8" method="post">
+	<input type="hidden" name="utf8" value="&#x2713;" />
+	<input type="hidden" name="_method" value="patch" />
+	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" />
+	<div class="row">
+  	<h3 class="col-md-4">Name</h3>
+  	<h3 class="col-md-8">Value</h3>
+	</div>
+	<% for setting in @settings %>
+		<div class="row">
+			<div class="col-md-4">
+				<input type="hidden" name="admin[<%= setting.id %>][id]" value="<%= setting.id %>" />
+				<h4><%= setting.name %></h4>
+			</div>
+   		<div class="col-md-8">
+				<input type="text" name="admin[<%= setting.id %>][value]" value="<%= setting.value %>" />
+			</div>
+		</div>
+	<% end %>
+	<input type="submit" name="commit" value="Save changes" class="btn btn-primary" />
+</form>
