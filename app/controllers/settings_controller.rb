@@ -26,12 +26,16 @@ class SettingsController < ApplicationController
 		redirect_to admin_url
 	end
 
+	def index
+		redirect_to admin_url
+	end
+
 	private
 		def admin_user
       unless logged_in? && current_user.admin?
 				store_location
 				flash[:danger] = "Access Denied."
-				redirect_to login_url
+				redirect_to root_url
 			end
     end
 end
