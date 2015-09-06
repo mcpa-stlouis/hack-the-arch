@@ -14,6 +14,7 @@ User.create!(fname:  "admin",
  						 activated: true,
  						 activated_at: Time.zone.now)
 
+Setting.create!(name: "competition_name", value: "HackTheArch")
 Setting.create!(name: "start_time", value: Time.zone.now.to_s)
 Setting.create!(name: "end_time", value: (Time.zone.now + 24.hours).to_s)
 

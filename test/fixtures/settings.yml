@@ -3,3 +3,7 @@
 test_setting:
   name: "start_time"
   value: <%= Time.zone.now.to_s %>
+
+test_competition_name:
+  name: "competition_name"
+  value: "HackTheArch"

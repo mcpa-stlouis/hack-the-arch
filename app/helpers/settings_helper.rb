@@ -12,4 +12,8 @@ module SettingsHelper
 	def competition_active?
 		competition_started? && !competition_ended?
 	end
+
+	def competition_name
+		Setting.find_by(name: 'competition_name').value
+	end
 end
