@@ -13,5 +13,14 @@
   <%= f.label :points %>
   <%= f.text_field :points, class: 'form-control' %>
 
+  <%= f.label :solution %>
+  <%= f.text_field :solution, class: 'form-control' %>
+
+  <%= f.label :correct_message %>
+  <%= f.text_field :correct_message, class: 'form-control' %>
+
+  <%= f.label :false_message %>
+  <%= f.text_field :false_message, class: 'form-control' %>
+
   <%= f.submit yield(:button_text), class: "btn btn-primary" %>
 <% end %>

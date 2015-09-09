@@ -1,10 +1,10 @@
 <%= form_for(@user) do |f| %>
 	<%= render 'shared/error_messages' %>
 	
-	<%= f.label :fname %>
+	<%= f.label "First Name"  %>
   <%= f.text_field :fname, class: 'form-control' %>
 
-	<%= f.label :lname %>
+	<%= f.label "Last Name" %>
   <%= f.text_field :lname, class: 'form-control' %>
 
   <%= f.label :email %>
@@ -16,5 +16,19 @@
   <%= f.label :password_confirmation, "Confirmation" %>
   <%= f.password_field :password_confirmation, class: 'form-control' %>
 
+	<%= content_tag(:div, id: 'team', class: 'form-inline') do %>
+		<%= label_tag "Team Name" %>
+ 		<%= text_field "team", "name", class: 'form-control' %>
+
+ 		<%= label_tag "Passphrase" %>
+ 		<%= password_field "team", "passphrase", class: 'form-control' %>
+	<% end %>
+
+ 	<%= label_tag "team", class: "checkbox inline" do %>
+   	<%= check_box_tag "team[is_new_team]", "is_new_team", class: 'form-control'  %>
+		<%= content_tag :span, "Is this a new team?" %>
+	<% end %>
+
   <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+
 <% end %>

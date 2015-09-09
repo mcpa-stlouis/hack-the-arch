@@ -1,6 +1,6 @@
 class ProblemsController < ApplicationController
-	before_action :logged_in_user, only: [:index, :show, :destroy, :create, :index, :show, :edit, :update, :new]
-	before_action :admin_user, only: [:destroy, :create, :index, :show, :edit, :update, :new]
+	before_action :logged_in_user, only: [:index, :show]
+	before_action :admin_user, only: [:destroy, :create, :edit, :update, :new]
 	
 	def index
 		@problems = Problem.paginate(page: params[:page])
@@ -8,6 +8,8 @@ class ProblemsController < ApplicationController
 
 	def show
 		@problem = Problem.find(params[:id])
+		@user = current_user
+		@team = Team.find(@user.id)
 	end
 
 	def new
@@ -45,7 +47,7 @@ class ProblemsController < ApplicationController
 
 	private
 		def problem_params
-			params.require(:problem).permit(:name, :category, :description, :points)
+			params.require(:problem).permit(:name, :category, :description, :points, :solution, :correct_message, :false_message)
 		end
 
 		def logged_in_user

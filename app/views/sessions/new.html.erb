@@ -13,7 +13,7 @@
 
 			<%= f.label :remember_me, class: "checkbox inline" do %>
         <%= f.check_box :remember_me %>
-        <span>Remember me on this computer</span>
+        <%= content_tag :span, "Remember me on this computer" %>
       <% end %>
 
       <%= f.submit "Login", class: "btn btn-primary" %>

@@ -28,7 +28,7 @@ class ProblemsControllerTest < ActionController::TestCase
     log_in_as(@non_admin)
     post :create, id: @problem, problem: { name: @problem.name, category: @problem.category, description: @problem.description, points: @problem.points }
     assert_not flash.empty?
-    assert_redirected_to login_url
+    assert_redirected_to root_url
   end
 
   test "should redirect new when not logged in" do
@@ -41,7 +41,7 @@ class ProblemsControllerTest < ActionController::TestCase
     log_in_as(@non_admin)
     get :new
     assert_not flash.empty?
-    assert_redirected_to login_url
+    assert_redirected_to root_url
   end
 
 	test "should redirect edit when not logged in" do
@@ -54,7 +54,7 @@ class ProblemsControllerTest < ActionController::TestCase
     log_in_as(@non_admin)
     get :edit, id: @problem
     assert_not flash.empty?
-    assert_redirected_to login_url
+    assert_redirected_to root_url
   end
 
   test "should redirect update when not logged in" do
@@ -67,7 +67,7 @@ class ProblemsControllerTest < ActionController::TestCase
     log_in_as(@non_admin)
     patch :update, id: @problem, problem: { name: @problem.name, category: @problem.category, description: @problem.description, points: @problem.points }
     assert_not flash.empty?
-    assert_redirected_to login_url
+    assert_redirected_to root_url
   end
 
   test "should redirect destroy when not logged in" do
@@ -80,7 +80,7 @@ class ProblemsControllerTest < ActionController::TestCase
     log_in_as(@non_admin)
     delete :destroy, id: @problem, problem: { name: @problem.name, category: @problem.category, description: @problem.description, points: @problem.points }
     assert_not flash.empty?
-    assert_redirected_to login_url
+    assert_redirected_to root_url
   end
 
 end

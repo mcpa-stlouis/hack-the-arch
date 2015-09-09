@@ -16,4 +16,5 @@ module SettingsHelper
 	def competition_name
 		Setting.find_by(name: 'competition_name').value
 	end
+
 end

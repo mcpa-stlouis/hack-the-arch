@@ -1,6 +1,8 @@
 <% provide(:title, 'Problems') %>
 <h1>Problems</h1>
-<%= link_to "Create", new_problem_path %>
+<% if admin_user? %>
+	<%= link_to "Create", new_problem_path %>
+<% end %>
 <%= will_paginate %>
 
 <ul class="problems">

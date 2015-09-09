@@ -27,9 +27,31 @@ class UsersController < ApplicationController
   end
 
 	def create
+		# Validate Team first
 		@user = User.new(user_params)
+		team = Team.find_by(name: params[:team][:name])
+		if !team && params[:team][:is_new_team]
+			team = Team.new(team_params)
+		elsif team.authenticate(params[:team][:passphrase])
+			team = Team.find_by(name: params[:team][:name])
+		elsif team && params[:team][:is_new_team]
+			flash[:danger] = "Team name has been taken."
+			render 'new' and return
+		else
+			flash[:danger] = "Team name or passphrase invalid."
+			render 'new' and return
+		end
+
+		@user.team_id = team.id
+		if team.at_capacity?
+			flash[:danger] = "Team has reached max capacity"
+			render 'new' and return
+		end
+
+		# Validate User
 		if @user.save
 			@user.send_activation_email
+			team.add(@user)
       flash[:info] = "Please check your email to activate your account."
       redirect_to root_url
 		else
@@ -38,7 +60,9 @@ class UsersController < ApplicationController
 	end
 
 	def destroy
-    User.find(params[:id]).destroy
+		user = User.find(params[:id])
+		Team.find(user.team_id).remove(user)
+		@user.destroy
     flash[:success] = "User deleted"
     redirect_to users_url
   end
@@ -58,6 +82,10 @@ class UsersController < ApplicationController
 	private
 		def user_params
 			params.require(:user).permit(:fname, :lname, :email, :password, :password_confirmation)
+		end
+
+		def team_params
+			params.require(:team).permit(:name, :passphrase)
 		end
 
 		def logged_in_user

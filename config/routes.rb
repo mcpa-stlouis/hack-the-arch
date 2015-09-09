@@ -12,12 +12,21 @@ Rails.application.routes.draw do
   get 'new_problem'	=> 'problems#new'
 	get	'admin'				=> 'settings#edit'
 	get 'login'		  	=> 'sessions#new'
-	post   'login'  	=> 'sessions#create'
-	delete 'logout' 	=> 'sessions#destroy'
-	patch 'settings'	=> 'settings#update'
+
+	post 'login' 		 		=> 'sessions#create'
+	post 'request_hint' => 'hint_request#create'
+	post 'submit' 			=> 'submissions#create'
+	post 'create_team'	=> 'teams#create'
+
+	delete 'logout'	=> 'sessions#destroy'
+
+	patch 'settings' => 'settings#update'
+
 	resources :users
 	resources :problems
 	resources :settings
+	resources :hints
+	resources :hint_requests
 	resources :account_activations, only: [:edit]
 	resources :password_resets,     only: [:new, :create, :edit, :update]
 

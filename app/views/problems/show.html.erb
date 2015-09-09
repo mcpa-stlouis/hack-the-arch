@@ -2,5 +2,6 @@
 <div class="row">
 	<h1> <%= @problem.name %> : <%= @problem.points %> (<%= @problem.category %>)</h1>
 	<p>  <%= @problem.description %> </p>
-	<%= link_to "Back", problems_path %>
+	<%= render 'submit' %>
+	<%= link_to "Back", problems_path, class: "btn btn-primary" %>
 </div>

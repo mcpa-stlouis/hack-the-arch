@@ -1,0 +1,5 @@
+<%= form_tag(submit_path, method: "create", class: "form-inline col-md-12") do %>
+	<%= hidden_field_tag("submission[id]", :id, value: @problem.id) %>
+	<%= text_field(:submission, "value", class: "form-control col-md-9") %>
+	<%= submit_tag("Submit", class: "form-control col-md-3 btn btn-default") %>
+<% end %>
