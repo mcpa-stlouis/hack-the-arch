@@ -1,5 +1,6 @@
 <% if @user; object = @user %>
 <% elsif @problem; object = @problem %>
+<% elsif @team; object = @team %>
 <% end %>
 <% if object.errors.any? %>
   <div id="error_explanation">

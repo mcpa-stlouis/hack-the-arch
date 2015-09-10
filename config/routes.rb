@@ -13,16 +13,19 @@ Rails.application.routes.draw do
 	get	'admin'				=> 'settings#edit'
 	get 'login'		  	=> 'sessions#new'
 
-	post 'login' 		 		=> 'sessions#create'
-	post 'request_hint' => 'hint_request#create'
-	post 'submit' 			=> 'submissions#create'
-	post 'create_team'	=> 'teams#create'
+	post 'login' 		 			=> 'sessions#create'
+	post 'request_hint' 	=> 'hint_request#create'
+	post 'submit' 				=> 'submissions#create'
+	post 'create_team'		=> 'teams#create'
+	post 'join'       		=> 'teams#join'
+	post 'remove_member'	=> 'teams#remove_member'
 
 	delete 'logout'	=> 'sessions#destroy'
 
 	patch 'settings' => 'settings#update'
 
 	resources :users
+	resources :teams
 	resources :problems
 	resources :settings
 	resources :hints

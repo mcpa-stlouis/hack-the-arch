@@ -1,0 +1,35 @@
+<% provide(:title, @team.name) %>
+<h1><%= @team.name %></h1>
+<%= content_tag :div, class: 'row' do %>
+	<%= content_tag :div, class: 'col-md-6 col-md-offset-3' do %>
+		<%= content_tag :table, id: 'members', class: 'table' do %>
+			<% for member_id in @team.members_array do %>
+				<% @member = User.find(member_id) %>
+				<tr> <td>
+       		<%= gravatar_for @member %>
+				</td> <td>
+					<%= content_tag :h5, id: member_id do %>
+						<%= link_to @member.email, @member %>
+					<% end %>
+				</td> <td>
+					<% if current_user.is_member?(@team) %>
+						<%= form_tag(remove_member_path, class: "form-inline col-md-12") do %>
+							<%= hidden_field_tag "user_id", @member.id %>
+							<%= hidden_field_tag "team_id", @team.id %>
+							<%= submit_tag("Remove", class: "form-control btn btn-primary") %>
+						<% end %>
+					<% end %>
+				</td> </tr>
+			<% end %>
+		<% end %>
+		<% if !current_user.is_member?(@team) %>
+			<%= form_tag(join_path, class: "form-inline col-md-12") do %>
+				<%= hidden_field_tag "user_id", current_user.id %>
+				<%= hidden_field_tag "team_id", @team.id %>
+ 				<%= label_tag "Passphrase" %>
+ 				<%= password_field_tag "passphrase", "", class: 'form-control' %>
+				<%= submit_tag("Join", class: "form-control btn btn-primary") %>
+			<% end %>
+		<% end %>
+  <% end %>
+<% end %>

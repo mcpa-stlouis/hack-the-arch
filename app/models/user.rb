@@ -22,6 +22,18 @@ class User < ActiveRecord::Base
 		SecureRandom.urlsafe_base64
 	end
 
+	def is_member?(team)
+		self.team_id == team.id
+	end
+
+	def leave_team
+		update_attribute(:team_id, nil)
+	end
+
+	def join_team(team)
+		update_attribute(:team_id, team.id)
+	end
+
 	def remember
 		self.remember_token = User.new_token
 		update_attribute :remember_digest, User.digest(remember_token)

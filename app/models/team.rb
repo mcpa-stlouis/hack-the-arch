@@ -4,34 +4,35 @@ class Team < ActiveRecord::Base
 	validates :passphrase,  presence: true, length: { maximum: 50 }
 
 	def add(user)
-		if !self.members # Lazy Instantiation
-			mem_array = Array.new
-		else
-			mem_array = self.members.split(',')
-		end
-
-		if mem_array.count < max_members_per_team
-			mem_array.push(user.id.to_s)
-			update_attribute(:members, mem_array.join(','))
+		if members_array.count < max_members_per_team
+			save_members(members_array.push(user.id.to_s))
 		else
 			return false
 		end
 	end
-
 	
 	def remove(user)
 		if self.members 
-			mem_array = self.members.split(',')
-			mem_array.reject! { |member| member == user.id.to_s }
-			update_attribute(:members, mem_array.join(','))
+			save_members(members_array.reject! { |member| member == user.id.to_s })
 		end
 	end
 
 	def at_capacity?
 		if self.members 
-			mem_array = self.members.split(',')
-			mem_array.count >= max_members_per_team
+			members_array.count >= max_members_per_team
 		end
+	end
+
+	def members_array
+		if !self.members # Lazy Instantiation
+			Array.new
+		else
+			self.members.split(',')
+		end
+	end
+
+	def save_members(members_array)
+		update_attribute(:members, members_array.join(','))
 	end
 
 	def authenticate(passphrase)
