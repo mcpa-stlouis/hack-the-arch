@@ -33,6 +33,10 @@ class Team < ActiveRecord::Base
 		end
 	end
 
+	def get_score
+		Submission.where(team_id: self.id).sum(:points)
+	end
+
 	def members_array
 		if !self.members # Lazy Instantiation
 			Array.new

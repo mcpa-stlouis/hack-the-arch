@@ -9,7 +9,12 @@ class ProblemsController < ApplicationController
 	def show
 		@problem = Problem.find(params[:id])
 		@user = current_user
-		@team = Team.find(@user.id)
+		if !@user.team_id
+			flash[:danger] = "You can't view the problems unless you have joined a team!"
+			redirect_to problems_url
+		else
+			@team = Team.find(@user.team_id)
+		end
 	end
 
 	def new

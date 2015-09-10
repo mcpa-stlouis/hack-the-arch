@@ -1,7 +1,13 @@
 <li>
-	<%= link_to team.name, team %>
-	<% if current_user.admin? %>
-    | <%= link_to "delete", team, method: :delete,
-                                  data: { confirm: "You sure?" } %>
-  <% end %>
+	<h3 class="col-md-9">
+		<%= link_to team.name, team %>
+	</h3>
+	<h3 class="col-md-3">
+		<%= team.get_score %>
+		<% if current_user.admin? %>
+    	<%= link_to "delete", team, method: :delete,
+                                	data: { confirm: "You sure?" },
+																	class: 'btn btn-primary' %>
+  	<% end %>
+	</h3>
 </li>

@@ -2,6 +2,10 @@
 <div class="row">
 	<h1> <%= @problem.name %> : <%= @problem.points %> (<%= @problem.category %>)</h1>
 	<p>  <%= @problem.description %> </p>
-	<%= render 'submit' %>
+	<% if @problem.solved_by?(current_user.team_id) %>
+		<p>Your team has solved this challenge!</p>
+	<% else %>
+		<%= render 'submit' %>
+	<% end %>
 	<%= link_to "Back", problems_path, class: "btn btn-primary" %>
 </div>

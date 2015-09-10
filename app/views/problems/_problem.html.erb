@@ -1,8 +1,13 @@
-<li>
-  <%= link_to problem.name + " : " + problem.points.to_s, problem %>
-  <% if current_user.admin? %>
-    | <%= link_to "edit", edit_problem_path(problem) %>
-    | <%= link_to "delete", problem, method: :delete,
-                                   	 data: { confirm: "You sure?" } %>
-  <% end %>
+<li class="row">
+	<h3 class="col-md-9">
+ 		<%= link_to problem.name + " : " + problem.points.to_s, problem %>
+	</h3>
+	<div class="col-md-3">
+ 		<% if current_user.admin? %>
+   		<%= link_to "edit", edit_problem_path(problem), class: 'btn btn-primary' %>
+   		<%= link_to "delete", problem, method: :delete,
+                                 	 	 data: { confirm: "You sure?" },
+																	   class: 'btn btn-primary' %>
+		<% end %>
+	</div>
 </li>
