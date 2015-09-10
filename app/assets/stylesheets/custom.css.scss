@@ -141,6 +141,13 @@ aside {
   margin-top: 15px;
 }
 
+/* main page */
+.user_stats {
+	margin-top: 20px;
+	padding: 10px 0;
+	margin-bottom: 3px;
+}
+
 /* forms */
 input, textarea, select, .uneditable-input {
   border: 1px solid #bbb;
@@ -180,4 +187,26 @@ input {
 #session_remember_me {
   width: auto;
   margin-left: 0;
+}
+
+/* Users index */
+.users {
+  list-style: none;
+  margin: 0;
+  li {
+    overflow: auto;
+    padding: 10px 0;
+    border-bottom: 1px solid $gray-lighter;
+  }
+}
+
+/* Teams index */
+.teams {
+  list-style: none;
+  margin: 0;
+  li {
+    overflow: auto;
+    padding: 10px 0;
+    border-bottom: 1px solid $gray-lighter;
+  }
 }

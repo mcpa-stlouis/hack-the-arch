@@ -1,19 +1,24 @@
 class UsersController < ApplicationController
-	before_action :logged_in_user, only: [:index, :edit, :update]
+	before_action :logged_in_user, only: [:edit, :update]
 	before_action :correct_user, only: [:edit, :update]
-	before_action :admin_user, only: :destroy
+	before_action :admin_user, only: [:index, :destroy]
+
+	def index
+		@users = User.paginate(page: params[:page])
+	end
 
 	def show
 		user = User.find(params[:id])
 		if user.activated? 
-			if current_user?(user)
+# Uncomment if users can only view their own profiles
+#			if current_user?(user)
 				@user = user
-			else
-      	message  = "Access Denied. "
-      	message += "You can only view your profile."
-      	flash[:warning] = message
-				redirect_to root_url
-			end
+#			else
+#     	message  = "Access Denied. "
+#     	message += "You can only view your profile."
+#     	flash[:warning] = message
+# 			redirect_to root_url
+# 		end
 		else
       message  = "Account not activated. "
       message += "Check your email for the activation link."
@@ -27,31 +32,9 @@ class UsersController < ApplicationController
   end
 
 	def create
-		# Validate Team first
 		@user = User.new(user_params)
-		@team = Team.find_by(name: params[:team][:name])
-		if !@team && params[:team][:is_new_team]
-			@team = Team.new(team_params)
-			@team.save
-		elsif @team.authenticate(params[:team][:passphrase])
-			@team = Team.find_by(name: params[:team][:name])
-		elsif @team && params[:team][:is_new_team]
-			flash[:danger] = "Team name has been taken."
-			render 'new' and return
-		elsif @team.at_capacity?
-			flash[:danger] = "Team has reached max capacity"
-			render 'new' and return
-		else
-			flash[:danger] = "Team name or passphrase invalid."
-			render 'new' and return
-		end
-
-		@user.team_id = @team.id
-
-		# Validate User
 		if @user.save
 			@user.send_activation_email
-			@team.add(@user)
       flash[:info] = "Please check your email to activate your account."
       redirect_to root_url
 		else
@@ -60,12 +43,10 @@ class UsersController < ApplicationController
 	end
 
 	def destroy
-		user = User.find(params[:id])
-		Team.find(user.team_id).remove(user)
-		@user.destroy
+		User.find(params[:id]).destroy
     flash[:success] = "User deleted"
     redirect_to users_url
-  end
+	end
 
 	def edit
 	end

@@ -5,8 +5,27 @@
       <h1>
         <%= gravatar_for @user %>
         <%= @user.fname %>
-				<%= @user.team_id %>
+        <%= @user.lname %>
       </h1>
-    </section>
-  </aside>
+			<p>
+        <%= mail_to @user.email %>
+			</p>
+		</section>
+	</aside>
+	<div class="col-md-8 user_stats">
+		<% if @user.team_id %>
+			<% @team = Team.find(@user.team_id) %>
+			<span>
+				Member of: <%= link_to @team.name, @team %>
+			</span>
+		<% else %>
+			<% if current_user?(@user) %>
+				<p>You are not a member of a team.</p>
+				<%= link_to "Create", new_team_path, class: "btn btn-primary" %>
+				<%= link_to "Join", teams_path, class: "btn btn-primary" %>
+			<% else %>
+				<p><%= @user.fname %> does not belong to any team right now</p>
+			<% end %>
+		<% end %>
+	</div>
 </div>

@@ -1,7 +1,11 @@
 class TeamsController < ApplicationController
 	before_action :member_of_team, only: [:edit, :update]
-	before_action :logged_in_user, only: [:create]
-	before_action :admin_user, only: [:destroy]
+	before_action :logged_in_user, only: [:index, :create, :show]
+	before_action :admin_user, only: :destroy
+
+	def index
+		@teams = Team.paginate(page: params[:page])
+	end
 
 	def show
 		@team = Team.find(params[:id])
@@ -14,8 +18,22 @@ class TeamsController < ApplicationController
 	def edit
 	end
 
+	def destroy
+		# Remove reference from members
+		@team = Team.find(params[:id])
+		for user_id in @team.members_array
+			user = User.find(user_id)
+			user.team_id = nil
+			user.save
+		end
+		
+		@team.destroy
+    flash[:success] = "Team deleted and all members removed"
+    redirect_to teams_url
+	end
+
 	def update
-		if @team.update_attributes(team_params)
+		if @team.update_attributes(update_team_params)
 			flash[:success] = "Changes saved successfully"
 			redirect_to @team
 		else
@@ -24,6 +42,13 @@ class TeamsController < ApplicationController
 	end
 
 	def create
+		@team = Team.new(team_params)
+		if @team.save
+      flash[:success] = @team.name + " created!"
+      redirect_to @team
+		else
+			render 'new'
+		end
 	end
 
 	def remove_member
@@ -57,7 +82,7 @@ class TeamsController < ApplicationController
 				flash[:success] = "Welcome to " + @team.name
 				redirect_to @team
 			else
-				flash[:success] = "Unable to join " + @team.name
+				flash[:danger] = "Unable to join " + @team.name
 				redirect_to @team
 			end
 		end
@@ -65,6 +90,10 @@ class TeamsController < ApplicationController
 
 	private
 		def team_params
+			params.require(:team).permit(:name, :passphrase)
+		end
+
+		def update_team_params
 			params.require(:team).permit(:passphrase)
 		end
 
@@ -72,6 +101,14 @@ class TeamsController < ApplicationController
 			@team = Team.find(params[:id])
 			redirect_to(@team) unless (current_user.is_member?(@team) || 
 																 current_user.admin?)
+		end
+
+		def logged_in_user
+			unless logged_in?
+				store_location
+				flash[:danger] = "Please log in."
+				redirect_to login_url
+			end
 		end
 
 		def admin_user
