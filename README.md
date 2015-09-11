@@ -8,6 +8,10 @@ Requirements
 * Ruby version 2.2.2p95
 * See Gemfile for further requirements
 
+Getting Started
+---------------
+* This app is presently designed to be deployed in a heroku environment.  You'll need to add the sendgrid addon before deploying (heroku addons:create sendgrid:starter) and update the host to match your domain in 'config/environments/production.rb'.
+
 Contact
 -------
 * [Paul Jordan](http://paullj1.com) @ paullj1[at]gmail[dot]com
