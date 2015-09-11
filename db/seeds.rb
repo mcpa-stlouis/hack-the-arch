@@ -15,7 +15,7 @@ User.create!(fname:  "admin",
 						 team_id: 1,
  						 activated_at: Time.zone.now)
 
-User.create!(name:  "admins",
+Team.create!(name:  "admins",
  						 passphrase: "password",
  						 members: "1")
 
