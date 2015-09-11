@@ -12,7 +12,12 @@ User.create!(fname:  "admin",
  						 password_confirmation: "password",
  						 admin: true,
  						 activated: true,
+						 team_id: 1,
  						 activated_at: Time.zone.now)
+
+User.create!(name:  "admins",
+ 						 passphrase: "password",
+ 						 members: "1")
 
 Setting.create!(name: "competition_name", value: "HackTheArch")
 Setting.create!(name: "max_members_per_team", value: "5")

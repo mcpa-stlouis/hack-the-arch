@@ -9,4 +9,31 @@ class Problem < ActiveRecord::Base
 											 problem_id: self.id,
 											 correct: true)
 	end
+
+	def add(hint_id)
+		hint = Hint.find(hint_id)
+		save_hints(hints_array.push(hint.id.to_s))
+		hint.increment_pointer_counter
+	end
+	
+	def remove(hint_id)
+		if self.hints 
+			hint = Hint.find(hint_id)
+			save_hints(hints_array.reject! { |id| id == hint.id.to_s })
+			hint.decrement_pointer_counter
+		end
+	end
+
+	def hints_array
+		if !self.hints # Lazy Instantiation
+			Array.new
+		else
+			self.hints.split(',')
+		end
+	end
+
+	def save_hints(hints_array)
+		update_attribute(:hints, hints_array.join(','))
+	end
+
 end

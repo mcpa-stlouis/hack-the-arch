@@ -1,6 +1,6 @@
 class ProblemsController < ApplicationController
 	before_action :logged_in_user, only: [:index, :show]
-	before_action :admin_user, only: [:destroy, :create, :edit, :update, :new]
+	before_action :admin_user, only: [:destroy, :create, :edit, :update, :new, :remove_hint]
 	
 	def index
 		@problems = Problem.paginate(page: params[:page])
@@ -28,6 +28,14 @@ class ProblemsController < ApplicationController
 		else
 			render 'new'
 		end
+	end
+
+	def remove_hint
+		# Hint implements reference counting (i.e., don't worry about it here)
+		@problem = Problem.find(params[:problem_id])
+		@problem.remove(params[:hint_id])
+    flash[:success] = "Hint removed successfully"
+    redirect_to edit_problem_path(@problem)
 	end
 
 	def destroy

@@ -19,8 +19,11 @@ Rails.application.routes.draw do
 	post 'create_team'		=> 'teams#create'
 	post 'join'       		=> 'teams#join'
 	post 'remove_member'	=> 'teams#remove_member'
+	post 'add_hint'				=> 'hints#new'
+	post 'edit_hint'			=> 'hints#edit'
 
-	delete 'logout'	=> 'sessions#destroy'
+	delete 'logout'				=> 'sessions#destroy'
+	delete 'remove_hint'	=> 'problems#remove_hint'
 
 	patch 'settings' => 'settings#update'
 

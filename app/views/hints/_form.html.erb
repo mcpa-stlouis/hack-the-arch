@@ -1,0 +1,14 @@
+<%= form_for(@hint) do |f| %>
+	<%= render 'shared/error_messages' %>
+	
+	<%= f.label "Hint"  %>
+  <%= f.text_field :hint, class: 'form-control' %>
+
+	<%= f.label "Points to be deducted" %>
+  <%= f.text_field :points, class: 'form-control' %>
+
+	<%= hidden_field_tag('hint[problem_id]', :problem_id, value: @problem.id) %>
+
+  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+
+<% end %>

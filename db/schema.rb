@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150908170152) do
+ActiveRecord::Schema.define(version: 20150911183718) do
 
   create_table "brackets", force: :cascade do |t|
     t.string   "name"
@@ -28,8 +28,9 @@ ActiveRecord::Schema.define(version: 20150908170152) do
   create_table "hints", force: :cascade do |t|
     t.string   "hint"
     t.integer  "points"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "pointer_counter"
   end
 
   create_table "problems", force: :cascade do |t|
@@ -42,6 +43,7 @@ ActiveRecord::Schema.define(version: 20150908170152) do
     t.string   "solution"
     t.string   "correct_message"
     t.string   "false_message"
+    t.string   "hints"
   end
 
   create_table "settings", force: :cascade do |t|
