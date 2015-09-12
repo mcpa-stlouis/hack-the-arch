@@ -5,7 +5,7 @@
 		<% @hint = (hint.kind_of?(String) ? Hint.find(hint) : Hint.find(hint.hint_id)) %>
 		<tr> <td class="col-md-8">
 			<%= content_tag :h5, id: @hint.id do %>
-				<%= @hint.hint %> | <%= @hint.points %>
+				<%= @hint.priority %>: <%= @hint.hint %> ( <%= @hint.points %> )
 			<% end %>
 		</td> <td class="col-md-2">
 			<% if current_user.admin? %>
