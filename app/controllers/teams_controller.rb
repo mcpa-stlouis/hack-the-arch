@@ -1,6 +1,6 @@
 class TeamsController < ApplicationController
 	before_action :member_of_team, only: [:edit, :update]
-	before_action :logged_in_user, only: [:index, :create, :show]
+	before_action :logged_in_user, only: [:destroy, :index, :create, :show]
 	before_action :admin_user, only: :destroy
 
 	def index
