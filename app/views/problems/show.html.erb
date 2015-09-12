@@ -6,7 +6,7 @@
 		<% if @problem.solved_by?(current_user.team_id) %>
 			<p>Your team has solved this challenge!</p>
 		<% else %>
-			<% if @problem.number_of_hints_available > 0 %>
+			<% if !current_user.admin? && @problem.number_of_hints_available > 0 %>
 				<%= render 'hints' %>
 				<%= render 'request_hint' %>
 			<% end %>
