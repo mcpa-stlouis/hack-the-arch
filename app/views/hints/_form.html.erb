@@ -1,6 +1,9 @@
 <%= form_for(@hint) do |f| %>
 	<%= render 'shared/error_messages' %>
 	
+	<%= f.label "Priority"  %>
+  <%= f.text_field :priority, class: 'form-control' %>
+
 	<%= f.label "Hint"  %>
   <%= f.text_field :hint, class: 'form-control' %>
 

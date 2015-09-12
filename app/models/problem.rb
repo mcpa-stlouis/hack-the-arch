@@ -28,8 +28,18 @@ class Problem < ActiveRecord::Base
 		if !self.hints # Lazy Instantiation
 			Array.new
 		else
-			self.hints.split(',')
+			self.hints.split(',').sort_by{ |id| Hint.find(id).priority }
 		end
+	end
+
+	def number_of_hints_available
+		self.hints_array.count
+	end
+
+	def get_next_hint(team_id, problem_id)
+		@team = Team.find(team_id)
+		num_hints_requested = @team.get_hints_requested(problem_id).count
+		hints_array[num_hints_requested]
 	end
 
 	def save_hints(hints_array)

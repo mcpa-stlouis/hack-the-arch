@@ -37,6 +37,10 @@ class Team < ActiveRecord::Base
 		Submission.where(team_id: self.id).sum(:points)
 	end
 
+	def get_hints_requested(problem_id)
+		HintRequest.where(team_id: self.id, problem_id: problem_id)
+	end
+
 	def members_array
 		if !self.members # Lazy Instantiation
 			Array.new
