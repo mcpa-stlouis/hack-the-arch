@@ -1,13 +1,11 @@
-<li class="row">
-	<h3 class="col-md-9">
- 		<%= link_to problem.name + " : " + problem.points.to_s, problem %>
-	</h3>
-	<div class="col-md-3">
- 		<% if current_user.admin? %>
-   		<%= link_to "edit", edit_problem_path(problem), class: 'btn btn-primary' %>
-   		<%= link_to "delete", problem, method: :delete,
-                                 	 	 data: { confirm: "You sure?" },
-																	   class: 'btn btn-primary' %>
-		<% end %>
-	</div>
-</li>
+<p>  <%= @problem.description %> </p>
+<% if @problem.solved_by?(current_user.team_id) %>
+	<p>Your team has solved this challenge!</p>
+<% else %>
+	<%= render 'submit' %>
+	<%= content_tag :br %>
+	<% if !current_user.admin? && @problem.number_of_hints_available > 0 %>
+		<%= render 'hints' %>
+		<%= render 'request_hint' %>
+	<% end %>
+<% end %>
