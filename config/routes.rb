@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 	get 'login'		  	=> 'sessions#new'
 
 	post 'login' 		 			=> 'sessions#create'
-	post 'request_hint' 	=> 'hint_request#create'
+	post 'request_hint' 	=> 'hint_requests#create'
 	post 'submit' 				=> 'submissions#create'
 	post 'create_team'		=> 'teams#create'
 	post 'join'       		=> 'teams#join'

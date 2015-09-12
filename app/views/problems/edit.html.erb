@@ -5,38 +5,6 @@
 <%= content_tag :div, class: 'row' do %>
 	<%= content_tag :div, class: 'col-md-6 col-md-offset-3' do %>
 		<%= render 'form' %>
+		<%= render 'hints' %>
   <% end %>
-<% end %>
-
-<% # Hints # %>
-<h1>Hints</h1>
-<%= content_tag :div, class: 'row' do %>
-	<%= content_tag :div, class: 'col-md-6 col-md-offset-3' do %>
-		<%= content_tag :table, id: 'hints', class: 'table' do %>
-			<% for hint_id in @problem.hints_array do %>
-				<% @hint = Hint.find(hint_id) %>
-				<tr> <td class="col-md-8">
-					<%= content_tag :h5, id: hint_id do %>
-						<%= @hint.hint %> | <%= @hint.points %>
-					<% end %>
-				</td> <td class="col-md-2">
-					<%= form_tag '/edit_hint' do %>
-						<%= hidden_field_tag "hint_id", @hint.id %>
-						<%= hidden_field_tag "problem_id", @problem.id %>
-						<%= submit_tag "Edit", class: "form-control btn btn-primary" %>
-					<% end %>
-				</td> <td class="col-md-2">
-					<%= form_tag remove_hint_path, method: 'delete' do %>
-						<%= hidden_field_tag "hint_id", @hint.id %>
-						<%= hidden_field_tag "problem_id", @problem.id %>
-						<%= submit_tag "Remove", class: "form-control btn btn-primary" %>
-					<% end %>
-				</td> </tr>
-			<% end %>
-		<% end %>
-		<%= form_tag '/add_hint' do %>
-			<%= hidden_field_tag "problem_id", @problem.id %>
-			<%= submit_tag "Add", class: "form-control btn btn-primary" %>
-		<% end %>
-	<% end %>
 <% end %>

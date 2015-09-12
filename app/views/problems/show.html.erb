@@ -1,11 +1,17 @@
 <% provide(:title, @problem.name) %>
-<div class="row">
-	<h1> <%= @problem.name %> : <%= @problem.points %> (<%= @problem.category %>)</h1>
-	<p>  <%= @problem.description %> </p>
-	<% if @problem.solved_by?(current_user.team_id) %>
-		<p>Your team has solved this challenge!</p>
-	<% else %>
-		<%= render 'submit' %>
+<%= content_tag :div, class: 'row' do %>
+	<%= content_tag :div, class: 'col-md-6 col-md-offset-3' do %>
+		<h1> <%= @problem.name %> : <%= @problem.points %> (<%= @problem.category %>)</h1>
+		<p>  <%= @problem.description %> </p>
+		<% if @problem.solved_by?(current_user.team_id) %>
+			<p>Your team has solved this challenge!</p>
+		<% else %>
+			<% if !current_user.admin? && @problem.number_of_hints_available > 0 %>
+				<%= render 'hints' %>
+				<%= render 'request_hint' %>
+			<% end %>
+			<%= render 'submit' %>
+		<% end %>
+		<%= link_to "Back", problems_path, class: "btn btn-primary" %>
 	<% end %>
-	<%= link_to "Back", problems_path, class: "btn btn-primary" %>
-</div>
+<% end %>

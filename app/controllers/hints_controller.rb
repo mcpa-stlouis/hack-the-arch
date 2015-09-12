@@ -35,7 +35,7 @@ class HintsController < ApplicationController
 
 	private
 		def hint_params
-			params.require(:hint).permit(:hint, :points)
+			params.require(:hint).permit(:priority, :hint, :points)
 		end
 
 		def admin_user

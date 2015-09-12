@@ -34,7 +34,12 @@ class Team < ActiveRecord::Base
 	end
 
 	def get_score
-		Submission.where(team_id: self.id).sum(:points)
+		Submission.where(team_id: self.id).sum(:points) - 
+		HintRequest.where(team_id: self.id).sum(:points)
+	end
+
+	def get_hints_requested(problem_id)
+		HintRequest.where(team_id: self.id, problem_id: problem_id)
 	end
 
 	def members_array

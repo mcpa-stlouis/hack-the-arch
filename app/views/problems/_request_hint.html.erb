@@ -1,0 +1,4 @@
+<%= form_tag('/request_hint', method: "create", class: "form-inline col-md-12") do %>
+	<%= hidden_field_tag("hint_request[problem_id]", :id, value: @problem.id) %>
+	<%= submit_tag("Request Hint", class: "form-control col-md-3 btn btn-primary") %>
+<% end %>
