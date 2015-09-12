@@ -34,8 +34,21 @@ class Team < ActiveRecord::Base
 	end
 
 	def get_score
-		Submission.where(team_id: self.id).sum(:points) - 
-		HintRequest.where(team_id: self.id).sum(:points)
+		if subtract_hint_points_before_solve 
+			Submission.where(team_id: self.id).sum(:points) - 
+			HintRequest.where(team_id: self.id).sum(:points)
+		else
+			score = 0
+			for submission in Submission.where(team_id: self.id)
+				if submission.correct
+					score = score + submission.points
+					for hint in HintRequest.where(team_id: self.id, problem_id: submission.problem_id)
+						score = score - hint.points
+					end
+				end
+			end
+		end
+			
 	end
 
 	def get_hints_requested(problem_id)

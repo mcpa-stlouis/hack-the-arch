@@ -15,11 +15,11 @@ User.create!(fname:  "admin",
 						 team_id: 1,
  						 activated_at: Time.zone.now)
 
-Setting.create!(name: "competition_name", value: "HackTheArch")
-Setting.create!(name: "max_members_per_team", value: "5")
-Setting.create!(name: "subtract_hint_points_before_solve", value: "true")
-Setting.create!(name: "start_time", value: Time.zone.now.to_s)
-Setting.create!(name: "end_time", value: (Time.zone.now + 24.hours).to_s)
+Setting.create!(name: "competition_name", value: "HackTheArch", setting_type: "text")
+Setting.create!(name: "max_members_per_team", value: "5", setting_type: "text")
+Setting.create!(name: "subtract_hint_points_before_solve", value: "true", setting_type: "boolean")
+Setting.create!(name: "start_time", value: Time.zone.now.to_s, setting_type: "date")
+Setting.create!(name: "end_time", value: (Time.zone.now + 24.hours).to_s, setting_type: "date")
 
 Team.create!(name:  "admins",
  						 passphrase: "password",
