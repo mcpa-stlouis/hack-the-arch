@@ -17,7 +17,7 @@ module SettingsHelper
 		Setting.find_by(name: 'competition_name').value
 	end
 
-	def subtract_hint_points_before_solve
+	def subtract_hint_points_before_solve?
 		Setting.find_by(name: 'subtract_hint_points_before_solve').value
 	end
 

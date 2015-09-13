@@ -1,4 +1,5 @@
 class ValidateAtCapacity < ActiveModel::Validator
+
   def validate(record)
     if record.at_capacity?
       record.errors[] << 'Team has reached capcity'
@@ -8,6 +9,7 @@ end
 
 class Team < ActiveRecord::Base
 	include ActiveModel::Validations
+	include SettingsHelper
 	validates :name,  presence: true, length: { maximum: 50 },
 										uniqueness: true
 	validates :passphrase,  presence: true, length: { minimum: 6 }
@@ -34,7 +36,7 @@ class Team < ActiveRecord::Base
 	end
 
 	def get_score
-		if subtract_hint_points_before_solve 
+		if subtract_hint_points_before_solve?
 			Submission.where(team_id: self.id).sum(:points) - 
 			HintRequest.where(team_id: self.id).sum(:points)
 		else
@@ -47,6 +49,7 @@ class Team < ActiveRecord::Base
 					end
 				end
 			end
+			score
 		end
 			
 	end
