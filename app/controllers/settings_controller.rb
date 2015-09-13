@@ -1,5 +1,5 @@
 class SettingsController < ApplicationController
-	before_action :admin_user, only: [:edit, :update]
+	before_action :admin_user, only: [:index, :edit, :update]
 
 	def edit
 		@settings = Setting.all
@@ -11,13 +11,16 @@ class SettingsController < ApplicationController
 		for setting in settings
 			setting = setting[1]
 			to_update = Setting.find(setting[:id])
-			if to_update.value != setting[:value]
+
+			if to_update.setting_type == 'boolean'
+ 				to_update.value = (setting[:value]) ? "1" : "0"
+			else
 				to_update.value = setting[:value]
-				if !to_update.save
-					error = true
-				end
 			end
+
+			error = (to_update.save) ? false : true
 		end
+
 		if error
 			flash[:danger] = "Failed to update database. Try again."
 		else
