@@ -34,7 +34,8 @@
 					</div>
     		<% end %>
     	<% end %>
-			<%= content_tag :div, id: @problem.id.to_s, class: 'panel-collapse collapse', role: 'tabpanel', 'aria-labelledby' => 'heading_' + @problem.id.to_s do %> 
+			<% panel_class = (@problem_view && @problem_view.id == @problem.id) ? 'panel-collapse collapse in' : 'panel-collapse collapse' %>
+			<%= content_tag :div, id: @problem.id.to_s, class: panel_class, role: 'tabpanel', 'aria-labelledby' => 'heading_' + @problem.id.to_s do %> 
 				<%= content_tag :div, class: 'panel-body' do %>
 					<%= render @problem %>
     		<% end %>

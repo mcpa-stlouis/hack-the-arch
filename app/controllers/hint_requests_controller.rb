@@ -23,15 +23,15 @@ class HintRequestsController < ApplicationController
  						 						 	problem_id: @problem.id,
 												 	hint_id:	@hint.id,
  						 						 	points:	@hint.points)
-				redirect_to @problem
+				redirect_to controller: 'problems', action: 'index', problem_id: @problem.id
 			else
 				flash[:warning] = "No more hints available!"
-				redirect_to @problem
+				redirect_to controller: 'problems', action: 'index', problem_id: @problem.id
 			end
 
 		else
 			flash[:danger] = "You cannot request hints unless you belong to a team!"
-			redirect_to @problem
+			redirect_to controller: 'problems', action: 'index', problem_id: @problem.id
 		end
 	end
 

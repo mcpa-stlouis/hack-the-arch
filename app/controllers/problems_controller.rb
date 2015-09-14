@@ -1,16 +1,14 @@
 class ProblemsController < ApplicationController
-	before_action :logged_in_user, only: [:index, :show, :destroy, :create, :edit, :update, :new, :remove_hint]
+	before_action :logged_in_user, only: [:index, :destroy, :create, :edit, :update, :new, :remove_hint]
 	before_action :admin_user, only: [:destroy, :create, :edit, :update, :new, :remove_hint]
-	before_action :belong_to_team, only: [:index, :show]
+	before_action :belong_to_team, only: [:index]
 	
 	def index
-		@problems = Problem.paginate(page: params[:page])
-	end
-
-	def show
-		@problem = Problem.find(params[:id])
-		@user = current_user
-		@team = Team.find(@user.team_id)
+		@problems = Problem.all
+		if params[:problem_id]
+			debugger
+			@problem_view = Problem.find(params[:problem_id])
+		end
 	end
 
 	def new
