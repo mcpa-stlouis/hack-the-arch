@@ -1,7 +1,7 @@
 class ProblemsController < ApplicationController
-	before_action :belong_to_team, only: [:index, :show]
-	before_action :logged_in_user, only: [:index, :show]
+	before_action :logged_in_user, only: [:index, :show, :destroy, :create, :edit, :update, :new, :remove_hint]
 	before_action :admin_user, only: [:destroy, :create, :edit, :update, :new, :remove_hint]
+	before_action :belong_to_team, only: [:index, :show]
 	
 	def index
 		@problems = Problem.paginate(page: params[:page])
@@ -10,12 +10,7 @@ class ProblemsController < ApplicationController
 	def show
 		@problem = Problem.find(params[:id])
 		@user = current_user
-		if !@user.team_id
-			flash[:danger] = "You can't view the problems unless you have joined a team!"
-			redirect_to problems_url
-		else
-			@team = Team.find(@user.team_id)
-		end
+		@team = Team.find(@user.team_id)
 	end
 
 	def new

@@ -1,17 +1,21 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 example_user:
+  id: 1
   fname: Another
   lname: Example User
   email: another_user@example.com
   password_digest: <%= User.digest('password') %>
   activated: true
+  team_id: 1
   activated_at: <%= Time.zone.now %>
 
 archer:
+  id: 2
   fname: Sterling
   lname: Archer
   email: archer@isis.gov
   password_digest: <%= User.digest('password') %>
   activated: true
+  team_id: 2
   activated_at: <%= Time.zone.now %>
