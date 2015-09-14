@@ -2,7 +2,7 @@ class SettingsController < ApplicationController
 	before_action :admin_user, only: [:index, :edit, :update]
 
 	def edit
-		@settings = Setting.all
+		@settings = Setting.all.order('id ASC')
 	end
 	
 	def update
