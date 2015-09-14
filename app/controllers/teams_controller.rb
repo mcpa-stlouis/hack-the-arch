@@ -5,6 +5,7 @@ class TeamsController < ApplicationController
 
 	def index
 		@teams = Team.paginate(page: params[:page])
+		@sorted_teams = @teams.sort_by { |team| team.get_score }.reverse
 	end
 
 	def show
