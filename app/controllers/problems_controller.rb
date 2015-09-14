@@ -1,4 +1,5 @@
 class ProblemsController < ApplicationController
+	before_action :belong_to_team, only: [:index, :show]
 	before_action :logged_in_user, only: [:index, :show]
 	before_action :admin_user, only: [:destroy, :create, :edit, :update, :new, :remove_hint]
 	
@@ -68,6 +69,13 @@ class ProblemsController < ApplicationController
 				store_location
 				flash[:danger] = "Please log in."
 				redirect_to login_url
+			end
+		end
+		
+		def belong_to_team
+			unless current_user.team_id
+				flash[:danger] = "You must belong to a team to view the problems!"
+				redirect_to current_user
 			end
 		end
 		
