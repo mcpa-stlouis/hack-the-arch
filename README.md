@@ -6,6 +6,7 @@ This is a scoring server built using Ruby on Rails by the Military Cyber Profess
 Requirements
 ------------
 * Ruby version 2.2.2p95
+* Activation e-mails depend on SendGrid configuration
 * See Gemfile for further requirements
 
 Getting Started
