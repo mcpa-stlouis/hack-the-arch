@@ -5,7 +5,14 @@ class TeamsController < ApplicationController
 
 	def index
 		@teams = Team.paginate(page: params[:page])
-		@sorted_teams = @teams.sort_by { |team| team.get_score }.reverse
+		# reject admins
+		@sorted_teams = @teams.sort_by { |team| team.get_score }.reject {|team| team.name == 'admins'}.reverse
+
+		@score_progressions = Team.get_top_teams_score_progression
+		@sorted_team_names = Array.new
+		for team in @sorted_teams.first 5
+			@sorted_team_names.push team.name
+		end
 	end
 
 	def show
