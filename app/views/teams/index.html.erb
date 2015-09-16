@@ -1,11 +1,22 @@
 <% provide(:title, 'All teams') %>
+<h1>Scoreboard</h1>
+<div class='jumbotron row'>
+	<div id='scoreboard_graph' class='col-sm-12' style='width:100%;height:400px'></div>
+</div>
+<%= will_paginate %>
+
+<ul class="teams row">
+	<%= render @sorted_teams %>
+</ul>
+
+<%= will_paginate %>
 
 <script type='text/javascript'>
 	team_names = <%= @sorted_team_names.to_json.html_safe %>
 	score_data_rows = <%= @score_progressions.to_json.html_safe %>
 
 	google.load('visualization', '1', {'packages':['annotationchart']});
-  google.setOnLoadCallback(draw_scoreboard);
+  google.setOnLoadCallback(window.draw_scoreboard);
 
 	function draw_scoreboard() {
 		var data = new google.visualization.DataTable();
@@ -33,14 +44,3 @@
 	}
 </script>
 
-<h1>Scoreboard</h1>
-<div class='jumbotron row'>
-	<div id='scoreboard_graph' class='col-sm-12' style='width:100%;height:400px'></div>
-</div>
-<%= will_paginate %>
-
-<ul class="teams row">
-	<%= render @sorted_teams %>
-</ul>
-
-<%= will_paginate %>
