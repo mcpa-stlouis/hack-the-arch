@@ -47,7 +47,7 @@ class ProblemsController < ApplicationController
 		@problem = Problem.find(params[:id])
 		if @problem.update_attributes(problem_params)
 			flash[:success] = "Changes saved successfully"
-			redirect_to @problem
+			redirect_to problems_url
 		else
 			render 'edit'
 		end
