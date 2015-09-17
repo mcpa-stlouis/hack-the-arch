@@ -1,36 +1,31 @@
 class HintRequestsController < ApplicationController
-	before_action :belong_to_team, only: [:index, :show]
-	before_action :logged_in_user, only: [:index, :show]
+	before_action :logged_in_user, only: :create
+	before_action :belong_to_team, only: :create
+	before_action :competition_active, only: :create
 
 	def create
 		points = 0
 		@problem = Problem.find(params[:hint_request][:problem_id])
 		@user = current_user
-		if @user.team_id
 
-			@team = Team.find(@user.team_id)
-			hints_requested = @team.get_hints_requested(@problem.id)
+		@team = Team.find(@user.team_id)
+		hints_requested = @team.get_hints_requested(@problem.id)
 
-			if ((!hints_requested || 
-					 hints_requested.count < @problem.number_of_hints_available) &&
-					 @problem.number_of_hints_available > 0 )
+		if ((!hints_requested || 
+				 hints_requested.count < @problem.number_of_hints_available) &&
+				 @problem.number_of_hints_available > 0 )
 
-				@hint = Hint.find(@problem.get_next_hint(@team.id, @problem.id))
+			@hint = Hint.find(@problem.get_next_hint(@team.id, @problem.id))
 
 
-				HintRequest.create(team_id:  @user.team_id,
- 						 						 	user_id: @user.id,
- 						 						 	problem_id: @problem.id,
-												 	hint_id:	@hint.id,
- 						 						 	points:	@hint.points)
-				redirect_to controller: 'problems', action: 'index', problem_id: @problem.id
-			else
-				flash[:warning] = "No more hints available!"
-				redirect_to controller: 'problems', action: 'index', problem_id: @problem.id
-			end
-
+			HintRequest.create(team_id:  @user.team_id,
+ 						 						 user_id: @user.id,
+ 						 						 problem_id: @problem.id,
+												 hint_id:	@hint.id,
+ 						 						 points:	@hint.points)
+			redirect_to controller: 'problems', action: 'index', problem_id: @problem.id
 		else
-			flash[:danger] = "You cannot request hints unless you belong to a team!"
+			flash[:warning] = "No more hints available!"
 			redirect_to controller: 'problems', action: 'index', problem_id: @problem.id
 		end
 	end
@@ -48,9 +43,15 @@ class HintRequestsController < ApplicationController
 		def belong_to_team
 			unless current_user.team_id
 				flash[:danger] = "You must belong to a team to view the problems!"
-				redirect_to current_user
+				redirect_to controller: 'problems', action: 'index', problem_id: @problem.id
 			end
 		end
 		
+		def competition_active
+			unless SettingsHelper.competition_active?
+				flash[:danger] = "The competition isn't active!"
+				redirect_to root_url
+			end
+		end
 
 end

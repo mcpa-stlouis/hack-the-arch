@@ -2,6 +2,7 @@ class ProblemsController < ApplicationController
 	before_action :logged_in_user, only: [:index, :destroy, :create, :edit, :update, :new, :remove_hint]
 	before_action :admin_user, only: [:destroy, :create, :edit, :update, :new, :remove_hint]
 	before_action :belong_to_team, only: [:index]
+	before_action :competition_active, only: [:index, :show]
 	
 	def index
 		@problems = Problem.all
@@ -79,4 +80,11 @@ class ProblemsController < ApplicationController
 				redirect_to root_url
 			end
     end
+
+		def competition_active
+			unless SettingsHelper.competition_active?
+				flash[:danger] = "The competition isn't active!"
+				redirect_to root_url
+			end
+		end
 end
