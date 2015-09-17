@@ -16,3 +16,6 @@
 !/log/.keep
 /tmp
 .*.swp
+
+# Ignore development updloaded images
+/public/uploads

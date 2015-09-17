@@ -55,7 +55,7 @@ class ProblemsController < ApplicationController
 
 	private
 		def problem_params
-			params.require(:problem).permit(:name, :category, :description, :points, :solution, :correct_message, :false_message)
+			params.require(:problem).permit(:name, :category, :description, :points, :solution, :correct_message, :false_message, :picture)
 		end
 
 		def logged_in_user

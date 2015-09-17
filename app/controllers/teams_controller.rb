@@ -41,7 +41,7 @@ class TeamsController < ApplicationController
 	end
 
 	def update
-		if @team.update_attributes(update_team_params)
+		if @team.update_attributes(team_params)
 			flash[:success] = "Changes saved successfully"
 			redirect_to @team
 		else
@@ -103,10 +103,6 @@ class TeamsController < ApplicationController
 	private
 		def team_params
 			params.require(:team).permit(:name, :passphrase)
-		end
-
-		def update_team_params
-			params.require(:team).permit(:passphrase)
 		end
 
 		def member_of_team

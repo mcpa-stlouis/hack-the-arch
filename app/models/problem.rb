@@ -1,8 +1,10 @@
 class Problem < ActiveRecord::Base
+	mount_uploader :picture, PictureUploader
 	validates :name,  presence: true, length: { maximum: 50 }
 	validates :category,  presence: true, length: { maximum: 100 }
 	validates :description,  presence: true, length: { maximum: 500 }
 	validates :points,  presence: true, numericality: { only_integer: true, greater_than: 0 }
+	validates :picture_size
 
 	def solved_by?(team_id)
 		Submission.find_by(team_id: team_id,
@@ -42,8 +44,18 @@ class Problem < ActiveRecord::Base
 		hints_array[num_hints_requested]
 	end
 
-	def save_hints(hints_array)
-		update_attribute(:hints, hints_array.join(','))
-	end
+	private
+
+		# Don't give access to the array directly 
+		def save_hints(hints_array)
+			update_attribute(:hints, hints_array.join(','))
+		end
+	
+		# Validates the size of an uploaded picture.
+    def picture_size
+      if picture.size > 5.megabytes
+        errors.add(:picture, "should be less than 5MB")
+      end
+    end
 
 end
