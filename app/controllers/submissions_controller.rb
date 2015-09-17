@@ -61,7 +61,7 @@ class SubmissionsController < ApplicationController
 			end
 		end
 
-		def logged_in_user
+		def user_logged_in
 			unless logged_in?
 				store_location
 				flash[:danger] = "Please log in."
