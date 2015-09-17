@@ -4,7 +4,7 @@ class Problem < ActiveRecord::Base
 	validates :category,  presence: true, length: { maximum: 100 }
 	validates :description,  presence: true, length: { maximum: 500 }
 	validates :points,  presence: true, numericality: { only_integer: true, greater_than: 0 }
-	validates :picture_size
+	validate  :picture_size
 
 	def solved_by?(team_id)
 		Submission.find_by(team_id: team_id,
