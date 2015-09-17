@@ -12,12 +12,6 @@ class ProblemsControllerTest < ActionController::TestCase
     assert_redirected_to login_url
   end
 
-	test "should redirect show when not logged in" do
-    get :show, id: @problem
-    assert_not flash.empty?
-    assert_redirected_to login_url
-  end
-
   test "should redirect create when not logged in" do
     post :create, id: @problem, problem: { name: @problem.name, category: @problem.category, description: @problem.description, points: @problem.points }
     assert_not flash.empty?

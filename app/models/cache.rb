@@ -8,7 +8,9 @@ class Cache < ActiveRecord::Base
 	end
 
 	def update(value)
-		update_attribute :value, value
-		update_attribute :cache_valid, true
+		if value
+			update_attribute :value, value
+			update_attribute :cache_valid, true
+		end
 	end
 end
