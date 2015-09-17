@@ -7,12 +7,17 @@ class TeamsController < ApplicationController
 		@teams = Team.paginate(page: params[:page])
 		# reject admins
 		@sorted_teams = @teams.sort_by { |team| team.get_score }.reject {|team| team.name == 'admins'}.reverse
+	end
 
-		@score_progressions = Team.get_top_teams_score_progression
-		@sorted_team_names = Array.new
-		for team in @sorted_teams.first 5
-			@sorted_team_names.push team.name
+	def get_score_data
+		@scores = Team.get_top_teams_score_progression.to_json.html_safe
+		@teams = Array.new
+		for team in Team.get_top_teams
+			@teams.push team.name
 		end
+		@teams = @teams.to_json.html_safe
+
+		render :json => { teams: @teams, scores: @scores, status: :ok}
 	end
 
 	def show

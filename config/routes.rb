@@ -13,6 +13,8 @@ Rails.application.routes.draw do
 	get	'admin'				=> 'settings#edit'
 	get 'login'		  	=> 'sessions#new'
 
+	get 'teams/get_score_data' => 'teams#get_score_data'
+
 	post 'login' 		 			=> 'sessions#create'
 	post 'request_hint' 	=> 'hint_requests#create'
 	post 'submit' 				=> 'submissions#create'

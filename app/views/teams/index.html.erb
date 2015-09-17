@@ -11,36 +11,3 @@
 
 <%= will_paginate %>
 
-<script type='text/javascript'>
-	team_names = <%= @sorted_team_names.to_json.html_safe %>
-	score_data_rows = <%= @score_progressions.to_json.html_safe %>
-
-	google.load('visualization', '1', {'packages':['annotationchart']});
-  google.setOnLoadCallback(window.draw_scoreboard);
-
-	function draw_scoreboard() {
-		var data = new google.visualization.DataTable();
-		data.addColumn('string', 'Date');
-		
-		for(var i = 0; i < team_names.length; i++) {
-			data.addColumn('number', team_names[i]);
-		}
-
-		for(var i = 0; i < score_data_rows.length; i++)
-			score_data_rows[i][0] = String(Date(score_data_rows[i][0]));
-
-  	data.addRows(score_data_rows);
-
-		var chart = new google.visualization.SteppedAreaChart(document.getElementById('scoreboard_graph'));
-
-		var options = {
-			areaOpacity: 0,
-			hAxis: { textPosition: 'none' },
-			aggregationTarget: 'series',
-			legend: { position: 'top', alignment: 'center'}
-		};
-
-  	chart.draw(data, options);
-	}
-</script>
-
