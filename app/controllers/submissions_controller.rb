@@ -19,21 +19,21 @@ class SubmissionsController < ApplicationController
 			# And it has not already been solved
 			if @problem.solved_by?(current_user.team_id)
 				flash[:warning] = "Your team has already solved this!"
-				redirect_to controller: 'problems', action: 'index', anchor: "heading_#{(@problem.id-1).to_s}", problem_id: @problem.id
+				redirect_to @problem
 			else
 				flash[:success] = @problem.correct_message
 				points = @problem.points
-				redirect_to controller: 'problems', action: 'index', anchor: "heading_#{(@problem.id-1).to_s}", problem_id: @problem.id
+				redirect_to @problem
 			end
 
 		# Or the answer has already been guessed
 		elsif ( Submission.find_by(team_id: current_user.team_id,
 														 	submission: solution) )
 			flash[:warning] = "Your team has already guessed that!"
-			redirect_to controller: 'problems', action: 'index', anchor: "heading_#{(@problem.id-1).to_s}", problem_id: @problem.id
+			redirect_to @problem
 		else
 			flash[:danger] = @problem.false_message
-			redirect_to controller: 'problems', action: 'index', anchor: "heading_#{(@problem.id-1).to_s}", problem_id: @problem.id
+			redirect_to @problem
 		end
 		Submission.create(team_id:  current_user.team_id,
 					 						user_id: current_user.id,
@@ -57,7 +57,7 @@ class SubmissionsController < ApplicationController
 		def belong_to_team
 			unless current_user.team_id
 				flash[:danger] = "You cannot solve problems unless you belong to a team!"
-				redirect_to controller: 'problems', action: 'index', anchor: "heading_#{(@problem.id-1).to_s}", problem_id: @problem.id
+				redirect_to @problem
 			end
 		end
 

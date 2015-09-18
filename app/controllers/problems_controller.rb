@@ -1,5 +1,5 @@
 class ProblemsController < ApplicationController
-	before_action :logged_in_user, only: [:index, :destroy, :create, :edit, :update, :new, :remove_hint]
+	before_action :logged_in_user, only: [:index, :destroy, :create, :edit, :update, :new, :remove_hint, :show]
 	before_action :admin_user, only: [:destroy, :create, :edit, :update, :new, :remove_hint]
 	before_action :belong_to_team, only: [:index]
 	before_action :competition_active, only: [:index, :show]
@@ -22,6 +22,11 @@ class ProblemsController < ApplicationController
 		else
 			render 'new'
 		end
+	end
+
+	def show
+		@problem = Problem.find(params[:id])
+		redirect_to controller: 'problems', action: 'index', anchor: "heading_#{(@problem.id-1).to_s}", problem_id: @problem.id
 	end
 
 	def remove_hint

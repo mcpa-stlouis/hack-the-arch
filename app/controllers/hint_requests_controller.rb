@@ -23,10 +23,10 @@ class HintRequestsController < ApplicationController
  						 						 problem_id: @problem.id,
 												 hint_id:	@hint.id,
  						 						 points:	@hint.points)
-			redirect_to controller: 'problems', action: 'index', anchor: "heading_#{(@problem.id-1).to_s}", problem_id: @problem.id
+			redirect_to @problem
 		else
 			flash[:warning] = "No more hints available!"
-			redirect_to controller: 'problems', action: 'index', anchor: "heading_#{(@problem.id-1).to_s}", problem_id: @problem.id
+			redirect_to @problem
 		end
 	end
 
@@ -43,7 +43,7 @@ class HintRequestsController < ApplicationController
 		def belong_to_team
 			unless current_user.team_id
 				flash[:danger] = "You must belong to a team to view the problems!"
-				redirect_to controller: 'problems', action: 'index', anchor: "heading_#{(@problem.id-1).to_s}", problem_id: @problem.id
+				redirect_to @problem
 			end
 		end
 
