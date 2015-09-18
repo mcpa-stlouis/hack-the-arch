@@ -5,6 +5,9 @@ team_names = ""
 score_data_rows = ""
 
 draw_scoreboard = ->
+  if !document.getElementById('scoreboard_graph') 
+    return
+
   $.get 'teams/get_score_data', (response,status) ->
     team_names = JSON.parse(response.teams)
     score_data_rows = JSON.parse(response.scores)
