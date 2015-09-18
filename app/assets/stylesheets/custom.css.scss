@@ -23,6 +23,13 @@ textarea {
 	}
 }
 
+.alert {
+	position: fixed;
+	top: 50;
+	left: 10%;
+	width: 80%;
+}
+
 /* typography */
 h1, h2, h3, h4, h5, h6 {
   line-height: 1;

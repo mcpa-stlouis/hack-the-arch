@@ -16,3 +16,12 @@
 //= require bootstrap
 //= require turbolinks
 //= require_tree .
+$(document).ready(function() {
+	setTimeout(function(){ 
+		$().alert('close');
+		$("div.alert").fadeTo(500, 0).slideUp(500, function(){
+			$("div.alert").remove();
+		});
+			
+	}, 1000);
+});
