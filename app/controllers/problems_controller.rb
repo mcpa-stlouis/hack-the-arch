@@ -7,7 +7,6 @@ class ProblemsController < ApplicationController
 	def index
 		@problems = Problem.all
 		if params[:problem_id]
-			debugger
 			@problem_view = Problem.find(params[:problem_id])
 		end
 	end
