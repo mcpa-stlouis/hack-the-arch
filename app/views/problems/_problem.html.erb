@@ -6,7 +6,9 @@
 	<%= render 'submit' %>
 	<%= content_tag :br %>
 	<% if !current_user.admin? && @problem.number_of_hints_available > 0 %>
-		<%= render 'hints' %>
+		<% if Team.find(current_user.team_id).get_hints_requested(@problem.id).count > 0 %>
+			<%= render 'hints' %>
+		<% end %>
 		<%= render 'request_hint' %>
 	<% end %>
 <% end %>
