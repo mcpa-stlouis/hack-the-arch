@@ -22,72 +22,39 @@ class Team < ActiveRecord::Base
 		else
 
 			# combine individual team score progressions
-			progression = []
-			teams = []
+			progressions = []
 			for team in Team.get_top_teams(top_teams)
-				progression += team.get_score_progression
-				teams.push team.id
+				progressions.push team.get_score_progression
 			end
 
-			scores = []
-			for teams_counter in 0..(teams.count-1)
-				scores.push 0
+			# build result
+			column_index = 0
+			result = {}
+			result_scores = []
+			result_teams = {}
+			for progression in progressions
+				col_label = "x#{column_index.to_s}"
+				col_team_name = Team.find(progression[0][:team_id]).name
+				column_index += 1
+
+				x = []
+				x.push col_label
+
+				y = []
+				y.push col_team_name
+
+				result_teams[col_team_name] = col_label
+
+				for entry in progression
+					x.push entry[:created_at].to_i.to_s
+					y.push entry[:points].to_s
+				end
+				result_scores.push x
+				result_scores.push y
 			end
 
-			# build time scaled result
-			row = []
-			result = []
-			scale = 150 # 2.5 minute
-			start =  Time.zone.now.to_i - (8 * 60 * 60) # 8 hours
-			for time_counter in (start / scale)..(Time.zone.now.to_i / scale)
-				row.push(time_counter * scale)
-				for teams_counter in 0..(teams.count-1)
-					row.push 0
-				end
-				result.push row
-				row = row.dup
-				row.clear
-			end
-
-			# merge scores with result
-			result_it = 0
-			progression.sort_by! { |score| score[:created_at] }
-			for score in progression
-				if score[:created_at].to_i < start
-					for teams_counter in 1..teams.count
-						if teams[teams_counter-1] == score[:team_id]
-							scores[teams_counter-1] = score[:points]
-						end
-					end
-					next
-				end
-
-				time = (score[:created_at].to_i / scale) * scale
-				loop do
-					for score_counter in 0..scores.count-1
-						result[result_it][score_counter+1] = scores[score_counter]
-					end
- 					break if (result_it >= result.length || time == result[result_it][0])
-					result_it += 1
-				end
-				
-				row = result[result_it]
-
-				for teams_counter in 1..teams.count
-					if teams[teams_counter-1] == score[:team_id]
-						scores[teams_counter-1] = score[:points]
-					end
-					row[teams_counter] = scores[teams_counter-1]
-				end
-			end
-
-			# Fill out rest of result (time after last score)
- 			while result_it < result.length
-				for score_counter in 0..scores.count-1
-					result[result_it][score_counter+1] = scores[score_counter]
-				end
-				result_it += 1
-			end
+			result[:teams] = result_teams
+			result[:scores] = result_scores
 
 			if cache 
 				cache.update(result.to_json)

@@ -10,14 +10,10 @@ class TeamsController < ApplicationController
 	end
 
 	def get_score_data
-		@scores = Team.get_top_teams_score_progression.to_json.html_safe
-		@teams = Array.new
-		for team in Team.get_top_teams
-			@teams.push team.name
-		end
-		@teams = @teams.to_json.html_safe
-
-		render :json => { teams: @teams, scores: @scores, status: :ok}
+		@scores = Team.get_top_teams_score_progression
+		render :json => { teams: @scores['teams'].to_json.html_safe, 
+											scores: @scores['scores'].to_json.html_safe, 
+											status: :ok}
 	end
 
 	def show
