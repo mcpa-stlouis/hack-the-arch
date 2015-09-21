@@ -4,7 +4,7 @@ class TeamsController < ApplicationController
 	before_action :admin_user, only: :destroy
 
 	def index
-		@teams = Team.paginate(page: params[:page])
+		@teams = Team.all
 		# reject admins
 		@sorted_teams = @teams.sort_by { |team| team.get_score }.reject {|team| team.name == 'admins'}.reverse
 	end

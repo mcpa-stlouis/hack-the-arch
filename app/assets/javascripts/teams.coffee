@@ -16,20 +16,37 @@ draw_scoreboard = ->
   return
 
 finish_drawing_scoreboard = ->
-	chart = c3.generate
-  	bindto: '#scoreboard_graph'
-  	data:
-    	xs: xs_data
-    	columns: column_data
-    	type: 'step'
-  	axis:
-    	x: tick:
-      	count: 10
-      	format: (x) ->
-        	moment(x * 1000).local().format 'LLL'
-    	y: label: text: 'Score'
-  	zoom: enabled: true
-	return
+  chart = c3.generate
+    bindto: '#scoreboard_graph'
+    data:
+      xs: xs_data
+      columns: column_data
+      type: 'step'
+    axis:
+      x: tick:
+        count: 10
+        format: (x) ->
+          moment(x * 1000).local().format 'LLL'
+      y: label: text: 'Score'
+    zoom: enabled: true
+  return
 
-$(document).ready(draw_scoreboard)
+init = ->
+  if !document.getElementById('scoreboard_graph') 
+    return
+  
+  $('#filter').keyup ->
+    rex = new RegExp($(this).val(), 'i')
+    $("#teams_list > li").each ->
+      $(this).hide()
+      $(this).filter(->
+        rex.test $(this).text()
+      ).show()
+    return
+
+  draw_scoreboard()
+  return
+
+
+$(document).ready(init)
 $(document).on('page:load', draw_scoreboard)

@@ -3,11 +3,13 @@
 <div class='jumbotron row'>
 	<div id='scoreboard_graph' class='col-sm-12' style='width:100%;height:400px'></div>
 </div>
-<%= will_paginate %>
 
-<ul class="teams row">
+<div class="input-group"> 
+	<span class="input-group-addon">Search</span>
+	<input id="filter" type="text" class="form-control">
+</div>
+
+<ul id="teams_list" class="teams row">
 	<%= render @sorted_teams %>
 </ul>
-
-<%= will_paginate %>
 
