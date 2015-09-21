@@ -24,6 +24,8 @@ Rails.application.routes.draw do
 	post 'add_hint'				=> 'hints#new'
 	post 'edit_hint'			=> 'hints#edit'
 
+	post 'problems/add_hint' => 'problems#add_hint'
+
 	delete 'logout'				=> 'sessions#destroy'
 	delete 'remove_hint'	=> 'problems#remove_hint'
 

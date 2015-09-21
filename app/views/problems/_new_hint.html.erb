@@ -1,0 +1,47 @@
+<!-- Button trigger modal -->
+<button type="button" class="col-md-12 btn btn-primary" data-toggle="modal" data-target="#new_hint">
+	Add
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="new_hint" tabindex="-1" role="dialog" aria-labelledby="new_hint_dialog_label">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="new_hint_dialog_label">Add hint</h4>
+			</div>
+			<div class="modal-body">
+				<div class="input-group"> 
+					<span class="input-group-addon">Search</span>
+					<input id="filter" type="text" class="form-control">
+				</div>
+				<%= content_tag :table, id: 'hint_table', class: 'table' do %>
+					<%= content_tag :thead do %>
+						<%= content_tag :tr do %>
+							<%= content_tag :th, 'ID', class: 'col-md-2' %>
+							<%= content_tag :th, 'Hint', class: 'col-md-8' %>
+							<%= content_tag :th, 'Points', class: 'col-md-2' %>
+						<% end %>
+					<% end %>
+					<%= content_tag :tbody, class: 'searchable' do %>
+						<% for hint in @hints %>
+							<%= content_tag :tr, class: 'hint_row', "data-hint-id" => hint.id, "data-problem-id" => @problem.id do %>
+								<%= content_tag :td, hint.id %>
+								<%= content_tag :td, hint.hint %>
+								<%= content_tag :td, hint.points %>
+							<% end %>
+						<% end %>
+					<% end %>
+				<% end %>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<%= form_tag '/add_hint', class: 'col-md-2' do %>
+					<%= hidden_field_tag "problem_id", @problem.id %>
+					<%= submit_tag "New", class: "btn btn-default" %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>

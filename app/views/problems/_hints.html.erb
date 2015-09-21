@@ -2,15 +2,15 @@
 <%= content_tag :table, id: 'hints', class: 'table' do %>
 	<% @team = Team.find(current_user.team_id) %>
 	<% for hint in (current_user.admin? ? @problem.hints_array : @team.get_hints_requested(@problem.id)) do %>
-		<% @hint = (hint.kind_of?(String) ? Hint.find(hint) : Hint.find(hint.hint_id)) %>
+		<% @prob_hint = (hint.kind_of?(String) ? Hint.find(hint) : Hint.find(hint.hint_id)) %>
 		<tr> <td class="col-md-8">
-			<%= content_tag :h5, id: @hint.id do %>
-				<%= @hint.priority %>: <%= @hint.hint %> ( <%= @hint.points %> )
+			<%= content_tag :h5, id: @prob_hint.id do %>
+				<%= @prob_hint.priority %>: <%= @prob_hint.hint %> ( <%= @prob_hint.points %> )
 			<% end %>
 		</td> <td class="col-md-2">
 			<% if current_user.admin? %>
 				<%= form_tag '/edit_hint' do %>
-					<%= hidden_field_tag "hint_id", @hint.id %>
+					<%= hidden_field_tag "hint_id", @prob_hint.id %>
 					<%= hidden_field_tag "problem_id", @problem.id %>
 					<%= submit_tag "Edit", class: "form-control btn btn-primary" %>
 				<% end %>
@@ -18,7 +18,7 @@
 		</td> <td class="col-md-2">
 			<% if current_user.admin? %>
 				<%= form_tag remove_hint_path, method: 'delete' do %>
-					<%= hidden_field_tag "hint_id", @hint.id %>
+					<%= hidden_field_tag "hint_id", @prob_hint.id %>
 					<%= hidden_field_tag "problem_id", @problem.id %>
 					<%= submit_tag "Remove", class: "form-control btn btn-primary" %>
 				<% end %>
@@ -27,8 +27,5 @@
 	<% end %>
 <% end %>
 <% if current_user.admin? %>
-	<%= form_tag '/add_hint' do %>
-		<%= hidden_field_tag "problem_id", @problem.id %>
-		<%= submit_tag "Add", class: "form-control btn btn-primary" %>
-	<% end %>
+	<%= render 'new_hint' %>
 <% end %>

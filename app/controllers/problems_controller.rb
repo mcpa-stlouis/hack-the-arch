@@ -1,7 +1,7 @@
 class ProblemsController < ApplicationController
-	before_action :logged_in_user, only: [:index, :destroy, :create, :edit, :update, :new, :remove_hint, :show]
-	before_action :admin_user, only: [:destroy, :create, :edit, :update, :new, :remove_hint]
-	before_action :belong_to_team, only: [:index]
+	before_action :logged_in_user
+	before_action :admin_user, only: [:destroy, :create, :edit, :update, :new, :remove_hint, :add_hint]
+	before_action :belong_to_team, only: [:index, :show]
 	before_action :competition_active, only: [:index, :show]
 	
 	def index
@@ -37,6 +37,18 @@ class ProblemsController < ApplicationController
     redirect_to edit_problem_path(@problem)
 	end
 
+	def add_hint
+		# Hint implements reference counting (i.e., don't worry about it here)
+		if (@problem = Problem.find(params[:problem_id])) && Hint.find(params[:hint_id])
+			@problem.add(params[:hint_id])
+			flash[:success] = "Hint added successfully"
+			render json: { status: :ok }
+		else
+			flash[:error] = "Hint or Problem ID invalid"
+			redirect_to problems_path
+		end
+	end
+
 	def destroy
     Problem.find(params[:id]).destroy
     flash[:success] = "Problem deleted"
@@ -45,6 +57,7 @@ class ProblemsController < ApplicationController
 
 	def edit
 		@problem = Problem.find(params[:id])
+		@hints = Hint.all
 	end
 
 	def update
@@ -78,7 +91,7 @@ class ProblemsController < ApplicationController
 		end
 		
 		def admin_user
-      unless logged_in? && current_user.admin?
+      unless current_user.admin?
 				store_location
 				flash[:danger] = "Access Denied."
 				redirect_to root_url
