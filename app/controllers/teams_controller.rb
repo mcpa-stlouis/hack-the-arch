@@ -18,6 +18,10 @@ class TeamsController < ApplicationController
 
 	def show
 		@team = Team.find(params[:id])
+		unless admin_user || @team.id != 1
+			flash[:danger] = "Access Denied"
+			redirect_to root_url
+		end	
 	end
 
   def new

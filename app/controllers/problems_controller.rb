@@ -102,7 +102,7 @@ class ProblemsController < ApplicationController
 			start_time = Time.parse(Setting.find_by(name: 'start_time').value)
 			end_time = Time.parse(Setting.find_by(name: 'end_time').value)
 
-			unless (start_time < Time.zone.now && Time.zone.now < end_time)
+			unless current_user.admin? || (start_time < Time.zone.now && Time.zone.now < end_time)
 				flash[:danger] = "The competition isn't active!"
 				redirect_to root_url
 			end

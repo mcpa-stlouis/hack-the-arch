@@ -3,6 +3,7 @@ require 'test_helper'
 class ProblemsControllerTest < ActionController::TestCase
 	def setup
 		@problem = problems(:example_problem)
+		@hint = hints(:example_hint_1)
 		@non_admin = users(:archer)
 	end
 
@@ -11,6 +12,12 @@ class ProblemsControllerTest < ActionController::TestCase
     assert_not flash.empty?
     assert_redirected_to login_url
   end
+
+	test "should redirect show to problems_url" do
+		log_in_as(@non_admin)
+		get :show, id: @problem.id
+		assert_redirected_to problems_url + "?problem_id=#{@problem.id}#heading_#{@problem.id - 1}"
+	end
 
   test "should redirect create when not logged in" do
     post :create, id: @problem, problem: { name: @problem.name, category: @problem.category, description: @problem.description, points: @problem.points }

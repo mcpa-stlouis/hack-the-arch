@@ -1,9 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  hint: MyString
-  points: 1
+example_hint_1:
+  priority: 1
+  hint: You can do it!
+  points: 25
 
-two:
-  hint: MyString
-  points: 1
+example_hint_2:
+  priority: 2
+  hint: You can do it!
+  points: 25

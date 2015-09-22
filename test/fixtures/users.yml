@@ -8,6 +8,7 @@ example_user:
   password_digest: <%= User.digest('password') %>
   activated: true
   team_id: 1
+  admin: true
   activated_at: <%= Time.zone.now %>
 
 archer:

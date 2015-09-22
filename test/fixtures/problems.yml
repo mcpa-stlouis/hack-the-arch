@@ -5,3 +5,6 @@ example_problem:
   description: Help us hack the arch!
   category: NetEx
   points: 50
+  solution: answer
+  correct_message: Correct!
+  false_message: Incorrect
