@@ -5,7 +5,7 @@ This is a scoring server built using Ruby on Rails by the Military Cyber Profess
 
 What's different about HackTheArch?
 -----------------------------------
-We created this application after using the PicoCTF platform for our annual CTF.  We didn't like all the extra stuff that Root The Box added in with the bank accounts and we wanted an easy way of integrating challenges (i.e., a web interface for creating and modifying them).  So we decided to roll our own scoring server and now you can benefit from our hard work!  We hope you enjoy this application and are open to feedback.
+We created this application after using the PicoCTF platform for our annual CTF.  It was okay, but we found it lacking some features that we wanted.  We wanted a way to be able to offer competitors hints for a cost, and we also wanted a way to create and modify problems from a web interface.  We looked around and didn't see any others that met our requirements.  CTFd: no web admin interface for creating challenges.  Root The Box: We didn't like all the extra stuff with the bank accounts and it just seemed too complex for our needs.  So we decided to roll our own scoring server and now you can benefit from our hard work!  This application implements an optional dynamic hint system which will deduct points for requesting hints and also implements a web interface for creating and modifying hints and challenges.  We hope you enjoy this application and are open to feedback so let us know what you like, hate, would like to see added, etc...
 
 Requirements
 ------------
@@ -16,6 +16,8 @@ Requirements
 Getting Started
 ---------------
 * This app is presently designed to be deployed in a heroku environment.  You'll need to add the sendgrid addon before deploying (heroku addons:create sendgrid:starter) and update the host to match your domain in 'config/environments/production.rb'.
+* It can be deployed outside a heroku environment but will require some alternative for sending account activation e-mails
+* To initialize the database, run: `bundle exec rake db:seed`.  After initialization, the admin login credentials will be: **admin@gmail.com** : **password**
 
 Contact
 -------
