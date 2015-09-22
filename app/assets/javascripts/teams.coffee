@@ -29,6 +29,7 @@ finish_drawing_scoreboard = ->
           moment(x * 1000).local().format 'LLL'
       y: label: text: 'Score'
     zoom: enabled: true
+  setTimeout draw_scoreboard, 30000
   return
 
 init = ->
