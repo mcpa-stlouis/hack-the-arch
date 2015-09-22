@@ -1,6 +1,6 @@
 class TeamsController < ApplicationController
-	before_action :member_of_team, only: [:edit, :update]
 	before_action :logged_in_user, only: [:destroy, :create, :show]
+	before_action :member_of_team, only: [:edit, :update]
 	before_action :admin_user, only: :destroy
 
 	def index
@@ -108,8 +108,8 @@ class TeamsController < ApplicationController
 
 		def member_of_team
 			@team = Team.find(params[:id])
-			redirect_to(@team) unless (current_user.is_member?(@team) || 
-																 current_user.admin?)
+			redirect_to(@team) unless (logged_in_user && (current_user.is_member?(@team) || 
+																 current_user.admin?))
 		end
 
 		def logged_in_user
