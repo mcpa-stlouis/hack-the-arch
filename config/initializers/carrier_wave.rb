@@ -1,7 +1,6 @@
 if Rails.env.production?
 	CarrierWave.configure do |config|
     # Configuration for Google Drive
-  	config.fog_provider = 'fog-google'
 	 	config.fog_credentials = {
    		provider:                         'Google',
    		google_storage_access_key_id:     ENV['GOOGLE_ACCESS_KEY'],
