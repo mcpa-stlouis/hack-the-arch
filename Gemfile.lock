@@ -104,6 +104,10 @@ GEM
     fog-ecloud (0.3.0)
       fog-core
       fog-xml
+    fog-google (0.0.7)
+      fog-core
+      fog-json
+      fog-xml
     fog-json (1.0.2)
       fog-core (~> 1.0)
       multi_json (~> 1.10)
@@ -291,6 +295,7 @@ DEPENDENCIES
   carrierwave (= 0.10.0)
   coffee-rails (~> 4.1.0)
   fog (= 1.26.0)
+  fog-google
   guard-minitest (= 2.3.1)
   jbuilder (~> 2.0)
   jquery-rails
