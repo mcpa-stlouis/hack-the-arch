@@ -24,3 +24,7 @@ Setting.create!(name: "end_time", value: (Time.zone.now + 24.hours).to_s, settin
 Team.create!(name:  "admins",
  						 passphrase: "password",
  						 members: "1")
+
+Bracket.create!(name: "Professional", priority: "10")
+Bracket.create!(name: "College", priority: "5")
+Bracket.create!(name: "High School", priority: "1")
