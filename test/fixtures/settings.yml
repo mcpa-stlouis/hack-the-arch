@@ -14,3 +14,8 @@ setting_competition_name:
   name: "competition_name"
   value: "HackTheArch"
   setting_type: "text"
+
+setting_subtract_hint_points_before_solve:
+  name: "subtract_hint_points_before_solve"
+  value: "0"
+  setting_type: "boolean"
