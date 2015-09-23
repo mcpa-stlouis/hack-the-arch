@@ -38,7 +38,7 @@ init = ->
   
   $('#filter').keyup ->
     rex = new RegExp($(this).val(), 'i')
-    $("#teams_list > li").each ->
+    $(".teams_list > li").each ->
       $(this).hide()
       $(this).filter(->
         rex.test $(this).text()

@@ -8,8 +8,32 @@
 	<span class="input-group-addon">Search</span>
 	<input id="filter" type="text" class="form-control">
 </div>
+<br />
+<div>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#all" aria-controls="all" role="tab" data-toggle="tab">All</a></li>
+		<% for bracket in @brackets do %>
+    	<li role="presentation">
+				<a href="#<%= bracket.name %>" aria-controls="<%= bracket.name %>" role="tab" data-toggle="tab"><%= bracket.name %></a>
+			</li>
+		<% end %>
+  </ul>
 
-<ul id="teams_list" class="teams row">
-	<%= render @sorted_teams %>
-</ul>
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="all">
+			<ul class="teams row teams_list">
+				<%= render @sorted_teams %>
+			</ul>
+		</div>
+		<% for bracket in @brackets do %>
+    	<div role="tabpanel" class="tab-pane" id="<%= bracket.name %>">
+				<ul class="teams row teams_list">
+					<%= render @sorted_teams.select { |b| b.bracket_id == bracket.id } %>
+				</ul>
+			</div>
+		<% end %>
+  </div>
 
+</div>
