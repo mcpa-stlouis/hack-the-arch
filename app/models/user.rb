@@ -72,6 +72,43 @@ class User < ActiveRecord::Base
     reset_sent_at < 2.hours.ago
   end
 
+	def get_score
+		cache = Cache.find_by(key: 'team_'+self.id.to_s+'_score')
+		if cache && cache.cache_valid
+			cache.value.to_i
+		else
+			if subtract_hint_points_before_solve?
+				score = Submission.where(user_id: self.id).sum(:points) - 
+				HintRequest.where(user_id: self.id).sum(:points)
+			else
+				score = 0
+				for submission in Submission.where(user_id: self.id)
+					if submission.correct
+						score = score + submission.points
+						for hint in HintRequest.where(user_id: self.id, problem_id: submission.problem_id)
+							score = score - hint.points
+						end
+					end
+				end
+			end
+
+			# Update cache
+			if cache 
+				cache.update(score)
+			else
+				Cache.create(key: 'user_'+self.id.to_s+'_score', value: score, cache_valid: true)
+			end
+			score
+		end
+	end
+
+	def invalidate_score
+		cache = Cache.find_by(key: 'user_'+self.id.to_s+'_score')
+		if cache
+			cache.invalidate
+		end
+	end
+
 	private
 
     # Converts email to all lower-case.
