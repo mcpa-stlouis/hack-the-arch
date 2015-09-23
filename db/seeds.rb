@@ -21,14 +21,14 @@ Setting.create!(name: "subtract_hint_points_before_solve", value: "true", settin
 Setting.create!(name: "start_time", value: Time.zone.now.to_s, setting_type: "date")
 Setting.create!(name: "end_time", value: (Time.zone.now + 24.hours).to_s, setting_type: "date")
 
+Bracket.create!(id: "1", name: "Professional", priority: "10")
+Bracket.create!(id: "2", name: "College", priority: "5")
+Bracket.create!(id: "3", name: "High School", priority: "1")
+
 Team.create!(name:  "admins",
  						 passphrase: "password",
  						 bracket_id: "1",
  						 members: "1")
-
-Bracket.create!(id: "1", name: "Professional", priority: "10")
-Bracket.create!(id: "2", name: "College", priority: "5")
-Bracket.create!(id: "3", name: "High School", priority: "1")
 
 Problem.create!(id: "1",
 								name: "Who's that scientist?",
