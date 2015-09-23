@@ -44,7 +44,7 @@ Problem.create!(id: "2",
 								name: "Google Foo",
 								points: "100",
 								category: "Network Exploitation",
-								description: "What is the name of the site that indexes varios IoT devices like web cams and ethernet enabled thermostats?"
+								description: "What is the name of the site that indexes varios IoT devices like web cams and ethernet enabled thermostats?",
     						solution: "Shodan",
     						correct_message: "Scary, right!?",
     						false_message: "Try again!")
