@@ -7,6 +7,16 @@ class Submission < ActiveRecord::Base
 	validates :problem_id,  presence: true, numericality: { only_integer: true, greater_than: 0 }
 	validates :submission,  presence: true, length: { maximum: 500 }
 
+	def Submission.get_solves_for_problem(problem_id)
+		count = 0
+		for submission in Submission.all
+			count += (submission.problem_id == problem_id && 
+								submission.correct? && 
+								submission.team_id != 1) ? 1 : 0
+		end
+		count
+	end
+
 	private
 		def invalidate_cache
 			if self.correct

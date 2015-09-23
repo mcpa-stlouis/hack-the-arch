@@ -1,3 +1,4 @@
+<h4 class="text-center"> Solves: <%= Submission.get_solves_for_problem(@problem.id) %> </h4>
 <p>  <%= @problem.description %> </p>
 <p ><%= image_tag @problem.picture.url if @problem.picture? %> </p>
 <% if @problem.solved_by?(current_user.team_id) %>
