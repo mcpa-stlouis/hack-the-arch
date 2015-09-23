@@ -1,4 +1,3 @@
-<h2>Hints</h2>
 <%= content_tag :table, id: 'hints', class: 'table' do %>
 	<% @team = Team.find(current_user.team_id) %>
 	<% for hint in (current_user.admin? ? @problem.hints_array : @team.get_hints_requested(@problem.id)) do %>

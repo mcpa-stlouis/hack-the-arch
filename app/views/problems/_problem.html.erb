@@ -1,15 +1,44 @@
-<h4 class="text-center"> Solves: <%= Submission.get_solves_for_problem(@problem.id) %> </h4>
-<p>  <%= @problem.description %> </p>
-<p ><%= image_tag @problem.picture.url if @problem.picture? %> </p>
-<% if @problem.solved_by?(current_user.team_id) %>
-	<p>Your team has solved this challenge!</p>
-<% else %>
-	<%= render 'submit' %>
-	<%= content_tag :br %>
-	<% if !current_user.admin? && @problem.number_of_hints_available > 0 %>
-		<% if Team.find(current_user.team_id).get_hints_requested(@problem.id).count > 0 %>
-			<%= render 'hints' %>
-		<% end %>
-		<%= link_to 'Request Hint', request_hint_path(problem_id: @problem.id),  method: :post, class: 'btn btn-primary' %>
-	<% end %>
-<% end %>
+<div>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#problem" aria-controls="problem" role="tab" data-toggle="tab">Problem</a></li>
+    <li role="presentation"><a href="#hints" aria-controls="hints" role="tab" data-toggle="tab">Hints</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="problem">
+			<h4 class="text-center"> Solves: <%= Submission.get_solves_for_problem(@problem.id) %> </h4>
+			<p>  <%= @problem.description %> </p>
+			<p ><%= image_tag @problem.picture.url if @problem.picture? %> </p>
+			<% if @problem.solved_by?(current_user.team_id) %>
+				<p>Your team has solved this challenge!</p>
+			<% else %>
+				<%= render 'submit' %>
+			<% end %>
+		</div>
+    <div role="tabpanel" class="tab-pane" id="hints">
+			<%= content_tag :div, class: 'row' do %>
+				<% if !current_user.admin? && @problem.number_of_hints_available > 0 %>
+					<% if Team.find(current_user.team_id).get_hints_requested(@problem.id).count > 0 %>
+						<%= content_tag :div, class: 'col-md-12' do %>
+							<%= render 'hints' %>
+						<% end %>
+					<% else %>
+						<br />
+						<p class="col-md-12">No hints requested yet</p>
+						<br />
+					<% end %>
+					<%= content_tag :div, class: 'col-md-12' do %>
+						<%= link_to 'Request Hint', request_hint_path(problem_id: @problem.id),  method: :post, class: 'btn btn-primary' %>
+					<% end %>
+				<% else %>
+					<br />
+					<p class="col-md-12">Sorry, no hints available!</p>
+					<br />
+				<% end %>
+			<% end %>
+		</div>
+  </div>
+
+</div>
