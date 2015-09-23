@@ -18,7 +18,7 @@ class TeamsController < ApplicationController
 
 	def show
 		@team = Team.find(params[:id])
-		@bracket = Bracket.find_by(bracke_id: @team.bracket_id)
+		@bracket = Bracket.find_by(bracket_id: @team.bracket_id)
 		if !current_user.admin? && params[:id] == 1
 			flash[:danger] = "Access Denied"
 			redirect_to root_url
