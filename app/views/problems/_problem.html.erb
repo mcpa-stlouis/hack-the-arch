@@ -1,13 +1,13 @@
 <div>
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#problem" aria-controls="problem" role="tab" data-toggle="tab">Problem</a></li>
-    <li role="presentation"><a href="#hints" aria-controls="hints" role="tab" data-toggle="tab">Hints</a></li>
+    <li role="presentation" class="active"><a href="#problem_<%= @problem.id %>" aria-controls="problem_<%= @problem.id %>" role="tab" data-toggle="tab">Problem</a></li>
+    <li role="presentation"><a href="#hints_<%= @problem.id %>" aria-controls="hints_<%= @problem.id %>" role="tab" data-toggle="tab">Hints</a></li>
   </ul>
 
   <!-- Tab panes -->
   <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="problem">
+    <div role="tabpanel" class="tab-pane active" id="problem_<%= @problem.id %>">
 			<h4 class="text-center"> Solves: <%= Submission.get_solves_for_problem(@problem.id) %> </h4>
 			<p>  <%= @problem.description %> </p>
 			<p ><%= image_tag @problem.picture.url if @problem.picture? %> </p>
@@ -17,7 +17,7 @@
 				<%= render 'submit' %>
 			<% end %>
 		</div>
-    <div role="tabpanel" class="tab-pane" id="hints">
+    <div role="tabpanel" class="tab-pane" id="hints_<%= @problem.id %>">
 			<%= content_tag :div, class: 'row' do %>
 				<% if !current_user.admin? && @problem.number_of_hints_available > 0 %>
 					<% if Team.find(current_user.team_id).get_hints_requested(@problem.id).count > 0 %>
