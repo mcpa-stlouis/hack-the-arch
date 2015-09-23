@@ -9,6 +9,6 @@
 		<% if Team.find(current_user.team_id).get_hints_requested(@problem.id).count > 0 %>
 			<%= render 'hints' %>
 		<% end %>
-		<%= render 'request_hint' %>
+		<%= link_to 'Request Hint', request_hint_path(problem_id: @problem.id),  method: :post, class: 'btn btn-primary' %>
 	<% end %>
 <% end %>

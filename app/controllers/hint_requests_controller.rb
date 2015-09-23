@@ -5,7 +5,7 @@ class HintRequestsController < ApplicationController
 
 	def create
 		points = 0
-		@problem = Problem.find(params[:hint_request][:problem_id])
+		@problem = Problem.find(params[:problem_id])
 		@user = current_user
 
 		@team = Team.find(@user.team_id)

@@ -3,6 +3,7 @@ class SettingsController < ApplicationController
 
 	def edit
 		@settings = Setting.all.order('id ASC')
+		@brackets = Bracket.all.order('priority ASC')
 	end
 	
 	def update

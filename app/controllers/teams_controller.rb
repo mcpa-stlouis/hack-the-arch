@@ -1,7 +1,6 @@
 class TeamsController < ApplicationController
-	before_action :logged_in_user, only: [:destroy, :create, :show]
-	before_action :member_of_team, only: [:edit, :update]
-	before_action :admin_user, only: :destroy
+	before_action :logged_in_user, only: [:create, :show]
+	before_action :member_of_team, only: [:destroy, :edit, :update]
 
 	def index
 		@teams = Team.all
@@ -18,7 +17,8 @@ class TeamsController < ApplicationController
 
 	def show
 		@team = Team.find(params[:id])
-		unless admin_user || @team.id != 1
+		@bracket = Bracket.find_by(@team.bracket_id)
+		if !current_user.admin? && params[:id] == 1
 			flash[:danger] = "Access Denied"
 			redirect_to root_url
 		end	
@@ -55,10 +55,10 @@ class TeamsController < ApplicationController
 	end
 
 	def create
-		@team = Team.new(team_params)
 		@user = current_user
-		@team.add(@user)
+		@team = Team.new(team_params)
 		if @team.save
+			@team.add(@user) 
 			@user.team_id = @team.id
 			@user.save
       flash[:success] = @team.name + " created!"
@@ -107,13 +107,15 @@ class TeamsController < ApplicationController
 
 	private
 		def team_params
-			params.require(:team).permit(:name, :passphrase)
+			params.require(:team).permit(:name, :passphrase, :bracket_id)
 		end
 
 		def member_of_team
 			@team = Team.find(params[:id])
-			redirect_to(@team) unless (logged_in_user && (current_user.is_member?(@team) || 
-																 current_user.admin?))
+			unless current_user.is_member?(@team) || current_user.admin?
+				flash[:danger] = "Access denied"
+				redirect_to root_url
+			end
 		end
 
 		def logged_in_user

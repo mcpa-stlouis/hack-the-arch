@@ -12,7 +12,11 @@ class Team < ActiveRecord::Base
 	include SettingsHelper
 	validates :name,  presence: true, length: { maximum: 50 },
 										uniqueness: true
-	validates :passphrase,  presence: true, length: { minimum: 6 }
+	validates :passphrase,  presence: true, 
+													length: { minimum: 6 }
+	validates :bracket_id, presence: true, 
+												 numericality: { only_integer: true, greater_than: 0 }
+	validate  :bracket_exists
 	validates_with ValidateAtCapacity
 
 	def Team.get_top_teams_score_progression(top_teams = 5)
@@ -33,6 +37,10 @@ class Team < ActiveRecord::Base
 			result_scores = []
 			result_teams = {}
 			for progression in progressions
+				if progression.empty?
+					next
+				end
+
 				col_label = "x#{column_index.to_s}"
 				col_team_name = Team.find(progression[0][:team_id]).name
 				column_index += 1
@@ -184,4 +192,10 @@ class Team < ActiveRecord::Base
 		def max_members_per_team
 			Setting.find_by(name: 'max_members_per_team').value.to_i
 		end
+
+    def bracket_exists
+      if !Bracket.exists?(bracket_id)
+        errors.add(:bracket_id, "Couldn't find bracket_id with specified id")
+      end
+    end
 end
