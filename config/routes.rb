@@ -9,7 +9,6 @@ Rails.application.routes.draw do
   get 'help' 				=> 'static_pages#help'
   get 'about' 			=> 'static_pages#about'
   get 'signup'			=> 'users#new'
-  get 'new_problem'	=> 'problems#new'
 	get	'admin'				=> 'settings#edit'
 	get 'login'		  	=> 'sessions#new'
 
@@ -18,26 +17,24 @@ Rails.application.routes.draw do
 	post 'login' 		 			=> 'sessions#create'
 	post 'request_hint' 	=> 'hint_requests#create'
 	post 'submit' 				=> 'submissions#create'
-	post 'create_team'		=> 'teams#create'
 	post 'join'       		=> 'teams#join'
 	post 'remove_member'	=> 'teams#remove_member'
 	post 'add_hint'				=> 'hints#new'
-	post 'edit_hint'			=> 'hints#edit'
 
 	post 'problems/add_hint' => 'problems#add_hint'
 
-	delete 'logout'				=> 'sessions#destroy'
-	delete 'remove_hint'	=> 'problems#remove_hint'
+	delete 'logout'					=> 'sessions#destroy'
+	delete 'remove_hint'		=> 'problems#remove_hint'
+	delete 'remove_bracket'	=> 'brackets#destroy'
 
 	patch 'settings' => 'settings#update'
 
 	resources :users
-	resources :teams
 	resources :problems
-	resources :settings
 	resources :hints
-	resources :hint_requests
 	resources :account_activations, only: [:edit]
 	resources :password_resets,     only: [:new, :create, :edit, :update]
+	resources :brackets,						only: [:new, :create, :edit, :update]
+	resources :teams,								only: [:edit, :new, :create, :index, :show]
 
 end

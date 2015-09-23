@@ -18,11 +18,7 @@
 			<span>
 				Member of: <%= link_to @team.name, @team %>
 				<% if current_user?(@user) && @user.is_member?(@team) %>
-					<%= form_tag(remove_member_path, class: "form-inline col-md-12") do %>
-						<%= hidden_field_tag "user_id", @user.id %>
-						<%= hidden_field_tag "team_id", @team.id %>
-						<%= submit_tag("Leave", class: "form-control btn btn-primary") %>
-					<% end %>
+					<%= link_to 'Leave', remove_member_path(user_id: @user.id, team_id: @team.id),  method: :post, class: 'btn btn-primary' %>
 				<% end %>
 			</span>
 		<% else %>

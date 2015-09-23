@@ -9,19 +9,11 @@
 			<% end %>
 		</td> <td class="col-md-2">
 			<% if current_user.admin? %>
-				<%= form_tag '/edit_hint' do %>
-					<%= hidden_field_tag "hint_id", @prob_hint.id %>
-					<%= hidden_field_tag "problem_id", @problem.id %>
-					<%= submit_tag "Edit", class: "form-control btn btn-primary" %>
-				<% end %>
+				<%= link_to 'Edit', edit_hint_path(id: @prob_hint.id, problem_id: @problem.id), class: 'btn btn-primary' %>
 			<% end %>
 		</td> <td class="col-md-2">
 			<% if current_user.admin? %>
-				<%= form_tag remove_hint_path, method: 'delete' do %>
-					<%= hidden_field_tag "hint_id", @prob_hint.id %>
-					<%= hidden_field_tag "problem_id", @problem.id %>
-					<%= submit_tag "Remove", class: "form-control btn btn-primary" %>
-				<% end %>
+				<%= link_to 'Remove', remove_hint_path(hint_id: @prob_hint.id, problem_id: @problem.id),  method: :delete, class: 'btn btn-primary' %>
 			<% end %>
 		</td> </tr>
 	<% end %>

@@ -1,0 +1,26 @@
+<h2>Brackets</h2>
+<% if @brackets %>
+	<%= content_tag :table, id: 'brackets', class: 'table' do %>
+		<thead>
+			<tr>
+				<td>Name</td>
+				<td>Priority</td>
+				<td>Options</td>
+			</tr>
+		</thead>
+		<% for bracket in @brackets do %>
+			<tbody>
+				<tr> 
+					<td> <%= bracket.name %> </td>
+					<td> <%= bracket.priority %> </td>
+					<td> 
+						<%= link_to 'Edit', edit_bracket_path(bracket.id), class: 'btn btn-primary' %>
+						<%= link_to 'Remove', remove_bracket_path(id: bracket),  method: :delete, class: 'btn btn-primary' %>
+					</td>
+				</tr>
+			</tbody>
+		<% end %>
+	<% end %>
+<% end %>
+<%= link_to "Create", new_bracket_path, class: "btn btn-primary" %>
+

@@ -4,6 +4,9 @@
 	<%= f.label "Team Name"  %>
 	<%= f.text_field :name, class: 'form-control' %>
 
+	<%= f.label "Bracket" %>
+	<%= f.collection_select :bracket_id, Bracket.order("priority ASC"), :id, :name, {include_blank: false}, {class: 'form-control'} %>
+
 	<%= f.label "Passphrase" %>
 	<%= f.password_field :passphrase, class: 'form-control' %>
 

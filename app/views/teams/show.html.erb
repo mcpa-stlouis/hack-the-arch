@@ -1,5 +1,6 @@
 <% provide(:title, @team.name) %>
 <h1><%= @team.name %>: <%= @team.get_score %></h1>
+<h2>Bracket: <%= @bracket.name %></h2>
 <%= content_tag :div, class: 'row' do %>
 	<%= content_tag :div, class: 'col-md-6 col-md-offset-3' do %>
 		<%= content_tag :table, id: 'members', class: 'table' do %>
@@ -13,11 +14,7 @@
 					<% end %>
 				</td> <td>
 					<% if current_user.is_member? @team %>
-						<%= form_tag remove_member_path, class: 'form-inline col-md-12' do %>
-							<%= hidden_field_tag 'user_id', @member.id %>
-							<%= hidden_field_tag 'team_id', @team.id %>
-							<%= submit_tag 'Remove', class: 'form-control btn btn-primary' %>
-						<% end %>
+						<%= link_to 'Remove', remove_member_path(user_id: @member.id, team_id: @team.id),  method: :post, class: 'btn btn-primary' %>
 					<% end %>
 				</td> </tr>
 			<% end %>
@@ -29,6 +26,8 @@
  				<%= password_field_tag :passphrase, nil, class: 'form-control col-md-offset-4 col-md-5', placeholder: 'Passphrase' %>
 				<%= submit_tag 'Join', class: 'form-control btn btn-primary col-md-3' %>
 			<% end %>
+		<% else %>
+			<%= link_to 'Edit', edit_team_path(@team.id), class: 'btn btn-primary' %>
 		<% end %>
   <% end %>
 <% end %>

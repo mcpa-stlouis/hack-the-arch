@@ -19,7 +19,7 @@ class HintsController < ApplicationController
 	end
 
 	def edit
-		@hint = Hint.find(params[:hint_id])
+		@hint = Hint.find(params[:id])
 		@problem = Problem.find(params[:problem_id])
 	end
 

@@ -37,10 +37,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-				<%= form_tag '/add_hint', class: 'col-md-2' do %>
-					<%= hidden_field_tag "problem_id", @problem.id %>
-					<%= submit_tag "New", class: "btn btn-default" %>
-				<% end %>
+				<%= link_to 'New', add_hint_path(problem_id: @problem.id), method: :post, class: 'btn btn-primary' %>
 			</div>
 		</div>
 	</div>
