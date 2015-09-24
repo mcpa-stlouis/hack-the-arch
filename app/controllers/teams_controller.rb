@@ -3,10 +3,10 @@ class TeamsController < ApplicationController
 	before_action :member_of_team, only: [:destroy, :edit, :update]
 
 	def index
-		@teams = Team.all
-		@brackets = Bracket.all
 		# reject admins
-		@sorted_teams = @teams.sort_by { |team| team.get_score }.reject {|team| team.name == 'admins'}.reverse
+		@teams = Team.where('id != 1')
+		@brackets = Bracket.all
+		@sorted_teams = @teams.sort_by { |team| team.get_score }.reverse
 	end
 
 	def get_score_data
