@@ -87,7 +87,7 @@ class TeamsController < ApplicationController
 		@team = Team.find(params[:team_id])
 		@user = User.find(params[:user_id])
 		if @user != current_user
-			flash[:danger] = "You can only remove yourself"
+			flash[:danger] = "You can only add yourself"
 			redirect_to @team
 		elsif @user.team_id
 			flash[:danger] = "You already have a team"
@@ -95,6 +95,9 @@ class TeamsController < ApplicationController
 		elsif !@team.authenticate(params[:passphrase])
 			flash[:danger] = "Incorrect passphrase"
 			redirect_to @team
+		elsif @team.id == 1 && @user.id != 1
+			flash[:danger] = "Access denied"
+			redirect_to root_url
 		else
 			if @team.add(@user) && @user.join_team(@team)
 				flash[:success] = "Welcome to " + @team.name
