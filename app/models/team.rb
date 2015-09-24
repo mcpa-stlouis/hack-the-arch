@@ -69,7 +69,7 @@ class Team < ActiveRecord::Base
 			else
 				Cache.create(key: 'top_teams_score_progression', value: result.to_json, cache_valid: true)
 			end
-			result
+			JSON.parse(result.to_json)
 		end
 	end
 
