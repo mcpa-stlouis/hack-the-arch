@@ -4,13 +4,13 @@
 <%= content_tag :div, class: 'row' do %>
 	<%= content_tag :div, class: 'col-md-6 col-md-offset-3' do %>
 		<%= content_tag :table, id: 'members', class: 'table' do %>
-			<% for member_id in @team.members_array do %>
-				<% @member = User.find member_id %>
+			<% for @member in @members do %>
 				<tr> <td>
        		<%= gravatar_for @member %>
 				</td> <td>
-					<%= content_tag :h5, id: member_id do %>
-						<%= link_to @member.email, @member %>
+					<%= content_tag :h5, id: @member.id do %>
+						<p><%= link_to @member.email, @member %></p>
+						<p>Points Scored: <%= @member.get_score %></p>
 					<% end %>
 				</td> <td>
 					<% if current_user.is_member? @team %>
