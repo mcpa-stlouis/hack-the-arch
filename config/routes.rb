@@ -31,10 +31,10 @@ Rails.application.routes.draw do
 
 	resources :users
 	resources :problems
-	resources :hints
+	resources :teams
 	resources :account_activations, only: [:edit]
+	resources :hints,								only: [:new, :edit, :create, :update]
 	resources :password_resets,     only: [:new, :create, :edit, :update]
 	resources :brackets,						only: [:new, :create, :edit, :update]
-	resources :teams,								only: [:edit, :new, :create, :index, :show]
 
 end

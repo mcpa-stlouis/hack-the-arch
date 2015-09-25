@@ -1,9 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  priority: 1
-
-two:
-  name: MyString
+example_bracket:
+  id: 1
+  name: Professional
   priority: 1

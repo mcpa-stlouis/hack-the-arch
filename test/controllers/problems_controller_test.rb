@@ -13,6 +13,12 @@ class ProblemsControllerTest < ActionController::TestCase
     assert_redirected_to login_url
   end
 
+	test "should get index when logged in" do
+		log_in_as(@non_admin)
+		get :index
+		assert_response :success
+	end
+
 	test "should redirect show to problems_url" do
 		log_in_as(@non_admin)
 		get :show, id: @problem.id
@@ -20,14 +26,14 @@ class ProblemsControllerTest < ActionController::TestCase
 	end
 
   test "should redirect create when not logged in" do
-    post :create, id: @problem, problem: { name: @problem.name, category: @problem.category, description: @problem.description, points: @problem.points }
+    post :create, problem: { name: @problem.name, category: @problem.category, description: @problem.description, points: @problem.points }
     assert_not flash.empty?
     assert_redirected_to login_url
   end
 
   test "should redirect create when not admin" do
     log_in_as(@non_admin)
-    post :create, id: @problem, problem: { name: @problem.name, category: @problem.category, description: @problem.description, points: @problem.points }
+    post :create, problem: { name: @problem.name, category: @problem.category, description: @problem.description, points: @problem.points }
     assert_not flash.empty?
     assert_redirected_to root_url
   end
