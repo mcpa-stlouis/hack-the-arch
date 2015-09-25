@@ -50,6 +50,13 @@ class ProblemsController < ApplicationController
 	end
 
 	def destroy
+		# Remove team from all members
+		users = User.where(team_id = params[:id])
+		for user in users
+			user.update_attributes(team_id: nil)
+		end
+
+		# Destroy team
     Problem.find(params[:id]).destroy
     flash[:success] = "Problem deleted"
     redirect_to problems_url
