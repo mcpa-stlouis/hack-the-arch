@@ -12,7 +12,7 @@
 						<p><%= link_to @member.email, @member %></p>
 						<p>Points Scored: <%= @member.get_score %></p>
 					<% end %>
-				</td> <td>
+				</td> <td class='vert-align'>
 					<% if current_user.is_member? @team %>
 						<%= link_to 'Remove', remove_member_path(user_id: @member.id, team_id: @team.id),  method: :post, class: 'btn btn-primary' %>
 					<% end %>

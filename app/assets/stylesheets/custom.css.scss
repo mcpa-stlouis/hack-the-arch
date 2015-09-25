@@ -220,6 +220,9 @@ input {
     padding: 10px 0;
 	}
 }
+.table tbody>tr>td.vert-align{
+	vertical-align: middle;
+}
 
 /* Problesm index */
 .problems {
