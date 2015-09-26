@@ -1,22 +1,22 @@
-<%= form_tag settings_path, method: "patch", class: "form-inline col-md-12" do %>
+<%= form_tag settings_path, method: 'patch', class: 'form-inline col-md-12' do %>
 	<% for setting in @settings %>
-		<div class="row">
-		<% if setting.setting_type == "boolean" %>
-				<%= hidden_field_tag "admin["+setting.id.to_s+"][id]", :id, value: setting.id %>
-				<%= label_tag "admin["+setting.id.to_s+"][value]", setting.name, class: "col-md-4 control-label" %>
+		<%= content_tag :div, class: 'row' do %>
+			<% if setting.setting_type == 'boolean' %>
+				<%= hidden_field_tag "admin[#{setting.id.to_s}][id]", :id, value: setting.id %>
+				<%= label_tag "admin[#{setting.id.to_s}][value]", setting.name, class: 'col-md-4 control-label' %>
 				<%  checked = (setting.value == '1') ? true : false %>
-				<%= check_box_tag 'admin['+setting.id.to_s+'][value]', setting.value, checked, class: "col-md-8 form-control" %>
-		<% #elsif setting.setting_type == "color" %>
+				<%= check_box_tag "admin[#{setting.id.to_s}][value]", setting.value, checked, class: 'col-md-8 form-control' %>
+			<% #elsif setting.setting_type == 'color' %>
 
-		<% #elsif setting.setting_type == "date" %>
+			<% #elsif setting.setting_type == 'date' %>
 
-		<% else #setting.setting_type == "text" %>
-				<%= hidden_field_tag "admin["+setting.id.to_s+"][id]", :id, value: setting.id %>
-				<%= label_tag "admin["+setting.id.to_s+"][value]", setting.name, class: "col-md-4 control-label" %>
-				<%= text_field "admin["+setting.id.to_s+"]", "value", value: setting.value, class: "col-md-8 form-control" %>
+			<% else #setting.setting_type == 'text' %>
+				<%= hidden_field_tag "admin[#{setting.id.to_s}][id]", :id, value: setting.id %>
+				<%= label_tag "admin[#{setting.id.to_s}][value]", setting.name, class: 'col-md-4 control-label' %>
+				<%= text_field "admin[#{setting.id.to_s}]", 'value', value: setting.value, class: 'col-md-8 form-control' %>
+			<% end %>
 		<% end %>
-		</div>
 	<% end %>
-	<br />
-	<%= submit_tag "Save Changes", class: "form-control col-md-3 btn btn-primary" %>
+	<%= tag :br %>
+	<%= submit_tag 'Save Changes', class: 'form-control col-md-3 btn btn-primary' %>
 <% end %>

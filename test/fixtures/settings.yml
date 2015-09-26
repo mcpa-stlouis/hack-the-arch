@@ -1,5 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+setting_competition_name:
+  id: 1
+  name: "competition_name"
+  value: "HackTheArch"
+  setting_type: "text"
+
 setting_start_time_active:
   name: "start_time"
   value: <%= Time.zone.now %>
@@ -8,11 +14,6 @@ setting_start_time_active:
 setting_end_time_active:
   name: "end_time"
   value: <%= (Time.zone.now + 1.days) %>
-  setting_type: "text"
-
-setting_competition_name:
-  name: "competition_name"
-  value: "HackTheArch"
   setting_type: "text"
 
 setting_subtract_hint_points_before_solve:

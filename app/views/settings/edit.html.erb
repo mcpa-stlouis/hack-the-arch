@@ -1,8 +1,8 @@
 <% provide(:title, 'Admin Console') %>
-<h1>Settings</h1>
-<div class="row">
+<%= content_tag :h1, 'Settings' %>
+<%= content_tag :div, class: 'row' do %>
 	<%= render 'form' %>
-</div>
-<div class="row">
+<% end %>
+<%= content_tag :div, class: 'row' do %>
 	<%= render 'brackets' %>
-</div>
+<% end %>
