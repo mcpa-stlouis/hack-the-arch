@@ -29,8 +29,10 @@
 						<p class="col-md-12">No hints requested yet</p>
 						<br />
 					<% end %>
-					<%= content_tag :div, class: 'col-md-12' do %>
-						<%= link_to 'Request Hint', request_hint_path(problem_id: @problem.id),  method: :post, class: 'btn btn-primary' %>
+					<% if !@problem.solved_by?(@team.id) %>
+						<%= content_tag :div, class: 'col-md-12' do %>
+							<%= link_to 'Request Hint', request_hint_path(problem_id: @problem.id),  method: :post, class: 'btn btn-primary' %>
+						<% end %>
 					<% end %>
 				<% else %>
 					<br />

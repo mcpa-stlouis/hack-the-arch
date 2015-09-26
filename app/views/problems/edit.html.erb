@@ -1,7 +1,7 @@
 <% provide(:title, "Edit problem") %>
 <% provide(:button_text, "Save changes") %>
 <% # Edit Problem fields # %>
-<h1>Edit problem</h1>
+<%= content_tag :h1, 'Edit problem' %>
 <%= content_tag :div, class: 'row' do %>
 	<%= content_tag :div, class: 'col-md-6 col-md-offset-3' do %>
 		<%= render 'form' %>

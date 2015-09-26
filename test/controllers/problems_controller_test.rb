@@ -5,6 +5,7 @@ class ProblemsControllerTest < ActionController::TestCase
 		@problem = problems(:example_problem)
 		@hint = hints(:example_hint_1)
 		@non_admin = users(:archer)
+		@admin = users(:example_user)
 	end
 
 	test "should redirect index when not logged in" do
@@ -51,6 +52,12 @@ class ProblemsControllerTest < ActionController::TestCase
     assert_redirected_to root_url
   end
 
+  test "should get new when admin" do
+    log_in_as(@admin)
+    get :new
+    assert_response :success
+  end
+
 	test "should redirect edit when not logged in" do
     get :edit, id: @problem
     assert_not flash.empty?
@@ -63,6 +70,12 @@ class ProblemsControllerTest < ActionController::TestCase
     assert_not flash.empty?
     assert_redirected_to root_url
   end
+
+	test "should get edit when admin" do
+		log_in_as(@admin)
+		get :edit, id: @problem
+		assert_response :success
+	end
 
   test "should redirect update when not logged in" do
     patch :update, id: @problem, problem: { name: @problem.name, category: @problem.category, description: @problem.description, points: @problem.points }

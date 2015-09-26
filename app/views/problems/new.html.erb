@@ -1,8 +1,8 @@
-<% provide(:title, "New Problem") %>
-<% provide(:button_text, "Create Problem") %>
-<h1>Create Problem</h1>
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
+<% provide(:title, 'New Problem') %>
+<% provide(:button_text, 'Create Problem') %>
+<%= content_tag :h1, 'Create Problem' %>
+<%= content_tag :div, class: 'row' do %>
+	<%= content_tag :div, class: 'col-md-6 col-md-offset-3' do %>
 		<%= render 'form' %>
-  </div>
-</div>
+  <% end %>
+<% end %>

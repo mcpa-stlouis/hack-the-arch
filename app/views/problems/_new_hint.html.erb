@@ -26,7 +26,7 @@
 					<% end %>
 					<%= content_tag :tbody, class: 'searchable' do %>
 						<% for hint in @hints %>
-							<%= content_tag :tr, class: 'hint_row', "data-hint-id" => hint.id, "data-problem-id" => @problem.id do %>
+							<%= content_tag :tr, class: 'hint_row', 'data-hint-id' => hint.id, 'data-problem-id' => @problem.id do %>
 								<%= content_tag :td, hint.id %>
 								<%= content_tag :td, hint.hint %>
 								<%= content_tag :td, hint.points %>
