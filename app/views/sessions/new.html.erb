@@ -1,23 +1,25 @@
-<% provide(:title, "Log-In") %>
-<h1>Log-In</h1>
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
+<% provide(:title, 'Log-In') %>
+<%= content_tag :h1, 'Log-In' %>
+<%= content_tag :div, class: 'row' do %>
+	<%= content_tag :div, class: 'col-md-6 col-md-offset-3' do %>
     <%= form_for(:session, url: login_path) do |f| %>
 			
       <%= f.label :email %>
       <%= f.email_field :email, class: 'form-control' %>
 
       <%= f.label :password %>
-			<%= link_to "(forgot password)", new_password_reset_path %>
+			<%= link_to '(forgot password)', new_password_reset_path %>
       <%= f.password_field :password, class: 'form-control' %>
 
-			<%= f.label :remember_me, class: "checkbox inline" do %>
+			<%= f.label :remember_me, class: 'checkbox inline' do %>
         <%= f.check_box :remember_me %>
-        <%= content_tag :span, "Remember me on this computer" %>
+        <%= content_tag :span, 'Remember me on this computer' %>
       <% end %>
 
-      <%= f.submit "Login", class: "btn btn-primary" %>
+      <%= f.submit 'Login', class: 'btn btn-primary' %>
     <% end %>
-		<p>New User?  <%= link_to "Sign-up now!", signup_path %></p>
-  </div>
-</div>
+		<%= content_tag :p do %>
+			New User?  <%= link_to 'Sign-up now!', signup_path %>
+		<% end %>
+  <% end %>
+<% end %>
