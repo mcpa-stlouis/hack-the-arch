@@ -1,10 +1,9 @@
 <% provide(:title, 'All users') %>
-<h1>All users</h1>
-
+<%= content_tag :h1, 'All users' %>
 <%= will_paginate %>
 
-<ul class="users">
+<%= content_tag :ul, class: 'users' do %>
 	<%= render @users %>
-</ul>
+<% end %>
 
 <%= will_paginate %>

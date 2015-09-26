@@ -1,12 +1,12 @@
-<% provide(:title, "Edit user") %>
-<% provide(:button_text, "Save changes") %>
-<h1>Edit your profile</h1>
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
+<% provide(:title, 'Edit user') %>
+<% provide(:button_text, 'Save changes') %>
+<%= content_tag :h1, 'Edit your profile' %>
+<%= content_tag :div, class: 'row' do %>
+	<%= content_tag :div, class: 'col-md-6 col-md-offset-3' do %>
 		<%= render 'form' %>
-		<div class="gravatar_edit">
+		<%= content_tag :div, class: 'gravatar_edit' do %>
       <%= gravatar_for @user %>
-      <a href="http://gravatar.com/emails" target="_blank">change</a>
-    </div>
-  </div>
-</div>
+			<%= link_to 'change', 'http://gravatar.com/emails', target: '_blank' %>
+  	<% end %>
+  <% end %>
+<% end %>

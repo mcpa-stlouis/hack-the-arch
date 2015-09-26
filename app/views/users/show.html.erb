@@ -1,41 +1,41 @@
 <% provide(:title, @user.fname) %>
-<div class="row">
-  <aside class="col-md-4">
-    <section class="user_info">
-      <h1>
+<%= content_tag :div, class: 'row' do %>
+  <%= content_tag :aside, class: 'col-md-4' do %>
+    <%= content_tag :section, class: 'user_info' do %>
+      <%= content_tag :h1 do %>
         <%= gravatar_for @user %>
         <%= @user.fname %>
         <%= @user.lname %>
-      </h1>
-			<p>
-        <%= mail_to @user.email %>
-			</p>
-			<p>
-        Points Scored: <%= @user.get_score %>
-			</p>
-		</section>
-	</aside>
-	<div class="col-md-8 user_stats">
+      <% end %>
+			<%= content_tag :p do %>
+				<%= mail_to @user.email %>
+			<% end %>
+			<%= content_tag :p, "Points Scored: #{@user.get_score}" %>
+		<% end %>
+	<% end %>
+	<%= content_tag :div, class: 'col-md-8 user_stats' do %>
 		<% if @user.team_id %>
 			<% @team = Team.find(@user.team_id) %>
-			<span>
+			<%= content_tag :span do %>
 				Member of: <%= link_to @team.name, @team %>
-				<br/> <br/>
+				<%= tag :br %>
+				<%= tag :br %>
 				<% if current_user?(@user) && @user.is_member?(@team) %>
 					<%= link_to 'Leave', remove_member_path(user_id: @user.id, team_id: @team.id),  method: :post, class: 'btn btn-primary' %>
 				<% end %>
-			</span>
+			<% end %>
 		<% else %>
 			<% if current_user?(@user) %>
-				<p>You are not a member of a team.</p>
-				<br/> <br/>
-				<span>
-					<%= link_to "Create", new_team_path, class: "btn btn-primary" %>
-					<%= link_to "Join", teams_path, class: "btn btn-primary" %>
-				</span>
+				<%= content_tag :p, 'You are not a member of a team.' %>
+				<%= tag :br %>
+				<%= tag :br %>
+				<%= content_tag :span do %>
+					<%= link_to 'Create', new_team_path, class: 'btn btn-primary' %>
+					<%= link_to 'Join', teams_path, class: 'btn btn-primary' %>
+				<% end %>
 			<% else %>
-				<p><%= @user.fname %> does not belong to any team right now</p>
+				<%= content_tag :p, "#{@user.fname} does not belong to any team right now." %>
 			<% end %>
 		<% end %>
-	</div>
-</div>
+	<% end %>
+<% end %>
