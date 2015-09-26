@@ -1,9 +1,9 @@
 <% if team.name != 'admins' %>
 	<li class='searchable'>
-		<h3 class="col-md-9">
+		<h3 class="col-md-9 col-xs-6">
 			<%= link_to team.name, team %>
 		</h3>
-		<h3 class="col-md-3">
+		<h3 class="col-md-3 col-xs-6">
 			<%= team.get_score %>
 			<% if current_user && current_user.admin? %>
     		<%= link_to "delete", team, method: :delete,
