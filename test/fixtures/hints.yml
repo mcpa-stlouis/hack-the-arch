@@ -1,6 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 example_hint_1:
+  id: 1
   priority: 1
   hint: You can do it!
   points: 25

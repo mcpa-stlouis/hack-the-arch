@@ -9,3 +9,14 @@ example_problem:
   correct_message: Correct!
   false_message: Incorrect
   visible: true
+
+example_problem_2:
+  name: HackTheArch2
+  description: Help us hack the arch!
+  category: NetEx
+  points: 100
+  solution: answer
+  correct_message: Correct!
+  false_message: Incorrect
+  hints: 1
+  visible: true
