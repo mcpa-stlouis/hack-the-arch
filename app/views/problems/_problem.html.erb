@@ -1,23 +1,27 @@
-<div>
+<%= content_tag :div do %>
   <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#problem_<%= @problem.id %>" aria-controls="problem_<%= @problem.id %>" role="tab" data-toggle="tab">Problem</a></li>
-    <li role="presentation"><a href="#hints_<%= @problem.id %>" aria-controls="hints_<%= @problem.id %>" role="tab" data-toggle="tab">Hints</a></li>
-  </ul>
+	<%= content_tag :ul, role: 'tablist', class: 'nav nav-tabs' do %>
+		<%= content_tag :li, role: 'presentation', class: 'active' do %>
+			<%= link_to 'Problem', "#problem_#{@problem.id}", 'aria-controls' => "problem_#{@problem.id}", role: 'tab', 'data-toggle' => 'tab' %>
+		<% end %>
+		<%= content_tag :li, role: 'presentation' do %>
+			<%= link_to 'Hints', "#hints_#{@problem.id}", 'aria-controls' => "hints_#{@problem.id}", role: 'tab', 'data-toggle' => 'tab' %>
+		<% end %>
+  <% end %>
 
   <!-- Tab panes -->
-  <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="problem_<%= @problem.id %>">
-			<h4 class="text-center"> Solves: <%= Submission.get_solves_for_problem(@problem.id) %> </h4>
-			<p>  <%= @problem.description %> </p>
-			<p ><%= image_tag @problem.picture.url if @problem.picture? %> </p>
+	<%= content_tag :div, class: 'tab-content' do %>
+		<%= content_tag :div, role: 'tabpanel', class: 'tab-pane active', id: "problem_#{@problem.id}" do %>
+			<%= content_tag :h4, "Solves: #{Submission.get_solves_for_problem(@problem.id)}", class: 'text-center' %>
+			<%= content_tag :p, @problem.description %>
+			<p><%= image_tag @problem.picture.url if @problem.picture? %></p>
 			<% if @problem.solved_by?(current_user.team_id) %>
 				<p>Your team has solved this challenge!</p>
 			<% else %>
 				<%= render 'submit' %>
 			<% end %>
-		</div>
-    <div role="tabpanel" class="tab-pane" id="hints_<%= @problem.id %>">
+		<% end %>
+		<%= content_tag :div, role: 'tabpanel', class: 'tab-pane', id: "hints_#{@problem.id}" do %>
 			<%= content_tag :div, class: 'row' do %>
 				<% if !current_user.admin? && @problem.number_of_hints_available > 0 %>
 					<% if Team.find(current_user.team_id).get_hints_requested(@problem.id).count > 0 %>
@@ -40,7 +44,6 @@
 					<br />
 				<% end %>
 			<% end %>
-		</div>
-  </div>
-
-</div>
+		<% end %>
+	<% end %>
+<% end %>
