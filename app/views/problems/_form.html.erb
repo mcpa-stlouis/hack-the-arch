@@ -1,6 +1,6 @@
 <%= form_for(@problem, html: { multipart: true }) do |f| %>
 	<%= render 'shared/error_messages', object: f.object %>
-	
+
 	<%= f.label :name %>
   <%= f.text_field :name, class: 'form-control' %>
 
@@ -22,11 +22,19 @@
   <%= f.label :false_message %>
   <%= f.text_field :false_message, class: 'form-control' %>
 
-  <%= f.submit yield(:button_text), class: 'btn btn-primary' %>
+	<%= f.label :visible, class: 'checkbox-inline' do %>
+  	<%= f.check_box :visible %>
+  	<%= content_tag :span, 'Problem enabled' %>
+  <% end %>
+	<%= tag :br %>
 
 	<%= content_tag :span, class: 'picture' do %>
+  	<%= f.label :image %>
 		<%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
 	<% end %>
+
+  <%= f.submit yield(:button_text), class: 'btn btn-primary' %>
+
 <% end %>
 
 <script type='text/javascript'>

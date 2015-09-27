@@ -8,3 +8,4 @@ example_problem:
   solution: answer
   correct_message: Correct!
   false_message: Incorrect
+  visible: true

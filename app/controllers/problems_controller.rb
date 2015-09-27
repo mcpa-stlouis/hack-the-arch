@@ -5,7 +5,12 @@ class ProblemsController < ApplicationController
 	before_action :competition_active, only: [:index, :show]
 	
 	def index
-		@problems = Problem.all
+		if current_user && current_user.admin?
+			@problems = Problem.all
+		else
+			@problems = Problem.where(visible: true)
+		end
+
 		if params[:problem_id]
 			@problem_view = Problem.find(params[:problem_id])
 		end
@@ -26,7 +31,11 @@ class ProblemsController < ApplicationController
 
 	def show
 		@problem = Problem.find(params[:id])
-		redirect_to controller: 'problems', action: 'index', anchor: "heading_#{(@problem.id-1).to_s}", problem_id: @problem.id
+		if @problem.visible
+			redirect_to controller: 'problems', action: 'index', anchor: "heading_#{(@problem.id-1).to_s}", problem_id: @problem.id
+		else
+			redirect_to problems_url
+		end
 	end
 
 	def remove_hint
@@ -79,7 +88,7 @@ class ProblemsController < ApplicationController
 
 	private
 		def problem_params
-			params.require(:problem).permit(:name, :category, :description, :points, :solution, :correct_message, :false_message, :picture)
+			params.require(:problem).permit(:name, :category, :description, :points, :solution, :correct_message, :false_message, :picture, :visible)
 		end
 
 		def logged_in_user

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150922203911) do
+ActiveRecord::Schema.define(version: 20150926231931) do
 
   create_table "brackets", force: :cascade do |t|
     t.string   "name"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20150922203911) do
     t.string   "false_message"
     t.string   "hints"
     t.string   "picture"
+    t.boolean  "visible"
   end
 
   create_table "settings", force: :cascade do |t|
