@@ -23,15 +23,15 @@
   <!-- Tab panes -->
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="all">
-			<ul class="teams row teams_list">
+			<ol class="teams row teams_list">
 				<%= render @sorted_teams %>
-			</ul>
+			</ol>
 		</div>
 		<% for bracket in @brackets do %>
     	<div role="tabpanel" class="tab-pane" id="<%= bracket.name %>">
-				<ul class="teams row teams_list">
+				<ol class="teams row teams_list">
 					<%= render @sorted_teams.select { |b| b.bracket_id == bracket.id } %>
-				</ul>
+				</ol>
 			</div>
 		<% end %>
   </div>

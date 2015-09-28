@@ -1,15 +1,16 @@
-<% if team.name != 'admins' %>
-	<li class='searchable'>
-		<h3 class="col-md-9 col-xs-6">
-			<%= link_to team.name, team %>
-		</h3>
-		<h3 class="col-md-3 col-xs-6">
-			<%= team.get_score %>
-			<% if current_user && current_user.admin? %>
-    		<%= link_to "delete", team, method: :delete,
-                                		data: { confirm: "You sure?" },
-																		class: 'btn btn-primary' %>
-  		<% end %>
-		</h3>
-	</li>
-<% end %>
+<li class='searchable'>
+	<h3 class='col-md-1 col-xs-1'>
+		<%= @sorted_teams.index(team) + 1 %>
+	</h3>
+	<h3 class='col-md-8 col-xs-6'>
+		<%= link_to team.name, team %>
+	</h3>
+	<h3 class='col-md-3 col-xs-5'>
+		<%= team.get_score %>
+		<% if current_user && current_user.admin? %>
+   		<%= link_to 'delete', team, method: :delete,
+                               		data: { confirm: 'You sure?' },
+																	class: 'btn btn-primary' %>
+ 		<% end %>
+	</h3>
+</li>

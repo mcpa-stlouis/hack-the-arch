@@ -4,7 +4,7 @@ class TeamsController < ApplicationController
 
 	def index
 		# reject admins
-		@teams = Team.where('id != 1')
+		@teams = Team.where('name != "admins"')
 		@brackets = Bracket.all
 		@sorted_teams = @teams.sort_by { |team| team.get_score }.reverse
 	end
