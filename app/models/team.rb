@@ -172,6 +172,11 @@ class Team < ActiveRecord::Base
 		HintRequest.where(team_id: self.id, problem_id: problem_id)
 	end
 
+	def get_most_recent_solve
+		sub = Submission.where(team_id: self.id).last
+		sub.created_at if sub
+	end
+
 	def members_array
 		if !self.members # Lazy Instantiation
 			Array.new

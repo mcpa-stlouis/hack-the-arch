@@ -6,7 +6,7 @@ class TeamsController < ApplicationController
 		# reject admins
 		@teams = Team.where('name != "admins"')
 		@brackets = Bracket.all
-		@sorted_teams = @teams.sort_by { |team| team.get_score }.reverse
+		@sorted_teams = @teams.sort_by { |team| [-team.get_score, team.get_most_recent_solve] }
 	end
 
 	def get_score_data
