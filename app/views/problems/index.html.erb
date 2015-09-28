@@ -6,9 +6,7 @@
 <% end %>
 
 <%= content_tag :div, class: 'panel-group', id: 'accordion', role: 'tablist', 'aria-multiselectable' => 'true' do %>
-	<% @problems.order!(category: 'ASC', points: 'ASC') %>
 	<% for @problem in @problems do %>
-
 		<% if !@category || @category != @problem.category %>
 			<% @category = @problem.category %>
 			<h3><%= @category %></h3>
