@@ -11,7 +11,7 @@ class HintRequestsController < ApplicationController
 		@team = Team.find(@user.team_id)
 		hints_requested = @team.get_hints_requested(@problem.id)
 
-		if !@problem.solved_by?(@team.id)
+		if @problem.solved_by?(@team.id)
 			flash[:warning] = "Your team has already solved this challenge!"
 			redirect_to @problem
 		elsif ((!hints_requested || 
