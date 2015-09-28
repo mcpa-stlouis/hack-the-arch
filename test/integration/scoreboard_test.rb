@@ -22,6 +22,11 @@ class ScoreboardTest < ActionDispatch::IntegrationTest
 		log_out
 	end
 
+	test "should get score progressions" do
+		get '/teams/get_score_data'
+    assert_response :success
+	end
+
 	test "should show scoreboard when scoreboard is off and admin" do
 		turn_scoreboard_off
 		log_in_as(@admin)

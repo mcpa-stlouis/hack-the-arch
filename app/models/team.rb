@@ -144,13 +144,10 @@ class Team < ActiveRecord::Base
 	def get_score_progression
 		# merge hint_requests and submissions
 		@submissions = Submission.where(team_id: self.id, correct: true)
-		@hint_requests = HintRequest.where(team_id: self.id)
-		if !subtract_hint_points_before_solve?
-			for hint in @hint_requests
-				if !@submissions.bsearch { |sub| sub.problem_id == hint.problem_id }
-					@hint_requests.delete!(hint)
-				end
-			end
+		if subtract_hint_points_before_solve?
+			@hint_requests = HintRequest.where(team_id: self.id)
+		else
+			@hint_requests = HintRequest.where(team_id: self.id, problem_id: @submissions.select(:problem_id))
 		end
 
 		@combined_submissions = @submissions + @hint_requests
