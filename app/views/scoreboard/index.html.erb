@@ -1,0 +1,44 @@
+<% provide(:title, 'Scoreboard') %>
+<h1>Scoreboard</h1> 
+<% if @scoreboard_on || (current_user && current_user.admin?) %>
+	<div class='jumbotron row hidden-xs'>
+		<div id='scoreboard_graph' class='col-sm-12' style='width:100%;height:400px'></div>
+	</div>
+	
+	<div class="input-group"> 
+		<span class="input-group-addon">Search</span>
+		<input id="filter" type="text" class="form-control">
+	</div>
+	<br />
+	<div>
+		<!-- Nav tabs -->
+		<ul class="nav nav-tabs" role="tablist">
+  		<li role="presentation" class="active"><a href="#all" aria-controls="all" role="tab" data-toggle="tab">All</a></li>
+			<% for bracket in @brackets do %>
+  			<li role="presentation">
+					<a href="#<%= bracket.name %>" aria-controls="<%= bracket.name %>" role="tab" data-toggle="tab"><%= bracket.name %></a>
+				</li>
+			<% end %>
+		</ul>
+	
+		<!-- Tab panes -->
+		<div class="tab-content">
+  		<div role="tabpanel" class="tab-pane active" id="all">
+				<ul class="teams row teams_list">
+					<%= render @sorted_teams %>
+				</ul>
+			</div>
+			<% for bracket in @brackets do %>
+  			<div role="tabpanel" class="tab-pane" id="<%= bracket.name %>">
+					<ul class="teams row teams_list">
+						<%= render @sorted_teams.select { |b| b.bracket_id == bracket.id } %>
+					</ul>
+				</div>
+			<% end %>
+		</div>
+	</div>
+<% else %>
+	<div class='jumbotron row'>
+		<h2 class='center-text'>Hmm... something appears to be wrong... I guess we don't have a scoreboard for now.</h2>
+	</div>
+<% end %>

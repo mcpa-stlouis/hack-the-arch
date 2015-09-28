@@ -20,3 +20,8 @@ setting_subtract_hint_points_before_solve:
   name: "subtract_hint_points_before_solve"
   value: "0"
   setting_type: "boolean"
+
+setting_scoreboard_on:
+  name: "scoreboard_on"
+  value: "1"
+  setting_type: "boolean"

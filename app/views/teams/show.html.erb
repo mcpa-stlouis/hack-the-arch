@@ -1,5 +1,10 @@
 <% provide(:title, @team.name) %>
-<h1><%= @team.name %>: <%= @team.get_score %></h1>
+<h1>
+	<%= @team.name %>
+	<% if current_user && (current_user.admin? || current_user.is_member?(@team)) %>
+		: <%= @team.get_score %>
+	<% end %>
+</h1>
 <h2>Bracket: <%= @bracket.name %></h2>
 <%= content_tag :div, class: 'row' do %>
 	<%= content_tag :div, class: 'col-md-6 col-md-offset-3' do %>
@@ -10,7 +15,9 @@
 				</td> <td>
 					<%= content_tag :h5, id: @member.id do %>
 						<p><%= link_to @member.email, @member %></p>
-						<p>Points Scored: <%= @member.get_score %></p>
+						<% if current_user && (current_user.admin? || current_user.is_member?(@team)) %>
+							<p>Points Scored: <%= @member.get_score %></p>
+						<% end %>
 					<% end %>
 				</td> <td class='vert-align'>
 					<% if current_user.is_member? @team %>

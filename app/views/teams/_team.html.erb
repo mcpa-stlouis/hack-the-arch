@@ -1,16 +1,28 @@
 <li class='searchable'>
-	<h3 class='col-md-1 col-xs-1'>
-		<%= @sorted_teams.index(team) + 1 %>
-	</h3>
-	<h3 class='col-md-8 col-xs-6'>
-		<%= link_to team.name, team %>
-	</h3>
-	<h3 class='col-md-3 col-xs-5'>
-		<%= team.get_score %>
-		<% if current_user && current_user.admin? %>
-   		<%= link_to 'delete', team, method: :delete,
-                               		data: { confirm: 'You sure?' },
-																	class: 'btn btn-primary' %>
- 		<% end %>
-	</h3>
+	<% if params[:controller] == "scoreboard" && (scoreboard_on? || (current_user && current_user.admin?)) %>
+
+		<h3 class='col-md-1 col-xs-1'>
+			<%= @sorted_teams.index(team) + 1 %>
+		</h3>
+		<h3 class='col-md-8 col-xs-6'>
+			<%= link_to team.name, team %>
+		</h3>
+		<h3 class='col-md-3 col-xs-5'>
+			<%= team.get_score %>
+		</h3>
+
+	<% else %>
+
+		<h3 class='col-md-9 col-xs-7'>
+			<%= link_to team.name, team %>
+		</h3>
+		<h3 class='col-md-3 col-xs-5'>
+			<% if current_user && current_user.admin? %>
+   			<%= link_to 'delete', team, method: :delete,
+                               			data: { confirm: 'You sure?' },
+																		class: 'btn btn-primary' %>
+ 			<% end %>
+		</h3>
+
+	<% end %>
 </li>

@@ -18,7 +18,11 @@ module SettingsHelper
 	end
 
 	def subtract_hint_points_before_solve?
-		Setting.find_by(name: 'subtract_hint_points_before_solve').value
+		(Setting.find_by(name: 'subtract_hint_points_before_solve').value == "0") ? false : true
+	end
+
+	def scoreboard_on?
+		(Setting.find_by(name: 'scoreboard_on').value == "0") ? false : true
 	end
 
 end

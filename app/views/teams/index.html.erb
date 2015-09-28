@@ -1,39 +1,34 @@
 <% provide(:title, 'All teams') %>
-<h1>Scoreboard</h1>
-<div class='jumbotron row hidden-xs'>
-	<div id='scoreboard_graph' class='col-sm-12' style='width:100%;height:400px'></div>
-</div>
-
+<h1>All teams</h1>
 <div class="input-group"> 
 	<span class="input-group-addon">Search</span>
 	<input id="filter" type="text" class="form-control">
 </div>
 <br />
 <div>
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#all" aria-controls="all" role="tab" data-toggle="tab">All</a></li>
+	<!-- Nav tabs -->
+	<ul class="nav nav-tabs" role="tablist">
+  	<li role="presentation" class="active"><a href="#all" aria-controls="all" role="tab" data-toggle="tab">All</a></li>
 		<% for bracket in @brackets do %>
-    	<li role="presentation">
+  		<li role="presentation">
 				<a href="#<%= bracket.name %>" aria-controls="<%= bracket.name %>" role="tab" data-toggle="tab"><%= bracket.name %></a>
 			</li>
 		<% end %>
-  </ul>
+	</ul>
 
-  <!-- Tab panes -->
-  <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="all">
-			<ol class="teams row teams_list">
-				<%= render @sorted_teams %>
-			</ol>
+	<!-- Tab panes -->
+	<div class="tab-content">
+  	<div role="tabpanel" class="tab-pane active" id="all">
+			<ul class="teams row teams_list">
+				<%= render @teams %>
+			</ul>
 		</div>
 		<% for bracket in @brackets do %>
-    	<div role="tabpanel" class="tab-pane" id="<%= bracket.name %>">
-				<ol class="teams row teams_list">
-					<%= render @sorted_teams.select { |b| b.bracket_id == bracket.id } %>
-				</ol>
+  		<div role="tabpanel" class="tab-pane" id="<%= bracket.name %>">
+				<ul class="teams row teams_list">
+					<%= render @teams.select { |b| b.bracket_id == bracket.id } %>
+				</ul>
 			</div>
 		<% end %>
-  </div>
-
+	</div>
 </div>
