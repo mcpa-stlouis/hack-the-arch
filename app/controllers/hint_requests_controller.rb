@@ -45,8 +45,8 @@ class HintRequestsController < ApplicationController
 		
 		def belong_to_team
 			unless current_user.team_id
-				flash[:danger] = "You must belong to a team to view the problems!"
-				redirect_to @problem
+				flash[:danger] = "You must belong to a team to request hints!"
+				redirect_to root_url
 			end
 		end
 
