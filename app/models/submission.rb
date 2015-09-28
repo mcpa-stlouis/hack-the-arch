@@ -22,7 +22,7 @@ class Submission < ActiveRecord::Base
 			if self.correct
 				Team.invalidate_top_teams_score_progression
 				Team.find(self.team_id).invalidate_score
-				Team.find(self.user_id).invalidate_score
+				User.find(self.user_id).invalidate_score
 			end
 		end
 end
