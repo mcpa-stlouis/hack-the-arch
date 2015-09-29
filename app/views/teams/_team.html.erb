@@ -1,5 +1,5 @@
 <li class='searchable'>
-	<% if params[:controller] == "scoreboard" && (scoreboard_on? || (current_user && current_user.admin?)) %>
+	<% if params[:controller] == "scoreboard" && (scoreboard_on? || admin_user?) %>
 
 		<h3 class='col-md-1 col-xs-1'>
 			<%= @sorted_teams.index(team) + 1 %>
@@ -17,7 +17,7 @@
 			<%= link_to team.name, team %>
 		</h3>
 		<h3 class='col-md-3 col-xs-5'>
-			<% if current_user && current_user.admin? %>
+			<% if admin_user? %>
    			<%= link_to 'delete', team, method: :delete,
                                			data: { confirm: 'You sure?' },
 																		class: 'btn btn-primary' %>

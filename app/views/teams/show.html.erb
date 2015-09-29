@@ -1,7 +1,7 @@
 <% provide(:title, @team.name) %>
 <h1>
 	<%= @team.name %>
-	<% if current_user && (current_user.admin? || current_user.is_member?(@team)) %>
+	<% if admin_user? || member_of_team(current_user, @team) %>
 		: <%= @team.get_score %>
 	<% end %>
 </h1>
@@ -15,18 +15,18 @@
 				</td> <td>
 					<%= content_tag :h5, id: @member.id do %>
 						<p><%= link_to @member.email, @member %></p>
-						<% if current_user && (current_user.admin? || current_user.is_member?(@team)) %>
+						<% if admin_user? || member_of_team(current_user, @team) %>
 							<p>Points Scored: <%= @member.get_score %></p>
 						<% end %>
 					<% end %>
 				</td> <td class='vert-align'>
-					<% if current_user.is_member? @team %>
+					<% if member_of_team(current_user, @team) %>
 						<%= link_to 'Remove', remove_member_path(user_id: @member.id, team_id: @team.id),  method: :post, class: 'btn btn-primary' %>
 					<% end %>
 				</td> </tr>
 			<% end %>
 		<% end %>
-		<% if !current_user.is_member? @team %>
+		<% if !member_of_team(current_user, @team) %>
 			<%= form_tag join_path, class: 'form-inline col-md-12' do %>
 				<%= hidden_field_tag 'user_id', current_user.id %>
 				<%= hidden_field_tag 'team_id', @team.id %>

@@ -41,6 +41,22 @@ module SessionsHelper
 		!current_user.nil?	
 	end
 
+	def admin_user?
+    logged_in? && current_user.admin?
+	end
+
+	def current_team
+		if logged_in?
+			Team.find(current_user.team_id)
+		end
+	end
+
+	def member_of_team(user, team)
+		if logged_in?
+			user.is_member?(team)
+		end
+	end
+
 	# Redirects to stored location (or to the default).
   def redirect_back_or(default)
     redirect_to(session[:forwarding_url] || default)

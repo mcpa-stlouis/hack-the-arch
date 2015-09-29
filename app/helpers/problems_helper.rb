@@ -1,8 +1,4 @@
 module ProblemsHelper
-	def admin_user?
-    logged_in? && current_user.admin?
-	end
-
 	def panel_collapsed(problem_view, problem)
 		if problem_view && problem_view.id == problem.id
 			'panel-collapse collapse in' 
@@ -13,12 +9,6 @@ module ProblemsHelper
 
 	def add_id(string, object)
 		"#{string}_#{object.id}"
-	end
-
-	def current_team
-		if logged_in?
-			Team.find(current_user.team_id)
-		end
 	end
 
 	def get_hint(hint)
