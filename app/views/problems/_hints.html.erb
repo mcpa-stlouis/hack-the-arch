@@ -1,7 +1,6 @@
 <%= content_tag :table, id: 'hints', class: 'table' do %>
-	<% @team = Team.find(current_user.team_id) %>
-	<% for hint in (current_user.admin? ? @problem.hints_array : @team.get_hints_requested(@problem.id)) do %>
-		<% @prob_hint = (hint.kind_of?(String) ? Hint.find(hint) : Hint.find(hint.hint_id)) %>
+	<% for hint in get_hints_for_problem(@problem) %>
+		<% @prob_hint = get_hint(hint) %>
 		<%= content_tag :tr do %> 
 			<%= content_tag :td, class: 'col-md-8' do %>
 				<%= content_tag :h5, id: @prob_hint.id do %>
@@ -9,18 +8,18 @@
 				<% end %>
 			<% end %>
 			<%= content_tag :td, class: 'col-md-2' do %>
-				<% if current_user.admin? %>
+				<% if admin_user? %>
 					<%= link_to 'Edit', edit_hint_path(id: @prob_hint.id, problem_id: @problem.id), class: 'btn btn-primary' %>
 				<% end %>
 			<% end %>
 			<%= content_tag :td, class: 'col-md-2' do %>
-				<% if current_user.admin? %>
+				<% if admin_user? %>
 					<%= link_to 'Remove', remove_hint_path(hint_id: @prob_hint.id, problem_id: @problem.id),  method: :delete, class: 'btn btn-primary' %>
 				<% end %>
 			<% end %>
 		<% end %>
 	<% end %>
 <% end %>
-<% if current_user.admin? %>
+<% if admin_user? %>
 	<%= render 'new_hint' %>
 <% end %>

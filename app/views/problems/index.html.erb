@@ -1,7 +1,7 @@
 <% provide(:title, 'Problems') %>
 <h1>Problems</h1>
 
-<% if current_user.admin? %>
+<% if admin_user? %>
 	<%= link_to "Create", new_problem_path, class: 'btn btn-primary' %>
 <% end %>
 
@@ -12,17 +12,17 @@
 			<h3><%= @category %></h3>
 		<% end %>
 		<%= content_tag :div, class: 'panel panel-default' do %>
-			<%= content_tag :div, class: 'panel-heading', role: 'tab', id: "heading_" + @problem.id.to_s do %>
+			<%= content_tag :div, class: 'panel-heading', role: 'tab', id: add_id('heading',@problem) do %>
 				<%= content_tag :h4, class: 'panel-title' do %>
 					<div class="row">
-						<%= content_tag :a, class: 'col-md-9 navbar-btn', role: 'button', 'data-toggle' => 'collapse', 'data-parent' => '#accordion', href: '#' + @problem.id.to_s, 'aria-expanded' => 'true', 'aria-controls' => @problem.id.to_s do %>
+						<%= content_tag :a, class: 'col-md-9 navbar-btn', role: 'button', 'data-toggle' => 'collapse', 'data-parent' => '#accordion', href: add_id('#main_problem',@problem), 'aria-expanded' => 'true', 'aria-controls' => @problem.id.to_s do %>
         			<%= @problem.name %> : <%= @problem.points.to_s %>
-							<% if !current_user.admin? && @problem.solved_by?(current_user.team_id) %>
+							<% if !admin_user? && @problem.solved_by?(current_team.id) %>
 								| SOLVED
 							<% end %>
 						<% end %>
 						<div class="col-md-3 text-right">
- 							<% if current_user.admin? %>
+ 							<% if admin_user? %>
    							<%= link_to "edit", edit_problem_path(@problem), class: 'btn btn-primary' %>
    							<%= link_to "delete", @problem, method: :delete,
                              	 				data: { confirm: "You sure?" },
@@ -32,8 +32,7 @@
 					</div>
     		<% end %>
     	<% end %>
-			<% panel_class = (@problem_view && @problem_view.id == @problem.id) ? 'panel-collapse collapse in' : 'panel-collapse collapse' %>
-			<%= content_tag :div, id: @problem.id.to_s, class: panel_class, role: 'tabpanel', 'aria-labelledby' => 'heading_' + @problem.id.to_s do %> 
+			<%= content_tag :div, id: add_id('main_problem',@problem), class: panel_collapsed(@problem_view, @problem), role: 'tabpanel', 'aria-labelledby' => add_id('heading',@problem) do %> 
 				<%= content_tag :div, class: 'panel-body' do %>
 					<%= render @problem %>
     		<% end %>

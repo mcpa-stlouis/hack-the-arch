@@ -2,16 +2,16 @@
   <!-- Nav tabs -->
 	<%= content_tag :ul, role: 'tablist', class: 'nav nav-tabs' do %>
 		<%= content_tag :li, role: 'presentation', class: 'active' do %>
-			<%= link_to 'Problem', "#problem_#{@problem.id}", 'aria-controls' => "problem_#{@problem.id}", role: 'tab', 'data-toggle' => 'tab' %>
+			<%= link_to 'Problem', add_id('#problem',@problem), 'aria-controls' => add_id('problem',@problem), role: 'tab', 'data-toggle' => 'tab' %>
 		<% end %>
 		<%= content_tag :li, role: 'presentation' do %>
-			<%= link_to 'Hints', "#hints_#{@problem.id}", 'aria-controls' => "hints_#{@problem.id}", role: 'tab', 'data-toggle' => 'tab' %>
+			<%= link_to 'Hints', add_id('#hints',@problem), 'aria-controls' => add_id('hints',@problem), role: 'tab', 'data-toggle' => 'tab' %>
 		<% end %>
   <% end %>
 
   <!-- Tab panes -->
 	<%= content_tag :div, class: 'tab-content' do %>
-		<%= content_tag :div, role: 'tabpanel', class: 'tab-pane active', id: "problem_#{@problem.id}" do %>
+		<%= content_tag :div, role: 'tabpanel', class: 'tab-pane active', id: add_id('problem',@problem) do %>
 			<%= content_tag :h4, "Solves: #{Submission.get_solves_for_problem(@problem.id)}", class: 'text-center' %>
 			<%= content_tag :p, @problem.description %>
 			<p><%= image_tag @problem.picture.url if @problem.picture? %></p>
@@ -21,7 +21,7 @@
 				<%= render 'submit' %>
 			<% end %>
 		<% end %>
-		<%= content_tag :div, role: 'tabpanel', class: 'tab-pane', id: "hints_#{@problem.id}" do %>
+		<%= content_tag :div, role: 'tabpanel', class: 'tab-pane', id: add_id('hints',@problem) do %>
 			<%= content_tag :div, class: 'row' do %>
 				<% if !current_user.admin? && @problem.number_of_hints_available > 0 %>
 					<% if Team.find(current_user.team_id).get_hints_requested(@problem.id).count > 0 %>
