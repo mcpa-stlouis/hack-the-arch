@@ -16,6 +16,7 @@ class Team < ActiveRecord::Base
 													length: { minimum: 6 }
 	validates :bracket_id, presence: true, 
 												 numericality: { only_integer: true, greater_than: 0 }
+	validates :members, absence: true
 	validate  :bracket_exists
 	validates_with ValidateAtCapacity
 

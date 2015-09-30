@@ -38,15 +38,15 @@ hint = Hint.create!(hint: "The test was named after him",
 						 				points: "25",
 						 				priority: "1")
 
-Problem.create!(name: "Who's that scientist?",
-								points: "100",
-								category: "Trivia",
-								description: "What's the name of the scientist that invented the test to determine the ability of a machine to exhibit intelligent behavior equivalent to, or indistinguishable from, that of a human?",
-    						solution: "Alan Turing",
-    						correct_message: "Very good!",
-    						false_message: "Try again!",
-    						visible: "1",
-    						hints: hint.id)
+problem = Problem.create!(name: "Who's that scientist?",
+													points: "100",
+													category: "Trivia",
+													description: "What's the name of the scientist that invented the test to determine the ability of a machine to exhibit intelligent behavior equivalent to, or indistinguishable from, that of a human?",
+    											solution: "Alan Turing",
+    											correct_message: "Very good!",
+    											false_message: "Try again!",
+    											visible: "1")
+problem.add(hint.id)
 
 Problem.create!(name: "Google Foo",
 								points: "100",
