@@ -45,6 +45,7 @@ Problem.create!(name: "Who's that scientist?",
     						solution: "Alan Turing",
     						correct_message: "Very good!",
     						false_message: "Try again!",
+    						visible: "1",
     						hints: hint.id)
 
 Problem.create!(name: "Google Foo",
@@ -53,5 +54,6 @@ Problem.create!(name: "Google Foo",
 								description: "What is the name of the site that indexes varios IoT devices like web cams and ethernet enabled thermostats?",
     						solution: "Shodan",
     						correct_message: "Scary, right!?",
-    						false_message: "Try again!")
+    						false_message: "Try again!",
+    						visible: "1")
 
