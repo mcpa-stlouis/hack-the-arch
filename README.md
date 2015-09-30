@@ -10,7 +10,8 @@ We created this application after using the PicoCTF platform for our annual CTF.
 Requirements
 ------------
 * Ruby version 2.2.2p95
-* Activation e-mails depend on SendGrid configuration
+* Activation and password reset e-mails depend on SendGrid configuration
+* To store challenge pictures in the production environment, you'll need to modify 'config/initializers/carrier\_wave.rb' to work with your cloud storage solution
 * See Gemfile for further requirements
 
 Getting Started
@@ -18,6 +19,7 @@ Getting Started
 * This app is presently designed to be deployed in a heroku environment.  You'll need to add the sendgrid addon before deploying (heroku addons:create sendgrid:starter) and update the host to match your domain in 'config/environments/production.rb'.
 * It can be deployed outside a heroku environment but will require some alternative for sending account activation e-mails
 * To initialize the database, run: `bundle exec rake db:seed`.  After initialization, the admin login credentials will be: **admin@gmail.com** : **password**
+* **Important**: It is highly advised that you change the admin credentials post-deployment
 
 Contact
 -------
