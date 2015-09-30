@@ -1,5 +1,6 @@
 <% provide(:title, 'All users') %>
 <%= content_tag :h1, 'All users' %>
+<%= content_tag :h4, "Count: #{@users.count}", class: 'text-center' %>
 <%= will_paginate %>
 
 <%= content_tag :ul, class: 'users' do %>
