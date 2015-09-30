@@ -25,4 +25,8 @@ module SettingsHelper
 		(Setting.find_by(name: 'scoreboard_on').value == "0") ? false : true
 	end
 
+	def send_activation_emails?
+		(Setting.find_by(name: 'send_activation_emails').value == "0") ? false : true
+	end
+
 end
