@@ -4,7 +4,7 @@ class TeamsController < ApplicationController
 
 	def index
 		# reject admins
-		@teams = Team.where('name != "admins"')
+		@teams = Team.where.not(name: 'admins')
 		@brackets = Bracket.all
 	end
 
