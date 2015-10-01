@@ -6,8 +6,10 @@
 			<%= link_to 'Problem', add_id('#problem',@problem), 'aria-controls' => add_id('problem',@problem), role: 'tab', 'data-toggle' => 'tab' %>
 		<% end %>
 		<% #  Hints Tab # %>
-		<%= content_tag :li, role: 'presentation' do %>
-			<%= link_to 'Hints', add_id('#hints',@problem), 'aria-controls' => add_id('hints',@problem), role: 'tab', 'data-toggle' => 'tab' %>
+		<% if @problem.number_of_hints_available > 0 || admin_user? %>
+			<%= content_tag :li, role: 'presentation' do %>
+				<%= link_to 'Hints', add_id('#hints',@problem), 'aria-controls' => add_id('hints',@problem), role: 'tab', 'data-toggle' => 'tab' %>
+			<% end %>
 		<% end %>
   <% end %>
 
@@ -27,37 +29,34 @@
 		<% end %>
 
 		<% #  Hints Tab Content # %>
-		<%= content_tag :div, role: 'tabpanel', class: 'tab-pane', id: add_id('hints',@problem) do %>
-			<%= content_tag :div, class: 'row' do %>
+		<% if @problem.number_of_hints_available > 0 || admin_user? %>
+			<%= content_tag :div, role: 'tabpanel', class: 'tab-pane', id: add_id('hints',@problem) do %>
+				<%= content_tag :div, class: 'row' do %>
 
-				<% #  Admin view # %>
-				<% if admin_user? %>
-					<h4 class='text-center'>Hints Admin</h4>
-					<%= render 'hints' %>
+					<% #  Admin view # %>
+					<% if admin_user? %>
+						<h4 class='text-center'>Hints Admin</h4>
+						<%= render 'hints' %>
 
-				<% #  User view with hints available# %>
-				<% elsif @problem.number_of_hints_available > 0 %>
+					<% #  User view with hints available# %>
+					<% else %>
 						<%= content_tag :div, class: 'col-md-12' do %>
 							<h4 class='text-center'>Hints Requested</h4>
 							<% if current_team.get_hints_requested(@problem.id).count > 0 %>
 								<%= render 'hints' %>
 							<% else %>
 								<p class='col-md-6 col-md-offset-3'>No hints requested yet</p>
+							<% end %>
+						<% end %>
+	
+						<% # Request Hint Button # %>
+						<% if !@problem.solved_by?(current_user.team_id) %>
+							<%= content_tag :div, class: 'col-md-12' do %>
+								<%= link_to 'Request Hint', request_hint_path(problem_id: @problem.id),  method: :post, class: 'btn btn-primary' %>
+							<% end %>
 						<% end %>
 					<% end %>
-
-					<% # Request Hint Button # %>
-					<% if !@problem.solved_by?(current_user.team_id) %>
-						<%= content_tag :div, class: 'col-md-12' do %>
-							<%= link_to 'Request Hint', request_hint_path(problem_id: @problem.id),  method: :post, class: 'btn btn-primary' %>
-						<% end %>
-					<% end %>
-
-				<% #  User view with no hints available# %>
-				<% else %>
-					<h4 class='col-md-6 col-md-offset-3'>Sorry, no hints available!</h4>
 				<% end %>
-
 			<% end %>
 		<% end %>
 	<% end %>
