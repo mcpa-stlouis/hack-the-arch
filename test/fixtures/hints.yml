@@ -4,9 +4,11 @@ example_hint_1:
   id: 1
   priority: 1
   hint: You can do it!
+  pointer_counter: 0
   points: 25
 
 example_hint_2:
   priority: 2
   hint: You can do it!
+  pointer_counter: 0
   points: 25

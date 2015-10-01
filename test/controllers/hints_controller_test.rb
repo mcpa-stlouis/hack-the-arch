@@ -40,6 +40,12 @@ class HintsControllerTest < ActionController::TestCase
     assert_redirected_to root_url
   end
 
+	test "should allow create when logged in as admin" do
+		log_in_as(@admin)
+    post :create, hint: { priority: @hint.priority, hint: @hint.hint, points: @hint.points, problem_id: @problem.id }
+    assert_redirected_to @problem
+  end
+
 
 	test "should redirect edit when not logged in" do
     get :edit, id: @hint.id

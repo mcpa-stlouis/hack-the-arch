@@ -13,7 +13,7 @@ class HintsController < ApplicationController
 		if @hint.save
 			@problem.add(@hint.id)
 			flash[:success] = "Hint saved!"
-			redirect_to edit_problem_path(@problem)
+			redirect_to @problem
 		else
 			render 'new'
 		end
@@ -28,7 +28,7 @@ class HintsController < ApplicationController
 		@hint = Hint.find(params[:id])
 		if @hint.update_attributes(hint_params)
 			@problem = Problem.find(params[:hint][:problem_id])
-			redirect_to edit_problem_path(@problem)
+			redirect_to @problem
 		else
 			render 'edit'
 		end

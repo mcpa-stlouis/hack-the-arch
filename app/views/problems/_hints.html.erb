@@ -1,25 +1,29 @@
-<%= content_tag :table, id: 'hints', class: 'table' do %>
-	<% for hint in get_hints_for_problem(@problem) %>
-		<% @prob_hint = get_hint(hint) %>
-		<%= content_tag :tr do %> 
-			<%= content_tag :td, class: 'col-md-8' do %>
-				<%= content_tag :h5, id: @prob_hint.id do %>
-					<%= @prob_hint.priority %>: <%= @prob_hint.hint %> ( <%= @prob_hint.points %> )
+<%= content_tag :div, class: 'col-md-6 col-md-offset-3' do %>
+	<%= content_tag :table, id: 'hints', class: 'table' do %>
+		<% for hint in get_hints_for_problem(@problem) %>
+			<% @prob_hint = get_hint(hint) %>
+			<%= content_tag :tr do %> 
+				<%= content_tag :td, class: 'col-md-8' do %>
+					<%= content_tag :h5, id: add_id("prob_#{@problem.id}_hint_row",@prob_hint) do %>
+						<%= @prob_hint.priority %>: <%= @prob_hint.hint %> ( <%= @prob_hint.points %> )
+					<% end %>
 				<% end %>
-			<% end %>
-			<%= content_tag :td, class: 'col-md-2' do %>
-				<% if admin_user? %>
-					<%= link_to 'Edit', edit_hint_path(id: @prob_hint.id, problem_id: @problem.id), class: 'btn btn-primary' %>
+				<%= content_tag :td, class: 'col-md-2' do %>
+					<% if admin_user? %>
+						<%= link_to 'Edit', edit_hint_path(id: @prob_hint.id, problem_id: @problem.id), class: 'btn btn-primary' %>
+					<% end %>
 				<% end %>
-			<% end %>
-			<%= content_tag :td, class: 'col-md-2' do %>
-				<% if admin_user? %>
-					<%= link_to 'Remove', remove_hint_path(hint_id: @prob_hint.id, problem_id: @problem.id),  method: :delete, class: 'btn btn-primary' %>
+				<%= content_tag :td, class: 'col-md-2' do %>
+					<% if admin_user? %>
+						<%= link_to 'Remove', remove_hint_path(hint_id: @prob_hint.id, problem_id: @problem.id),  method: :delete, class: 'btn btn-primary' %>
+					<% end %>
 				<% end %>
 			<% end %>
 		<% end %>
 	<% end %>
-<% end %>
-<% if admin_user? %>
-	<%= render 'new_hint' %>
+	<% if admin_user? %>
+		<%= content_tag :div, id: 'new_hint' do %>
+			<%= render 'new_hint' %>
+		<% end %>
+	<% end %>
 <% end %>

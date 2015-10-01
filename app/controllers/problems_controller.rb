@@ -40,10 +40,14 @@ class ProblemsController < ApplicationController
 
 	def remove_hint
 		# Hint implements reference counting (i.e., don't worry about it here)
-		@problem = Problem.find(params[:problem_id])
-		@problem.remove(params[:hint_id])
-    flash[:success] = "Hint removed successfully"
-    redirect_to edit_problem_url(@problem)
+		if (@problem = Problem.find(params[:problem_id])) && Hint.find(params[:hint_id])
+			@problem.remove(params[:hint_id])
+    	flash[:success] = "Hint removed successfully"
+    	redirect_to @problem
+		else
+			flash[:error] = "Hint or Problem ID invalid"
+			redirect_to problems_url
+		end
 	end
 
 	def add_hint
@@ -72,7 +76,6 @@ class ProblemsController < ApplicationController
 
 	def edit
 		@problem = Problem.find(params[:id])
-		@hints = Hint.all
 	end
 
 	def update

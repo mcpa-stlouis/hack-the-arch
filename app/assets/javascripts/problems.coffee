@@ -4,10 +4,10 @@
 hints = ""
 
 setup_hooks = ->
-  if !document.getElementById('hint_table') 
+  if !document.getElementById('new_hint') 
     return
 
-  $('#filter').keyup ->
+  $('.filter').keyup ->
     rex = new RegExp($(this).val(), 'i')
     $('.searchable tr').hide()
     $('.searchable tr').filter(->
@@ -22,7 +22,7 @@ setup_hooks = ->
       "hint_id": $(this).data("hint-id")
       "problem_id": $(this).data("problem-id")
     }, (result) ->
-      $("#new_hint").modal("hide")
+      $(".new_hint_modal").modal("hide")
       location.reload()
       return
   return

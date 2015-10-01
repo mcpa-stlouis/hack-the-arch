@@ -1,10 +1,10 @@
 <!-- Button trigger modal -->
-<button type="button" class="col-md-12 btn btn-primary" data-toggle="modal" data-target="#new_hint">
+<%= button_tag type: 'button', class: 'col-md-12 btn btn-primary', 'data-toggle' => 'modal', 'data-target' => add_id('#new_hint_for_problem',@problem) do %>
 	Add
-</button>
+<% end %>
 
 <!-- Modal -->
-<div class="modal fade" id="new_hint" tabindex="-1" role="dialog" aria-labelledby="new_hint_dialog_label">
+<%= content_tag :div, id: add_id('new_hint_for_problem',@problem), class: 'new_hint_modal modal fade', tabindex: '-1', role: 'dialog', 'aria-labelledby' => 'new_hint_dialog_label' do %>
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -14,9 +14,9 @@
 			<div class="modal-body">
 				<div class="input-group"> 
 					<span class="input-group-addon">Search</span>
-					<input id="filter" type="text" class="form-control">
+					<%= text_field nil, 'filter', class: 'filter form-control' %>
 				</div>
-				<%= content_tag :table, id: 'hint_table', class: 'table' do %>
+				<%= content_tag :table, id: add_id('hint_table_for',@problem), class: 'table' do %>
 					<%= content_tag :thead do %>
 						<%= content_tag :tr do %>
 							<%= content_tag :th, 'ID', class: 'col-md-2' %>
@@ -25,7 +25,7 @@
 						<% end %>
 					<% end %>
 					<%= content_tag :tbody, class: 'searchable' do %>
-						<% for hint in @hints %>
+						<% for hint in Hint.all %>
 							<%= content_tag :tr, class: 'hint_row', 'data-hint-id' => hint.id, 'data-problem-id' => @problem.id do %>
 								<%= content_tag :td, hint.id %>
 								<%= content_tag :td, hint.hint %>
@@ -41,4 +41,4 @@
 			</div>
 		</div>
 	</div>
-</div>
+<% end %>

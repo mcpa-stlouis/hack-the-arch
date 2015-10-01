@@ -27,17 +27,44 @@ class ProblemsControllerTest < ActionController::TestCase
 	end
 
   test "should redirect create when not logged in" do
-    post :create, problem: { name: @problem.name, category: @problem.category, description: @problem.description, points: @problem.points }
+    post :create, problem: { name: @problem.name, 
+														 description: @problem.description,
+														 category: @problem.category,
+														 points: @problem.points,
+														 solution: @problem.solution,
+														 correct_message: @problem.correct_message,
+														 false_message: @problem.false_message,
+														 visible: @problem.visible}
     assert_not flash.empty?
     assert_redirected_to login_url
   end
 
   test "should redirect create when not admin" do
     log_in_as(@non_admin)
-    post :create, problem: { name: @problem.name, category: @problem.category, description: @problem.description, points: @problem.points }
+    post :create, problem: { name: @problem.name, 
+														 description: @problem.description,
+														 category: @problem.category,
+														 points: @problem.points,
+														 solution: @problem.solution,
+														 correct_message: @problem.correct_message,
+														 false_message: @problem.false_message,
+														 visible: @problem.visible}
     assert_not flash.empty?
     assert_redirected_to root_url
   end
+
+	test "should allow create when admin" do
+    log_in_as(@admin)
+    post :create, problem: { name: @problem.name, 
+														 description: @problem.description,
+														 category: @problem.category,
+														 points: @problem.points,
+														 solution: @problem.solution,
+														 correct_message: @problem.correct_message,
+														 false_message: @problem.false_message,
+														 visible: @problem.visible}
+    assert_redirected_to problems_url
+	end
 
   test "should redirect new when not logged in" do
     get :new
@@ -78,29 +105,62 @@ class ProblemsControllerTest < ActionController::TestCase
 	end
 
   test "should redirect update when not logged in" do
-    patch :update, id: @problem, problem: { name: @problem.name, category: @problem.category, description: @problem.description, points: @problem.points }
+    patch :update, id: @problem, problem: { name: @problem.name, 
+														 								description: @problem.description,
+														 								category: @problem.category,
+														 								points: @problem.points,
+														 								solution: @problem.solution,
+														 								correct_message: @problem.correct_message,
+														 								false_message: @problem.false_message,
+														 								visible: @problem.visible}
     assert_not flash.empty?
     assert_redirected_to login_url
   end
 
   test "should redirect update when not admin" do
     log_in_as(@non_admin)
-    patch :update, id: @problem, problem: { name: @problem.name, category: @problem.category, description: @problem.description, points: @problem.points }
+    patch :update, id: @problem, problem: { name: @problem.name, 
+														 								description: @problem.description,
+														 								category: @problem.category,
+														 								points: @problem.points,
+														 								solution: @problem.solution,
+														 								correct_message: @problem.correct_message,
+														 								false_message: @problem.false_message,
+														 								visible: @problem.visible}
     assert_not flash.empty?
     assert_redirected_to root_url
   end
 
+  test "should allow update when admin" do
+    log_in_as(@admin)
+    patch :update, id: @problem, problem: { name: @problem.name, 
+														 								description: @problem.description,
+														 								category: @problem.category,
+														 								points: @problem.points,
+														 								solution: @problem.solution,
+														 								correct_message: @problem.correct_message,
+														 								false_message: @problem.false_message,
+														 								visible: @problem.visible}
+    assert_redirected_to @problem
+  end
+
   test "should redirect destroy when not logged in" do
-    delete :destroy, id: @problem, problem: { name: @problem.name, category: @problem.category, description: @problem.description, points: @problem.points }
+    delete :destroy, id: @problem
     assert_not flash.empty?
     assert_redirected_to login_url
   end
 
   test "should redirect destroy when not admin" do
     log_in_as(@non_admin)
-    delete :destroy, id: @problem, problem: { name: @problem.name, category: @problem.category, description: @problem.description, points: @problem.points }
+    delete :destroy, id: @problem
     assert_not flash.empty?
     assert_redirected_to root_url
+  end
+
+  test "should allow destroy when admin" do
+    log_in_as(@admin)
+    delete :destroy, id: @problem
+    assert_redirected_to problems_url
   end
 
 end

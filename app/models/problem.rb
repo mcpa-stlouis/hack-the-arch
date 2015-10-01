@@ -30,10 +30,12 @@ class Problem < ActiveRecord::Base
 
 	def remove_all_hints
 		if self.hints 
-			for hint in hints_array
-				hint.decrement_pointer_counter
+			hint_array = hints_array
+			# IMPORTANT: Must save hints before decrementing pointers
+			save_hints(hint_array.clear)
+			for hint in hint_array
+				Hint.find_by(id: hint.to_i).decrement_pointer_counter
 			end
-			save_hints(hints_array.clear)
 		end
 	end
 
