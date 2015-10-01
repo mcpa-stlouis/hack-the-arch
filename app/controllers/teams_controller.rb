@@ -29,9 +29,7 @@ class TeamsController < ApplicationController
 		# Remove reference from members
 		@team = Team.find(params[:id])
 		for user_id in @team.members_array
-			user = User.find(user_id)
-			user.team_id = nil
-			user.save
+			User.find(user_id).update_attributes(team_id: nil)
 		end
 		
 		@team.destroy

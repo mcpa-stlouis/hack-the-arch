@@ -43,7 +43,7 @@ class ProblemsController < ApplicationController
 		@problem = Problem.find(params[:problem_id])
 		@problem.remove(params[:hint_id])
     flash[:success] = "Hint removed successfully"
-    redirect_to edit_problem_path(@problem)
+    redirect_to edit_problem_url(@problem)
 	end
 
 	def add_hint
@@ -54,19 +54,18 @@ class ProblemsController < ApplicationController
 			render json: { status: :ok }
 		else
 			flash[:error] = "Hint or Problem ID invalid"
-			redirect_to problems_path
+			redirect_to problems_url
 		end
 	end
 
 	def destroy
-		# Remove team from all members
-		users = User.where(team_id = params[:id])
-		for user in users
-			user.update_attributes(team_id: nil)
-		end
+    problem = Problem.find(params[:id])
 
-		# Destroy team
-    Problem.find(params[:id]).destroy
+		# Remove hints (to update ref counters)
+		problem.remove_all_hints
+		
+		# Destroy problem
+		problem.destroy
     flash[:success] = "Problem deleted"
     redirect_to problems_url
   end
@@ -80,7 +79,7 @@ class ProblemsController < ApplicationController
 		@problem = Problem.find(params[:id])
 		if @problem.update_attributes(problem_params)
 			flash[:success] = "Changes saved successfully"
-			redirect_to problems_url
+			redirect_to @problem
 		else
 			render 'edit'
 		end

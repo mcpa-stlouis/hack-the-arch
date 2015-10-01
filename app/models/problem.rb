@@ -5,7 +5,7 @@ class Problem < ActiveRecord::Base
 	validates :description,  presence: true, length: { maximum: 500 }
 	validates :points,  presence: true, numericality: { only_integer: true, greater_than: 0 }
 	validates :visible, :inclusion => {:in => [true, false]}
-	validates :hints, absence: true
+	validates :hints, absence: true, on: :create
 	validate  :picture_size
 
 	def solved_by?(team_id)
@@ -25,6 +25,15 @@ class Problem < ActiveRecord::Base
 			hint = Hint.find(hint_id)
 			save_hints(hints_array.reject! { |id| id == hint.id.to_s })
 			hint.decrement_pointer_counter
+		end
+	end
+
+	def remove_all_hints
+		if self.hints 
+			for hint in hints_array
+				hint.decrement_pointer_counter
+			end
+			save_hints(hints_array.clear)
 		end
 	end
 
