@@ -29,4 +29,10 @@ module SettingsHelper
 		(Setting.find_by(name: 'send_activation_emails').value == "0") ? false : true
 	end
 
+	# returns int value of setting if it's between 0 and 2 ^ 16, otherwise 0
+	# 0 = no limit on submissions
+	def max_submissions_per_team
+		(value = Setting.find_by(name: 'max_submissions_per_team').value.to_i).between?(0,2**16) ? value : 0
+	end
+
 end

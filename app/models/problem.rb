@@ -4,7 +4,8 @@ class Problem < ActiveRecord::Base
 	validates :category,  presence: true, length: { maximum: 100 }
 	validates :description,  presence: true, length: { maximum: 500 }
 	validates :points,  presence: true, numericality: { only_integer: true, greater_than: 0 }
-	validates :visible, :inclusion => {:in => [true, false]}
+	validates :visible, inclusion: { in: [true, false] }
+	validates :visible, exclusion: { in: [nil] }
 	validates :hints, absence: true, on: :create
 	validate  :picture_size
 

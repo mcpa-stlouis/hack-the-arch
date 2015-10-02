@@ -1,7 +1,8 @@
 class Submission < ActiveRecord::Base
   before_save :invalidate_cache
-	validates :points,  presence: true, numericality: { only_integer: true, greater_than: 0 }
-	validates :correct, presence: true, inclusion: { in: [true, false] }
+	validates :points,  presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+	validates :correct, inclusion: { in: [true, false] }
+	validates :correct, exclusion: { in: [nil] }
 	validates :user_id,  presence: true, numericality: { only_integer: true, greater_than: 0 }
 	validates :team_id,  presence: true, numericality: { only_integer: true, greater_than: 0 }
 	validates :problem_id,  presence: true, numericality: { only_integer: true, greater_than: 0 }
@@ -15,6 +16,10 @@ class Submission < ActiveRecord::Base
 								submission.team_id != 1) ? 1 : 0
 		end
 		count
+	end
+
+	def Submission.get_number_of_submissions_for_team(problem_id, team_id)
+		Submission.where(team_id: team_id, problem_id: problem_id).count
 	end
 
 	private

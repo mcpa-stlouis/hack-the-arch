@@ -1,5 +1,6 @@
 class Cache < ActiveRecord::Base
-	validates :cache_valid, presence: true, inclusion: { in: [true, false] }
+	validates :cache_valid, inclusion: { in: [true, false] }
+	validates :cache_valid, exclusion: { in: [nil] }
 	validates :key,  presence: true, length: { maximum: 255 }
 	validates :value,  presence: true, length: { maximum: 4096 }
 
