@@ -11,7 +11,7 @@
   	<li role="presentation" class="active"><a href="#all" aria-controls="all" role="tab" data-toggle="tab">All</a></li>
 		<% for bracket in @brackets do %>
   		<li role="presentation">
-				<a href="#<%= bracket.name %>" aria-controls="<%= bracket.name %>" role="tab" data-toggle="tab"><%= bracket.name %></a>
+				<%= link_to bracket.name, "##{add_id('bracket',bracket)}", 'aria-controls' => add_id('bracket',bracket), role: 'tab', 'data-toggle' => 'tab' %>
 			</li>
 		<% end %>
 	</ul>
@@ -24,11 +24,11 @@
 			</ul>
 		</div>
 		<% for bracket in @brackets do %>
-  		<div role="tabpanel" class="tab-pane" id="<%= bracket.name %>">
+			<%= content_tag :div, role: 'tabpanel', class: 'tab-pane', id: add_id('bracket', bracket) do %>
 				<ul class="teams row teams_list">
 					<%= render @teams.select { |b| b.bracket_id == bracket.id } %>
 				</ul>
-			</div>
+			<% end %>
 		<% end %>
 	</div>
 </div>
