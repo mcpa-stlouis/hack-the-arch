@@ -74,7 +74,7 @@ class User < ActiveRecord::Base
   end
 
 	def get_score
-		cache = Cache.find_by(key: 'team_'+self.id.to_s+'_score')
+		cache = Cache.find_by(key: 'user_'+self.id.to_s+'_score')
 		if cache && cache.cache_valid
 			cache.value.to_i
 		else
