@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150926231931) do
+ActiveRecord::Schema.define(version: 20151024144208) do
 
   create_table "brackets", force: :cascade do |t|
     t.string   "name"
     t.integer  "priority"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "hints_available"
   end
 
   create_table "caches", force: :cascade do |t|
