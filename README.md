@@ -16,10 +16,18 @@ Requirements
 
 Getting Started
 ---------------
-* This app is presently designed to be deployed in a heroku environment.  You'll need to add the sendgrid addon before deploying (heroku addons:create sendgrid:starter) and update the host to match your domain in 'config/environments/production.rb'.
+* This app is presently designed to be deployed in a heroku environment.  You'll need to add the sendgrid addon before deploying (heroku addons:create sendgrid:starter) and update the host to match your domain in 'config/environments/production.rb'.  To deploy to Heroku, see their help page [here](https://devcenter.heroku.com/articles/getting-started-with-ruby#set-up).
 * It can be deployed outside a heroku environment but will require some alternative for sending account activation e-mails
 * To initialize the database, run: `bundle exec rake db:seed`.  After initialization, the admin login credentials will be: **admin@gmail.com** : **password**
 * **Important**: It is highly advised that you change the admin credentials post-deployment
+
+Quick Start (Local Deployment)
+------------------------------
+Tested using Ubuntu Server 15.10.
+* We recommend you remove the debug box in: 'app/views/layouts/application.html.erb'
+* Install the following packages 'gcc make ruby ruby2.2 bundler zlib1g-dev postgresql-server-dev-all libsqlite3-dev nodejs'
+* Run "rake db:seed"
+* Run "sudo rails server -p 80 -b 0.0.0.0 -d"
 
 Contact
 -------
