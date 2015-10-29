@@ -19,7 +19,7 @@
 		<% #  Problem Tab Content # %>
 		<%= content_tag :div, role: 'tabpanel', class: 'tab-pane active', id: add_id('problem',@problem) do %>
 			<%= content_tag :h4, "Solves: #{Submission.get_solves_for_problem(@problem.id)}", class: 'text-center' %>
-			<%= content_tag :p, @problem.description %>
+			<%= content_tag :p, simple_format(@problem.description) %>
 			<p><%= image_tag @problem.picture.url if @problem.picture? %></p>
 			<% if @problem.solved_by?(current_user.team_id) %>
 				<p>Your team has solved this challenge!</p>
