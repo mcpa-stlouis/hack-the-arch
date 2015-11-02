@@ -1,11 +1,11 @@
 <%= form_tag settings_path, method: 'patch', class: 'form-inline col-md-12' do %>
 	<% for setting in @settings %>
-		<%= content_tag :div, class: 'row' do %>
+		<%= content_tag :div, class: 'row settings-row' do %>
 			<% if setting.setting_type == 'boolean' %>
 				<%= hidden_field_tag "admin[#{setting.id.to_s}][id]", :id, value: setting.id %>
 				<%= label_tag "admin[#{setting.id.to_s}][value]", setting.name, class: 'col-md-4 control-label' %>
 				<%  checked = (setting.value == '1') ? true : false %>
-				<%= check_box_tag "admin[#{setting.id.to_s}][value]", setting.value, checked, class: 'col-md-8 form-control' %>
+				<%= check_box_tag "admin[#{setting.id.to_s}][value]", setting.value, checked, class: 'col-md-8 bootstrap-switches' %>
 			<% #elsif setting.setting_type == 'color' %>
 
 			<% #elsif setting.setting_type == 'date' %>
