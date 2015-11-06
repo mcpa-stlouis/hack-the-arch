@@ -16,6 +16,7 @@
 //= require bootstrap
 //= require turbolinks
 //= require_tree .
+//= require bootstrap-switch
 $(document).ready(function() {
 	setTimeout(function(){ 
 		$().alert('close');
