@@ -28,6 +28,12 @@
   <% end %>
 	<%= tag :br %>
 
+	<%= f.label :case_sensitive, class: 'checkbox-inline' do %>
+  	<%= f.check_box :case_sensitive %>
+  	<%= content_tag :span, 'Solution is case sensitive' %>
+  <% end %>
+	<%= tag :br %>
+
 	<%= content_tag :span, class: 'picture' do %>
   	<%= f.label :image %>
 		<%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>

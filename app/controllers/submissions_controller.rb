@@ -9,8 +9,15 @@ class SubmissionsController < ApplicationController
 	def create
 		correct = false
 		points = 0
-		solution = params[:submission][:value]
+		user_solution = params[:submission][:value]
 		@problem = Problem.find(params[:submission][:id])
+		correct_solution = @problem.solution
+
+		# If the solution is not case sensitive
+		if (!@problem.case_sensitive?)
+			user_solution.upcase!
+			correct_solution.upcase!
+		end
 
 		# If limit has been reached
 		if (max = max_submissions_per_team) > 0 &&
@@ -20,7 +27,7 @@ class SubmissionsController < ApplicationController
 			return
 
 		# If the solution is correct
-		elsif solution == @problem.solution
+		elsif user_solution == correct_solution
 			correct = true
 
 			# And it has not already been solved
@@ -35,7 +42,7 @@ class SubmissionsController < ApplicationController
 
 		# Or the answer has already been guessed
 		elsif ( Submission.find_by(team_id: current_user.team_id,
-														 	submission: solution) )
+														 	submission: user_solution) )
 			flash[:warning] = "Your team has already guessed that!"
 			redirect_to @problem
 		else
@@ -45,7 +52,7 @@ class SubmissionsController < ApplicationController
 		Submission.create(team_id:  current_user.team_id,
 					 						user_id: current_user.id,
 					 						problem_id: @problem.id,
-					 						submission: solution,
+					 						submission: user_solution,
 					 						correct: correct,
 					 						points:	points)
 	end
