@@ -16,6 +16,12 @@ class ProblemsTest < ActionDispatch::IntegrationTest
 		log_out
 	end
 
+	test "should not redirect index when not logged in" do
+		get problems_path
+		assert_not flash.empty?
+		assert_redirected_to login_url
+	end
+
 	test "should not redirect index when competition hasn't started and admin" do
 		make_comp_inactive
 		log_in_as(@admin)

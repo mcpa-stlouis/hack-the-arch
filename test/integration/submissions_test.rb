@@ -29,5 +29,12 @@ class SubmissionsTest < ActionDispatch::IntegrationTest
 																	 	value: "  " }
 		assert_equal @score, Team.find(@non_admin.team_id).get_score
 	end
+
+	test "should not work when not logged in" do
+    post submit_path, submission: { id: @problem.id, 
+																	 	value: "  " }
+		assert_not flash.empty?
+		assert_redirected_to login_url
+	end
 		
 end
