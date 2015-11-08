@@ -30,3 +30,8 @@ setting_send_activation_emails:
   name: "send_activation_emails"
   value: "1"
   setting_type: "boolean"
+
+max_submissions_per_team:
+  name: "max_submissions_per_team"
+  value: "1"
+  setting_type: "boolean"
