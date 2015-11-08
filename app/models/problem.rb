@@ -7,6 +7,8 @@ class Problem < ActiveRecord::Base
 	validates :visible, inclusion: { in: [true, false] }
 	validates :visible, exclusion: { in: [nil] }
 	validates :hints, absence: true, on: :create
+	validates :case_sensitive, inclusion: { in: [true, false] }
+	validates :case_sensitive, exclusion: { in: [nil] }
 	validate  :picture_size
 
 	def solved_by?(team_id)
