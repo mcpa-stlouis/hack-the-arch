@@ -18,7 +18,7 @@ class HintRequestsController < ApplicationController
 		elsif ((!hints_requested || 
 				 hints_requested.count < @problem.number_of_hints_available) &&
 				 @problem.number_of_hints_available > 0 &&
-				 (use_handicap? && hints_requested.count < @bracket.hints_available))
+				 ((use_handicap? && hints_requested.count < @bracket.hints_available) || !use_handicap?))
 
 			@hint = Hint.find(@problem.get_next_hint(@team.id, @problem.id))
 
