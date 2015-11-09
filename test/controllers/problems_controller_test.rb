@@ -63,7 +63,7 @@ class ProblemsControllerTest < ActionController::TestCase
 														 correct_message: @problem.correct_message,
 														 false_message: @problem.false_message,
 														 visible: @problem.visible,
-														 case_sensitive: @problem.case_sensitive}
+														 solution_case_sensitive: @problem.solution_case_sensitive}
     assert_redirected_to problems_url
 	end
 

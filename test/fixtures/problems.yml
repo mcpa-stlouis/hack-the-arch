@@ -9,7 +9,7 @@ example_problem:
   correct_message: Correct!
   false_message: Incorrect
   visible: true
-  case_sensitive: true
+  solution_case_sensitive: true
 
 example_problem_2:
   name: HackTheArch2
@@ -21,4 +21,4 @@ example_problem_2:
   false_message: Incorrect
   hints: 1
   visible: true
-  case_sensitive: true
+  solution_case_sensitive: true

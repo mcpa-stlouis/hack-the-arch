@@ -9,7 +9,7 @@ class SubmissionsTest < ActionDispatch::IntegrationTest
 
 	def make_problem_case_insensitive
 		log_in_as(@admin)
-		@problem.case_sensitive = false
+		@problem.solution_case_sensitive = false
 		@problem.save
 		log_out
 	end
