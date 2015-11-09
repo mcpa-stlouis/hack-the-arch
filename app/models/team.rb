@@ -10,6 +10,8 @@ end
 class Team < ActiveRecord::Base
 	include ActiveModel::Validations
 	include SettingsHelper
+	has_many :users, dependent: :destroy
+	belongs_to :bracket
 	validates :name,  presence: true, length: { maximum: 50 },
 										uniqueness: true
 	validates :passphrase,  presence: true, 
@@ -118,14 +120,14 @@ class Team < ActiveRecord::Base
 			cache.value.to_i
 		else
 			if subtract_hint_points_before_solve?
-				score = Submission.where(team_id: self.id).sum(:points) - 
-				HintRequest.where(team_id: self.id).sum(:points)
+				score = Submission.where(team: self.id).sum(:points) - 
+				HintRequest.where(team: self.id).sum(:points)
 			else
 				score = 0
-				for submission in Submission.where(team_id: self.id)
+				for submission in Submission.where(team: self.id)
 					if submission.correct
 						score = score + submission.points
-						for hint in HintRequest.where(team_id: self.id, problem_id: submission.problem_id)
+						for hint in HintRequest.where(team: self.id, problem: submission.problem)
 							score = score - hint.points
 						end
 					end
@@ -144,11 +146,11 @@ class Team < ActiveRecord::Base
 
 	def get_score_progression
 		# merge hint_requests and submissions
-		@submissions = Submission.where(team_id: self.id, correct: true)
+		@submissions = Submission.where(team: self.id, correct: true)
 		if subtract_hint_points_before_solve?
-			@hint_requests = HintRequest.where(team_id: self.id)
+			@hint_requests = HintRequest.where(team: self.id)
 		else
-			@hint_requests = HintRequest.where(team_id: self.id, problem_id: @submissions.select(:problem_id))
+			@hint_requests = HintRequest.where(team: self.id, problem_id: @submissions.select(:problem_id))
 		end
 
 		@combined_submissions = @submissions + @hint_requests
@@ -159,7 +161,7 @@ class Team < ActiveRecord::Base
 		for sub in @combined_submissions
 			pnts += (sub.has_attribute?:correct) ? sub.points : -(sub.points)
 			result.push({points: pnts,
-									 team_id: sub.team_id,
+									 team: sub.team_id,
 									 created_at: sub.created_at})
 		end
 		result
@@ -167,7 +169,7 @@ class Team < ActiveRecord::Base
 	end
 
 	def get_hints_requested(problem_id)
-		HintRequest.where(team_id: self.id, problem_id: problem_id)
+		HintRequest.where(team: self.id, problem: problem_id)
 	end
 
 	def get_most_recent_solve

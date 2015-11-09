@@ -1,5 +1,7 @@
 class Problem < ActiveRecord::Base
 	mount_uploader :picture, PictureUploader
+	has_many :hint_requests, dependent: :destroy
+	has_many :submissions, dependent: :destroy
 	validates :name,  presence: true, length: { maximum: 50 }
 	validates :category,  presence: true, length: { maximum: 100 }
 	validates :description,  presence: true, length: { maximum: 500 }
