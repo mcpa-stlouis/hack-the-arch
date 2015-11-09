@@ -35,7 +35,7 @@ user = User.create!(id: Random.rand(10000),
 						 				team_id: team.id,
  						 				activated_at: Time.zone.now)
 
-team.add(user)
+user.join_team(team)
 
 hint = Hint.create!(hint: "The test was named after him",
 						 				points: "25",
