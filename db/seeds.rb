@@ -58,5 +58,6 @@ Problem.create!(name: "Google Foo",
     						solution: "Shodan",
     						correct_message: "Scary, right!?",
     						false_message: "Try again!",
+    						solution_case_sensitive: "1",
     						visible: "1")
 
