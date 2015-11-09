@@ -48,6 +48,7 @@ problem = Problem.create!(name: "Who's that scientist?",
     											solution: "Alan Turing",
     											correct_message: "Very good!",
     											false_message: "Try again!",
+    											solution_case_sensitive: "1",
     											visible: "1")
 problem.add(hint.id)
 
