@@ -47,13 +47,13 @@ module SessionsHelper
 
 	def current_team
 		if logged_in?
-			Team.find(current_user.team_id)
+			current_user.team
 		end
 	end
 
 	def member_of_team(user, team)
 		if logged_in?
-			user.is_member?(team)
+			user.team == team
 		end
 	end
 

@@ -20,7 +20,6 @@ class Team < ActiveRecord::Base
 													length: { minimum: 6 }
 	validates :bracket_id, presence: true, 
 												 numericality: { only_integer: true, greater_than: 0 }
-	validates :members, absence: true, on: :create
 	validate  :bracket_exists
 	validates_with ValidateAtCapacity
 
@@ -96,24 +95,8 @@ class Team < ActiveRecord::Base
 		end
 	end
 
-	def add(user)
-		if members_array.count < max_members_per_team
-			save_members(members_array.push(user.id.to_s))
-		else
-			return false
-		end
-	end
-	
-	def remove(user)
-		if self.members 
-			save_members(members_array.reject! { |member| member == user.id.to_s })
-		end
-	end
-
 	def at_capacity?
-		if self.members 
-			members_array.count >= max_members_per_team
-		end
+		self.users.count >= max_members_per_team
 	end
 
 	def get_score
@@ -174,18 +157,6 @@ class Team < ActiveRecord::Base
 	def get_most_recent_solve
 		sub = self.submissions.last
 		sub.created_at if sub
-	end
-
-	def members_array
-		if !self.members # Lazy Instantiation
-			Array.new
-		else
-			self.members.split(',')
-		end
-	end
-
-	def save_members(members_array)
-		update_attribute(:members, members_array.join(','))
 	end
 
 	def authenticate(passphrase)
