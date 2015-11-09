@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151108175203) do
+ActiveRecord::Schema.define(version: 20151109214900) do
 
   create_table "brackets", force: :cascade do |t|
     t.string   "name"
@@ -39,6 +39,10 @@ ActiveRecord::Schema.define(version: 20151108175203) do
     t.integer  "problem_id"
   end
 
+  add_index "hint_requests", ["problem_id"], name: "index_hint_requests_on_problem_id"
+  add_index "hint_requests", ["team_id"], name: "index_hint_requests_on_team_id"
+  add_index "hint_requests", ["user_id"], name: "index_hint_requests_on_user_id"
+
   create_table "hints", force: :cascade do |t|
     t.string   "hint"
     t.integer  "points"
@@ -51,8 +55,8 @@ ActiveRecord::Schema.define(version: 20151108175203) do
   create_table "problems", force: :cascade do |t|
     t.integer  "points"
     t.string   "category"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.string   "name"
     t.string   "description"
     t.string   "solution"
@@ -61,7 +65,7 @@ ActiveRecord::Schema.define(version: 20151108175203) do
     t.string   "hints"
     t.string   "picture"
     t.boolean  "visible"
-    t.boolean  "case_sensitive"
+    t.boolean  "solution_case_sensitive"
   end
 
   create_table "settings", force: :cascade do |t|
@@ -83,6 +87,10 @@ ActiveRecord::Schema.define(version: 20151108175203) do
     t.string   "submission"
   end
 
+  add_index "submissions", ["problem_id"], name: "index_submissions_on_problem_id"
+  add_index "submissions", ["team_id"], name: "index_submissions_on_team_id"
+  add_index "submissions", ["user_id"], name: "index_submissions_on_user_id"
+
   create_table "teams", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -91,6 +99,8 @@ ActiveRecord::Schema.define(version: 20151108175203) do
     t.string   "members"
     t.integer  "bracket_id"
   end
+
+  add_index "teams", ["bracket_id"], name: "index_teams_on_bracket_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "fname"
@@ -108,5 +118,7 @@ ActiveRecord::Schema.define(version: 20151108175203) do
     t.string   "reset_digest"
     t.datetime "reset_sent_at"
   end
+
+  add_index "users", ["team_id"], name: "index_users_on_team_id"
 
 end

@@ -14,7 +14,7 @@ class SubmissionsController < ApplicationController
 		correct_solution = @problem.solution
 
 		# If the solution is not case sensitive
-		if (!@problem.case_sensitive?)
+		if (!@problem.solution_case_sensitive?)
 			user_solution.upcase!
 			correct_solution.upcase!
 		end
