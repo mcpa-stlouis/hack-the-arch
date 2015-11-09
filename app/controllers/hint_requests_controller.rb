@@ -6,6 +6,7 @@ class HintRequestsController < ApplicationController
 	def create
 		points = 0
 		@problem = Problem.find(params[:problem_id])
+		@bracket = Bracket.find(current_team.bracket_id)
 		@user = current_user
 
 		@team = Team.find(@user.team_id)
@@ -16,7 +17,8 @@ class HintRequestsController < ApplicationController
 			redirect_to @problem
 		elsif ((!hints_requested || 
 				 hints_requested.count < @problem.number_of_hints_available) &&
-				 @problem.number_of_hints_available > 0 )
+				 @problem.number_of_hints_available > 0 &&
+				 ((use_handicap? && hints_requested.count < @bracket.hints_available) || !use_handicap?))
 
 			@hint = Hint.find(@problem.get_next_hint(@team.id, @problem.id))
 

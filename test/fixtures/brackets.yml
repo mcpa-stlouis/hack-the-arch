@@ -3,4 +3,5 @@
 example_bracket:
   id: 1
   name: Professional
+  hints_available: 3
   priority: 1

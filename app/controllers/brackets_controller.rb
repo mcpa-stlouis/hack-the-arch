@@ -38,7 +38,7 @@ class BracketsController < ApplicationController
 
 	private
 		def bracket_params
-			params.require(:bracket).permit(:name, :priority)
+			params.require(:bracket).permit(:name, :priority, :hints_available)
 		end
 
 		def logged_in_user

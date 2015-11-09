@@ -29,6 +29,10 @@ module SettingsHelper
 		(Setting.find_by(name: 'send_activation_emails').value == "0") ? false : true
 	end
 
+	def use_handicap?
+		(Setting.find_by(name: 'use_bracket_handicaps').value == "0") ? false : true
+	end
+
 	# returns int value of setting if it's between 0 and 2 ^ 16, otherwise 0
 	# 0 = no limit on submissions
 	def max_submissions_per_team
