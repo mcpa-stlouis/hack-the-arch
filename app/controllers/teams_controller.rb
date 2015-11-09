@@ -44,7 +44,6 @@ class TeamsController < ApplicationController
 		@user = current_user
 		@team = Team.new(team_params)
 		if @team.save
-			@team.add(@user) 
 			@user.team_id = @team.id
 			@user.save
       flash[:success] = @team.name + " created!"
