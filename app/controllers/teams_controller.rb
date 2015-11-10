@@ -56,7 +56,7 @@ class TeamsController < ApplicationController
 	def remove_member
 		@team = Team.find(params[:team_id])
 		@user = User.find(params[:user_id])
-		if !current_user.team == @team
+		if !current_user.team == @team && !current_user.admin?
 			flash[:danger] = "You can only remove members from your team"
 			redirect_to @team
 		else
