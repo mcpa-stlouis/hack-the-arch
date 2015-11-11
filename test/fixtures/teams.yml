@@ -4,10 +4,8 @@ admins:
   id: 1
   name: admins
   bracket_id: 1
-  members: 1
 
 example_team:
   id: 2
   name: example_team
   bracket_id: 1
-  members: 2
