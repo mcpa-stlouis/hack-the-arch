@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 
-<title>module ApplicationHelper - Rails Application Documentation</title>
+<title>module UsersHelper - Rails Application Documentation</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "./";
@@ -63,7 +63,7 @@
 
   <ul class="link-list" role="directory">
     
-    <li ><a href="#method-i-full_title">#full_title</a>
+    <li ><a href="#method-i-gravatar_for">#gravatar_for</a>
     
   </ul>
 </div>
@@ -71,9 +71,9 @@
   </div>
 </nav>
 
-<main role="main" aria-labelledby="module-ApplicationHelper">
-  <h1 id="module-ApplicationHelper" class="module">
-    module ApplicationHelper
+<main role="main" aria-labelledby="module-UsersHelper">
+  <h1 id="module-UsersHelper" class="module">
+    module UsersHelper
   </h1>
 
   <section class="description">
@@ -99,11 +99,11 @@
        </header>
 
     
-      <div id="method-i-full_title" class="method-detail ">
+      <div id="method-i-gravatar_for" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">full_title</span><span
-            class="method-args">(page_title = '')</span>
+          <span class="method-name">gravatar_for</span><span
+            class="method-args">(user, options = { size: 80 })</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -112,20 +112,17 @@
 
         <div class="method-description">
           
-          <p>Returns full title on per-page basis</p>
+          <p>Returns the Gravatar for the given user.</p>
           
           
 
           
-          <div class="method-source-code" id="full_title-source">
-            <pre><span class="ruby-comment"># File app/helpers/application_helper.rb, line 3</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">full_title</span>(<span class="ruby-identifier">page_title</span> = <span class="ruby-string">&#39;&#39;</span>)
-  <span class="ruby-identifier">base_title</span> = <span class="ruby-identifier">competition_name</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">page_title</span>.<span class="ruby-identifier">empty?</span>
-    <span class="ruby-identifier">base_title</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">page_title</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot; | &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">base_title</span>
-  <span class="ruby-keyword">end</span>
+          <div class="method-source-code" id="gravatar_for-source">
+            <pre><span class="ruby-comment"># File app/helpers/users_helper.rb, line 4</span>
+      <span class="ruby-keyword">def</span> <span class="ruby-identifier">gravatar_for</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">options</span> = { <span class="ruby-identifier">size</span><span class="ruby-operator">:</span> <span class="ruby-value">80</span> })
+  <span class="ruby-identifier">gravatar_id</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">MD5</span><span class="ruby-operator">::</span><span class="ruby-identifier">hexdigest</span>(<span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span>.<span class="ruby-identifier">downcase</span>)
+  <span class="ruby-identifier">gravatar_url</span> = <span class="ruby-node">&quot;https://secure.gravatar.com/avatar/#{gravatar_id}&quot;</span>
+  <span class="ruby-identifier">image_tag</span>(<span class="ruby-identifier">gravatar_url</span>, <span class="ruby-identifier">alt</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">fname</span>, <span class="ruby-identifier">class</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;gravatar&quot;</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           
