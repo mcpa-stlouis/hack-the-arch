@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-	before_action :logged_in_user, only: [:index, :destroy, :edit, :update]
+	before_action :logged_in_user, only: [:show, :index, :destroy, :edit, :update, :get_stats]
 	before_action :correct_user, only: [:edit, :update]
 	before_action :admin_user, only: [:index, :destroy]
 
@@ -13,6 +13,12 @@ class UsersController < ApplicationController
 # Uncomment if users can only view their own profiles
 #			if current_user?(user)
 				@user = user
+				@score = @user.get_score
+				@submissions = @user.submissions
+				@number_of_correct_submissions = @submissions.where(correct: true).count
+				@total_number_of_submissions = @submissions.count
+				@accuracy = (@total_number_of_submissions == 0) ? 0 : @number_of_correct_submissions.to_f/@total_number_of_submissions.to_f
+				@number_of_hints = @user.hint_requests.count
 #			else
 #     	message  = "Access Denied. "
 #     	message += "You can only view your profile."
@@ -21,8 +27,24 @@ class UsersController < ApplicationController
 # 		end
 		else
       message  = "Account not activated. "
-      message += "Check your email for the activation link."
+			if current_user?(user)
+      	message += "Check your email for the activation link."
+			end
       flash[:warning] = message
+			redirect_to root_url
+		end
+	end
+
+	def get_stats
+		if @user = User.find(params[:id])
+
+			@accuracy_data = @user.get_accuracy_data
+			@category_data = @user.get_category_data
+			render :json => { accuracy_data: @accuracy_data.to_json.html_safe, 
+												category_data: @category_data.to_json.html_safe, 
+												status: :ok}
+		else
+      flash[:warning] = "No such user"
 			redirect_to root_url
 		end
 	end

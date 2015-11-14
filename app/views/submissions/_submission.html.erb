@@ -1,0 +1,11 @@
+<% ########################################################### %>
+<% # IMPORTANT:  Do not display the actual submission unless # %>
+<% #             you make it safe first.  These could be     # %>
+<% #             specifically designed to break web services # %>
+<% #             or steal user cookies.                      # %>
+<% ########################################################### %>
+<li>
+	<b>Problem:</b> <%= submission.problem.name %>,
+	<b>Points:</b> <%= submission.points %>,
+	<b>Submitted:</b>  <%= submission.created_at.to_s(:long) %>
+</li>

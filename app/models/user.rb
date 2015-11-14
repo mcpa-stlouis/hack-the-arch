@@ -113,6 +113,37 @@ class User < ActiveRecord::Base
 		end
 	end
 
+	def get_accuracy_data
+		result = Array.new
+
+		result.push(['Correct', self.submissions.where(correct: true).count])
+		result.push(['Incorrect', self.submissions.where.not(correct: true).count])
+
+		result
+	end
+
+	def get_category_data
+		result = Array.new
+		@intermediate_result = Hash.new
+		@subs = self.submissions.where(correct: true)
+		@category = ""
+		@count = 0
+
+		for @sub in @subs
+			if @intermediate_result[@sub.problem.category]
+				@intermediate_result[@sub.problem.category] += 1
+			else 
+				@intermediate_result[@sub.problem.category] = 1
+			end
+		end
+
+		@intermediate_result.each do |key, value|
+			result.push([key, value])
+		end
+		result
+
+	end
+
 	private
 
     # Converts email to all lower-case.
