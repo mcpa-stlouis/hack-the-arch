@@ -16,6 +16,7 @@
 			<% if @user.team %>
 
 				<% # Team Name and Score # %>
+				<%= content_tag :hr %>
 				<%= content_tag :h1, class: 'text-center' do %>
 					<%= link_to @user.team.name, @user.team %> (<%= @user.team.get_score %>)
 				<% end %>
