@@ -125,16 +125,17 @@ class User < ActiveRecord::Base
 	def get_category_data
 		result = Array.new
 		@intermediate_result = Hash.new
+		@categories = Problem.select(:category).distinct
 		@subs = self.submissions.where(correct: true)
 		@category = ""
 		@count = 0
 
+		for @category in @categories
+			@intermediate_result[@category.category] = 0
+		end
+
 		for @sub in @subs
-			if @intermediate_result[@sub.problem.category]
-				@intermediate_result[@sub.problem.category] += 1
-			else 
-				@intermediate_result[@sub.problem.category] = 1
-			end
+			@intermediate_result[@sub.problem.category] += 1
 		end
 
 		@intermediate_result.each do |key, value|
