@@ -6,4 +6,4 @@ draw_switches = ->
     $(".bootstrap-switches").bootstrapSwitch()
 		return
 
-$(document).ready(draw_switches)
+$(document).on('page:change', draw_switches)

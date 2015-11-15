@@ -17,4 +17,4 @@ init = ->
   return
 
 
-$(document).ready(init)
+$(document).on('page:change', init)

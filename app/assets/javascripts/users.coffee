@@ -34,5 +34,4 @@ finish_drawing_graphs = ->
       title: 'Category'
   return
 
-$(document).ready(draw_graphs)
-$(document).on('page:load', draw_graphs)
+$(document).on('page:change', draw_graphs)
