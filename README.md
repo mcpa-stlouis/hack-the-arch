@@ -33,6 +33,7 @@ Tested using Ubuntu Server 15.10.
 Contact
 -------
 * [Paul Jordan](http://paullj1.com) @ paullj1[at]gmail[dot]com
+* [Raymond Evans](http://CyDefe.com) @ REvans[at]CyDefe[dot]com
 
 Acknowledgements
 ----------------
