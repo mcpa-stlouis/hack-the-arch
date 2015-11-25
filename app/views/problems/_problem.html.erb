@@ -52,7 +52,8 @@
 						<% # Request Hint Button # %>
 						<% if !@problem.solved_by?(current_user.team_id) %>
 							<%= content_tag :div, class: 'col-md-12' do %>
-								<%= link_to 'Request Hint', request_hint_path(problem_id: @problem.id),  method: :post, class: 'btn btn-primary' %>
+								<%= link_to 'Request Hint', request_hint_path(problem_id: @problem.id),  method: :post, class: 'btn btn-primary', 
+                                  data: { confirm: "You sure?" } %>
 							<% end %>
 						<% end %>
 					<% end %>

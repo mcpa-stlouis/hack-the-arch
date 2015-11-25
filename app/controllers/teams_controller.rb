@@ -11,7 +11,7 @@ class TeamsController < ApplicationController
 	def show
 		@team = Team.find(params[:id])
 		@bracket = Bracket.find(@team.bracket_id)
-		@members = User.find(@team.members_array).sort_by { |user| user.get_score }.reverse
+		@members = @team.users.sort_by { |user| user.get_score }.reverse
 		if !current_user.admin? && params[:id] == 1
 			flash[:danger] = "Access Denied"
 			redirect_to root_url
@@ -26,12 +26,6 @@ class TeamsController < ApplicationController
 	end
 
 	def destroy
-		# Remove reference from members
-		@team = Team.find(params[:id])
-		for user_id in @team.members_array
-			User.find(user_id).update_attributes(team_id: nil)
-		end
-		
 		@team.destroy
     flash[:success] = "Team deleted and all members removed"
     redirect_to teams_url
@@ -50,7 +44,6 @@ class TeamsController < ApplicationController
 		@user = current_user
 		@team = Team.new(team_params)
 		if @team.save
-			@team.add(@user) 
 			@user.team_id = @team.id
 			@user.save
       flash[:success] = @team.name + " created!"
@@ -63,11 +56,10 @@ class TeamsController < ApplicationController
 	def remove_member
 		@team = Team.find(params[:team_id])
 		@user = User.find(params[:user_id])
-		if !current_user.is_member?(@team)
+		if !current_user.team == @team && !current_user.admin?
 			flash[:danger] = "You can only remove members from your team"
 			redirect_to @team
 		else
-			@team.remove(@user)
 			@user.leave_team
 			flash[:success] = "Member successfully removed"
 			redirect_to @team
@@ -90,7 +82,7 @@ class TeamsController < ApplicationController
 			flash[:danger] = "Access denied"
 			redirect_to root_url
 		else
-			if @team.add(@user) && @user.join_team(@team)
+			if @user.join_team(@team)
 				flash[:success] = "Welcome to " + @team.name
 				redirect_to @team
 			else
@@ -107,7 +99,7 @@ class TeamsController < ApplicationController
 
 		def member_of_team
 			@team = Team.find(params[:id])
-			unless current_user.is_member?(@team) || current_user.admin?
+			unless current_user.team == @team || current_user.admin?
 				flash[:danger] = "Access denied"
 				redirect_to root_url
 			end

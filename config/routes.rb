@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 	get 'scoreboard'	=> 'scoreboard#index'
 
 	get 'teams/get_score_data' => 'scoreboard#get_score_data'
+	get 'users/get_stats'			 => 'users#get_stats'
 
 	post 'login' 		 			=> 'sessions#create'
 	post 'request_hint' 	=> 'hint_requests#create'

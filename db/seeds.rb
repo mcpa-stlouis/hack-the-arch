@@ -11,13 +11,14 @@ Setting.create!(name: "max_members_per_team", value: "5", setting_type: "text")
 Setting.create!(name: "subtract_hint_points_before_solve", value: "true", setting_type: "boolean")
 Setting.create!(name: "scoreboard_on", value: "true", setting_type: "boolean")
 Setting.create!(name: "send_activation_emails", value: "true", setting_type: "boolean")
+Setting.create!(name: "use_bracket_handicaps", value: "false", setting_type: "boolean")
 Setting.create!(name: "max_submissions_per_team", value: "0", setting_type: "text")
 Setting.create!(name: "start_time", value: Time.zone.now.to_s, setting_type: "date")
 Setting.create!(name: "end_time", value: (Time.zone.now + 24.hours).to_s, setting_type: "date")
 
-bracket = Bracket.create!(name: "Professional", priority: "10")
-          Bracket.create!(name: "College", priority: "5")
-          Bracket.create!(name: "High School", priority: "1")
+bracket = Bracket.create!(name: "Professional", priority: "10", hints_available: 0)
+          Bracket.create!(name: "College", priority: "5", hints_available: 2)
+          Bracket.create!(name: "High School", priority: "1", hints_available: 4)
 
 team = Team.create!(name:  "admins",
  						 				passphrase: "password",
@@ -34,7 +35,7 @@ user = User.create!(id: Random.rand(10000),
 						 				team_id: team.id,
  						 				activated_at: Time.zone.now)
 
-team.add(user)
+user.join_team(team)
 
 hint = Hint.create!(hint: "The test was named after him",
 						 				points: "25",

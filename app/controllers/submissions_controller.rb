@@ -21,7 +21,7 @@ class SubmissionsController < ApplicationController
 
 		# If limit has been reached
 		if (max = max_submissions_per_team) > 0 &&
-			  Submission.get_number_of_submissions_for_team(@problem.id, current_user.team_id) >= max
+				current_team.submissions.where(problem: @problem).count >= max
 			flash[:warning] = "Your team has alread used the maximum number of guesses for this problem!"
 			redirect_to @problem
 			return

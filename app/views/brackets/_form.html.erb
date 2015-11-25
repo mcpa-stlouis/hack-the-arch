@@ -7,6 +7,11 @@
 	<%= f.label "Priority" %>
   <%= f.text_field :priority, class: 'form-control' %>
 
+	<% if use_handicap? %>
+		<%= f.label "Number of hints available" %>
+  	<%= f.text_field :hints_available, class: 'form-control' %>
+	<% end %>
+
   <%= f.submit yield(:button_text), class: "btn btn-primary" %>
 
 <% end %>

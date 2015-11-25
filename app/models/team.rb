@@ -10,13 +10,16 @@ end
 class Team < ActiveRecord::Base
 	include ActiveModel::Validations
 	include SettingsHelper
+	has_many :users, dependent: :destroy, inverse_of: :team
+	has_many :hint_requests, inverse_of: :team
+	has_many :submissions, inverse_of: :team
+	belongs_to :bracket
 	validates :name,  presence: true, length: { maximum: 50 },
 										uniqueness: true
 	validates :passphrase,  presence: true, 
 													length: { minimum: 6 }
 	validates :bracket_id, presence: true, 
 												 numericality: { only_integer: true, greater_than: 0 }
-	validates :members, absence: true, on: :create
 	validate  :bracket_exists
 	validates_with ValidateAtCapacity
 
@@ -43,7 +46,7 @@ class Team < ActiveRecord::Base
 				end
 
 				col_label = "x#{column_index.to_s}"
-				col_team_name = Team.find(progression[0][:team_id]).name
+				col_team_name = Team.find(progression[0][:team]).name
 				column_index += 1
 
 				x = []
@@ -92,24 +95,8 @@ class Team < ActiveRecord::Base
 		end
 	end
 
-	def add(user)
-		if members_array.count < max_members_per_team
-			save_members(members_array.push(user.id.to_s))
-		else
-			return false
-		end
-	end
-	
-	def remove(user)
-		if self.members 
-			save_members(members_array.reject! { |member| member == user.id.to_s })
-		end
-	end
-
 	def at_capacity?
-		if self.members 
-			members_array.count >= max_members_per_team
-		end
+		self.users.count >= max_members_per_team
 	end
 
 	def get_score
@@ -118,16 +105,13 @@ class Team < ActiveRecord::Base
 			cache.value.to_i
 		else
 			if subtract_hint_points_before_solve?
-				score = Submission.where(team_id: self.id).sum(:points) - 
-				HintRequest.where(team_id: self.id).sum(:points)
+				score = self.submissions.sum(:points) - self.hint_requests.sum(:points)
 			else
 				score = 0
-				for submission in Submission.where(team_id: self.id)
-					if submission.correct
-						score = score + submission.points
-						for hint in HintRequest.where(team_id: self.id, problem_id: submission.problem_id)
-							score = score - hint.points
-						end
+				for submission in self.submissions.where(correct: true)
+					score = score + submission.points
+					for hint in self.hint_requests.where(problem: submission.problem) 
+						score = score - hint.points
 					end
 				end
 			end
@@ -144,11 +128,11 @@ class Team < ActiveRecord::Base
 
 	def get_score_progression
 		# merge hint_requests and submissions
-		@submissions = Submission.where(team_id: self.id, correct: true)
+		@submissions = self.submissions.where(correct: true)
 		if subtract_hint_points_before_solve?
-			@hint_requests = HintRequest.where(team_id: self.id)
+			@hint_requests = self.hint_requests
 		else
-			@hint_requests = HintRequest.where(team_id: self.id, problem_id: @submissions.select(:problem_id))
+			@hint_requests = self.hint_requests.where(problem_id: @submissions.select(:problem_id))
 		end
 
 		@combined_submissions = @submissions + @hint_requests
@@ -159,7 +143,7 @@ class Team < ActiveRecord::Base
 		for sub in @combined_submissions
 			pnts += (sub.has_attribute?:correct) ? sub.points : -(sub.points)
 			result.push({points: pnts,
-									 team_id: sub.team_id,
+									 team: sub.team_id,
 									 created_at: sub.created_at})
 		end
 		result
@@ -167,24 +151,12 @@ class Team < ActiveRecord::Base
 	end
 
 	def get_hints_requested(problem_id)
-		HintRequest.where(team_id: self.id, problem_id: problem_id)
+		self.hint_requests.where(problem: problem_id)
 	end
 
 	def get_most_recent_solve
-		sub = Submission.where(team_id: self.id).last
+		sub = self.submissions.last
 		sub.created_at if sub
-	end
-
-	def members_array
-		if !self.members # Lazy Instantiation
-			Array.new
-		else
-			self.members.split(',')
-		end
-	end
-
-	def save_members(members_array)
-		update_attribute(:members, members_array.join(','))
 	end
 
 	def authenticate(passphrase)

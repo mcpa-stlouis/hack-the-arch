@@ -1,5 +1,8 @@
 class Submission < ActiveRecord::Base
   before_save :invalidate_cache
+	belongs_to :user
+	belongs_to :team
+	belongs_to :problem
 	validates :points,  presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 	validates :correct, inclusion: { in: [true, false] }
 	validates :correct, exclusion: { in: [nil] }
@@ -9,17 +12,11 @@ class Submission < ActiveRecord::Base
 	validates :submission,  presence: true, length: { maximum: 500 }
 
 	def Submission.get_solves_for_problem(problem_id)
-		count = 0
-		for submission in Submission.all
-			count += (submission.problem_id == problem_id && 
-								submission.correct? && 
-								submission.team_id != 1) ? 1 : 0
-		end
-		count
+		Submission.all.where(problem: problem_id, correct: true).where.not(team: 1).count
 	end
 
 	def Submission.get_number_of_submissions_for_team(problem_id, team_id)
-		Submission.where(team_id: team_id, problem_id: problem_id).count
+		Submission.where(team: team_id, problem: problem_id).count
 	end
 
 	private

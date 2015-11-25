@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 
-<title>class WelcomeController - Rails Application Documentation</title>
+<title>class UserMailer - Rails Application Documentation</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "./";
@@ -58,7 +58,7 @@
   <h3>Parent</h3>
 
   
-  <p class="link"><a href="ApplicationController.html">ApplicationController</a>
+  <p class="link"><a href="ApplicationMailer.html">ApplicationMailer</a>
   
 </div>
 
@@ -70,7 +70,9 @@
 
   <ul class="link-list" role="directory">
     
-    <li ><a href="#method-i-index">#index</a>
+    <li ><a href="#method-i-account_activation">#account_activation</a>
+    
+    <li ><a href="#method-i-password_reset">#password_reset</a>
     
   </ul>
 </div>
@@ -78,9 +80,9 @@
   </div>
 </nav>
 
-<main role="main" aria-labelledby="class-WelcomeController">
-  <h1 id="class-WelcomeController" class="class">
-    class WelcomeController
+<main role="main" aria-labelledby="class-UserMailer">
+  <h1 id="class-UserMailer" class="class">
+    class UserMailer
   </h1>
 
   <section class="description">
@@ -106,11 +108,45 @@
        </header>
 
     
-      <div id="method-i-index" class="method-detail ">
+      <div id="method-i-account_activation" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">index</span><span
-            class="method-args">()</span>
+          <span class="method-name">account_activation</span><span
+            class="method-args">(user)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>TODO Set subject line dynamically using configured domain</p>
+          
+          
+
+          
+          <div class="method-source-code" id="account_activation-source">
+            <pre><span class="ruby-comment"># File app/mailers/user_mailer.rb, line 4</span>
+      <span class="ruby-keyword">def</span> <span class="ruby-identifier">account_activation</span>(<span class="ruby-identifier">user</span>)
+  <span class="ruby-ivar">@user</span> = <span class="ruby-identifier">user</span>
+  <span class="ruby-identifier">mail</span> <span class="ruby-identifier">to</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span>, <span class="ruby-identifier">subject</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;[HackTheArch] Account activation&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-password_reset" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">password_reset</span><span
+            class="method-args">(user)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -124,9 +160,11 @@
           
 
           
-          <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/welcome_controller.rb, line 2</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
+          <div class="method-source-code" id="password_reset-source">
+            <pre><span class="ruby-comment"># File app/mailers/user_mailer.rb, line 9</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">password_reset</span>(<span class="ruby-identifier">user</span>)
+              <span class="ruby-ivar">@user</span> = <span class="ruby-identifier">user</span>
+              <span class="ruby-identifier">mail</span> <span class="ruby-identifier">to</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span>, <span class="ruby-identifier">subject</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;[HackTheArch] Password reset&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

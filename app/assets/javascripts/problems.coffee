@@ -27,5 +27,4 @@ setup_hooks = ->
       return
   return
 
-$(document).ready(setup_hooks)
-$(document).on('page:load', setup_hooks)
+$(document).on('page:change', setup_hooks)

@@ -18,16 +18,17 @@ textarea {
 
 .center {
   text-align: center;
-	h1 {
-  	margin-bottom: 10px;
-	}
+  h1 {
+    margin-bottom: 10px;
+  }
 }
 
 .alert {
-	position: fixed;
-	top: 50;
-	right: 10%;
-	width: 300px;
+  position: fixed;
+  top: 50;
+  right: 10%;
+  width: 300px;
+  z-index: 99;
 }
 
 /* typography */
@@ -65,10 +66,10 @@ p {
   letter-spacing: -1px;
   padding-top: 9px;
   font-weight: bold;
-	&:hover {
-  	color: #fff;
-  	text-decoration: none;
-	}
+  &:hover {
+    color: #fff;
+    text-decoration: none;
+  }
 }
 
 /* footer */
@@ -78,23 +79,23 @@ footer {
   padding-top: 5px;
   border-top: 1px solid $gray-medium-light;
   color: $gray-light;
-	a {
-  	color: $gray;
-		&:hover {
-  		color: $gray-darker;
-		}
-	}
-	small {
-  	float: left;
-	}
-	ul {
-  	float: right;
-  	list-style: none;
-		li {
-  		float: left;
-  		margin-left: 15px;
-		}
-	}
+  a {
+    color: $gray;
+    &:hover {
+      color: $gray-darker;
+    }
+  }
+  small {
+    float: left;
+  }
+  ul {
+    float: right;
+    list-style: none;
+    li {
+      float: left;
+      margin-left: 15px;
+    }
+  }
 }
 
 /* debug window */
@@ -137,6 +138,8 @@ aside {
       margin-top: 0px;
     }
   }
+  border: solid 1px grey;
+  box-shadow: 5px 5px 5px grey;
 }
 
 .gravatar {
@@ -150,9 +153,9 @@ aside {
 
 /* main page */
 .user_stats {
-	margin-top: 20px;
-	padding: 10px 0;
-	margin-bottom: 3px;
+  margin-top: 20px;
+  padding: 10px 30px;
+  margin-bottom: 3px;
 }
 
 /* forms */
@@ -216,32 +219,32 @@ input {
     padding: 10px 0;
     border-bottom: 1px solid $gray-lighter;
   }
-	h3 {
+  h3 {
     padding: 10px 0;
-	}
+  }
 }
 .table tbody>tr>td.vert-align{
-	vertical-align: middle;
+  vertical-align: middle;
 }
 
-/* Problesm index */
+/* Problem index */
 .problems {
   list-style: none;
   margin: 0;
-	padding: 10px 0;
+  padding: 10px 0;
   li {
     overflow: auto;
     padding: 10px 0;
     border-bottom: 1px solid $gray-lighter;
   }
-	div {
+  div {
     padding: 10px 0;
-	}
+  }
 
 }
 
 /* Settings */
 .settings-row {
-	padding: 10px 0;
+  padding: 10px 0;
   border-bottom: 1px solid $gray-lighter;
 }

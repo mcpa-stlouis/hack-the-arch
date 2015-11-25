@@ -12,6 +12,12 @@ class TeamsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+	test "should get show when logged in" do
+		log_in_as(@user)
+    get :show, id: @user.team.id
+    assert_response :success
+  end
+
 	test "should redirect show when not logged in" do
     get :show, id: @team.id
     assert_not flash.empty?
