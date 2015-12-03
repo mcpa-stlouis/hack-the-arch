@@ -33,6 +33,14 @@ module SettingsHelper
 		(Setting.find_by(name: 'use_bracket_handicaps').value == "0") ? false : true
 	end
 
+	def require_payment?
+		(Setting.find_by(name: 'require_payment').value == "0") ? false : true
+	end
+
+	def entry_cost
+		Setting.find_by(name: 'require_payment').value
+	end
+
 	# returns int value of setting if it's between 0 and 2 ^ 16, otherwise 0
 	# 0 = no limit on submissions
 	def max_submissions_per_team

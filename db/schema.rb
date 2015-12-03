@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151111204240) do
+ActiveRecord::Schema.define(version: 20151127154749) do
 
   create_table "brackets", force: :cascade do |t|
     t.string   "name"
@@ -116,6 +116,7 @@ ActiveRecord::Schema.define(version: 20151111204240) do
     t.datetime "activated_at"
     t.string   "reset_digest"
     t.datetime "reset_sent_at"
+    t.boolean  "paid"
   end
 
   add_index "users", ["team_id"], name: "index_users_on_team_id"

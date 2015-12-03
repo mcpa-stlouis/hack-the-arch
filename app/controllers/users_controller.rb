@@ -50,12 +50,31 @@ class UsersController < ApplicationController
 	end
 
   def new
+		@new_user_page = require_payment?
+		@amount = entry_cost
 		@user = User.new
   end
 
 	def create
 		@user = User.new(user_params)
-		if @user.save
+		if @user.save || ( @user.id && User.find(@user) && !@user.paid )
+
+			if require_payment?
+  			customer = Stripe::Customer.create(
+    			:email => params[:stripeEmail],
+    			:source  => params[:stripeToken]
+  			)
+
+  			charge = Stripe::Charge.create(
+    			:customer    => customer.id,
+    			:amount      => entry_cost,
+    			:description => 'Rails Stripe customer',
+    			:currency    => 'usd'
+  			)
+			end
+	
+			@user.update_attributes(paid: true)
+
 			if send_activation_emails?
 				@user.send_activation_email
       	flash[:info] = "Please check your email to activate your account."
@@ -67,8 +86,14 @@ class UsersController < ApplicationController
       	redirect_to @user
 			end
 		else
+  		flash[:info] = "Payment not processed"
 			render 'new'
 		end
+
+		rescue Stripe::CardError => e
+  		flash[:error] = e.message
+  		render 'new'
+
 	end
 
 	def destroy

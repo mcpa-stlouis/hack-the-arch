@@ -34,6 +34,7 @@ Rails.application.routes.draw do
 	resources :users
 	resources :problems
 	resources :teams
+	resources :charges
 	resources :account_activations, only: [:edit]
 	resources :hints,								only: [:new, :edit, :create, :update]
 	resources :password_resets,     only: [:new, :create, :edit, :update]

@@ -19,6 +19,7 @@ gem 'fog-google'
 gem 'will_paginate', '3.0.7' 
 gem 'bootstrap-will_paginate', '0.0.10'
 gem 'bootstrap-switch-rails', '3.3.1'
+gem 'stripe'
 
 group :development, :test do
 	gem 'sqlite3'

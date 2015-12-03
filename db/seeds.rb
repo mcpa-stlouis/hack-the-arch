@@ -12,6 +12,8 @@ Setting.create!(name: "subtract_hint_points_before_solve", value: "true", settin
 Setting.create!(name: "scoreboard_on", value: "true", setting_type: "boolean")
 Setting.create!(name: "send_activation_emails", value: "true", setting_type: "boolean")
 Setting.create!(name: "use_bracket_handicaps", value: "false", setting_type: "boolean")
+Setting.create!(name: "require_payment", value: "false", setting_type: "boolean")
+Setting.create!(name: "entry_cost", value: "500", setting_type: "text")
 Setting.create!(name: "max_submissions_per_team", value: "0", setting_type: "text")
 Setting.create!(name: "start_time", value: Time.zone.now.to_s, setting_type: "date")
 Setting.create!(name: "end_time", value: (Time.zone.now + 24.hours).to_s, setting_type: "date")
