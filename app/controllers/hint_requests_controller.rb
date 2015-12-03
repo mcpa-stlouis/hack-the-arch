@@ -28,9 +28,11 @@ class HintRequestsController < ApplicationController
  						 						 problem_id: @problem.id,
 												 hint_id:	@hint.id,
  						 						 points:	@hint.points)
+    	session[:hint_requested] = true
 			redirect_to @problem
 		else
 			flash[:warning] = "No more hints available!"
+    	session[:hint_requested] = true
 			redirect_to @problem
 		end
 	end
