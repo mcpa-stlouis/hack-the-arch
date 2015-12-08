@@ -1,22 +1,45 @@
+
 <%= form_tag settings_path, method: 'patch', class: 'form-inline col-md-12' do %>
-	<% for setting in @settings %>
-		<%= content_tag :div, class: 'row settings-row' do %>
-			<% if setting.setting_type == 'boolean' %>
-				<%= hidden_field_tag "admin[#{setting.id.to_s}][id]", :id, value: setting.id %>
-				<%= label_tag "admin[#{setting.id.to_s}][value]", setting.name, class: 'col-md-4 control-label' %>
-				<%  checked = (setting.value == '1') ? true : false %>
-				<%= check_box_tag "admin[#{setting.id.to_s}][value]", setting.value, checked, class: 'col-md-8 bootstrap-switches' %>
-			<% #elsif setting.setting_type == 'color' %>
 
-			<% #elsif setting.setting_type == 'date' %>
-
-			<% else #setting.setting_type == 'text' %>
-				<%= hidden_field_tag "admin[#{setting.id.to_s}][id]", :id, value: setting.id %>
-				<%= label_tag "admin[#{setting.id.to_s}][value]", setting.name, class: 'col-md-4 control-label' %>
-				<%= text_field "admin[#{setting.id.to_s}]", 'value', value: setting.value, class: 'col-md-8 form-control' %>
+	<!-- Nav tabs -->
+	<%= content_tag :ul, class: 'nav nav-tabs', role: 'tablist' do %>
+		<% for @category in @categories %>
+			<%= content_tag :li, class: ((@category == @categories.first) ? 'active' : '') do %>
+				<%= content_tag :a, href: "##{@category}", 'aria-controls' => "#{@category}", role: 'tab', 'data-toggle' => 'tab' do %>
+					<%= @category %>
+				<% end %>
 			<% end %>
 		<% end %>
 	<% end %>
+
+	<!-- Tab panes -->
+	<%= content_tag :div, class: 'tab-content' do %>
+		<% for @category in @categories %>
+			<%= content_tag :div, class: "tab-pane #{((@category == @categories.first) ? 'active' : '')}", id: @category do %>
+
+				<% @cat_settings = @settings.where(category: @category) %>
+				<% for @setting in @cat_settings %>
+					<%= content_tag :div, class: 'row settings-row' do %>
+						<% if @setting.setting_type == 'boolean' %>
+							<%= hidden_field_tag "admin[#{@setting.id.to_s}][id]", :id, value: @setting.id %>
+							<%= label_tag nil, @setting.label, class: 'col-md-4 control-label', 'data-toggle'=>'tooltip', 'data-placement'=>'right', title: @setting.tooltip %>
+							<%  checked = (@setting.value == '1') ? true : false %>
+							<%= check_box_tag "admin[#{@setting.id.to_s}][value]", @setting.value, checked, class: 'col-md-8 bootstrap-switches' %>
+						<% #elsif setting.setting_type == 'color' %>
+			
+						<% #elsif setting.setting_type == 'date' %>
+			
+						<% else #setting.setting_type == 'text' %>
+							<%= hidden_field_tag "admin[#{@setting.id.to_s}][id]", :id, value: @setting.id %>
+							<%= label_tag nil, @setting.label, class: 'col-md-4 control-label', 'data-toggle'=>'tooltip', 'data-placement'=>'right', title: @setting.tooltip %>
+							<%= text_field "admin[#{@setting.id.to_s}]", 'value', value: @setting.value, class: 'col-md-8 form-control' %>
+						<% end %>
+					<% end %>
+				<% end %>
+			<% end %>
+		<% end %>
+	<% end %>
+
 	<%= tag :br %>
 	<%= submit_tag 'Save Changes', class: 'form-control col-md-3 btn btn-primary' %>
 <% end %>

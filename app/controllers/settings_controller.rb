@@ -2,7 +2,8 @@ class SettingsController < ApplicationController
 	before_action :admin_user, only: [:index, :edit, :update]
 
 	def edit
-		@settings = Setting.all.order('id ASC')
+		@categories = Setting.uniq.pluck(:category)
+		@settings = Setting.all.order(category: :asc, id: :asc)
 		@brackets = Bracket.all.order('priority ASC')
 	end
 	
