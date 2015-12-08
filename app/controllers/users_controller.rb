@@ -50,7 +50,7 @@ class UsersController < ApplicationController
 	end
 
   def new
-		@new_user_page = require_payment?
+		@new_user_page = true
 		@amount = entry_cost
 		@user = User.new
   end
