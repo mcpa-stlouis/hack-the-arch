@@ -25,8 +25,8 @@ Getting Started
 Quick Start (Local Deployment)
 ------------------------------
 Tested using Ubuntu Server 15.10.
-* We recommend you remove the debug box in: 'app/views/layouts/application.html.erb'
-* Install the following packages 'gcc make ruby ruby2.2 bundler zlib1g-dev postgresql-server-dev-all libsqlite3-dev nodejs'
+* We recommend you remove the debug box in: `app/views/layouts/application.html.erb`
+* Install the following packages `gcc make ruby ruby2.2 bundler zlib1g-dev postgresql-server-dev-all libsqlite3-dev nodejs`
 * Run: `rake db:seed`
 * Run: `sudo rails server -p 80 -b 0.0.0.0 -d`
 
