@@ -5,6 +5,8 @@ class SettingsController < ApplicationController
 		@categories = Setting.uniq.pluck(:category)
 		@settings = Setting.all.order(category: :asc, id: :asc)
 		@brackets = Bracket.all.order('priority ASC')
+		@users = User.all
+		@teams = Team.all
 	end
 	
 	def update

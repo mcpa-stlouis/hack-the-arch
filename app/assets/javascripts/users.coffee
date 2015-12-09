@@ -4,6 +4,20 @@
 accuracy_data = ""
 category_data = ""
 
+init = ->
+  if !document.getElementById('filter') 
+    return
+  
+  $('#filter').keyup ->
+    rex = new RegExp($(this).val(), 'i')
+    $(".users_list > li").each ->
+      $(this).hide()
+      $(this).filter(->
+        rex.test $(this).text()
+      ).show()
+    return
+  return
+
 draw_graphs = ->
   if !document.getElementById('user_accuracy') 
     return
@@ -35,3 +49,4 @@ finish_drawing_graphs = ->
   return
 
 $(document).on('page:change', draw_graphs)
+$(document).on('page:change', init)

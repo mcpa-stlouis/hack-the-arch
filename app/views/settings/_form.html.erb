@@ -10,6 +10,15 @@
 				<% end %>
 			<% end %>
 		<% end %>
+		<%= content_tag :li do %>
+			<%= content_tag :a, 'Brackets', href: "#brackets", 'aria-controls' => "brackets", role: 'tab', 'data-toggle' => 'tab' %>
+		<% end %>
+		<%= content_tag :li do %>
+			<%= content_tag :a, 'Teams', href: "#teams", 'aria-controls' => "teams", role: 'tab', 'data-toggle' => 'tab' %>
+		<% end %>
+		<%= content_tag :li do %>
+			<%= content_tag :a, 'Users', href: "#users", 'aria-controls' => "users", role: 'tab', 'data-toggle' => 'tab' %>
+		<% end %>
 	<% end %>
 
 	<!-- Tab panes -->
@@ -62,6 +71,20 @@
 						<% end %>
 					<% end %>
 				<% end %>
+			<% end %>
+		<% end %>
+		
+		<%= content_tag :div, class: 'tab-pane', id: 'brackets' do %>
+			<%= render 'brackets' %>
+		<% end %>
+		<%= content_tag :div, class: 'tab-pane', id: 'teams' do %>
+			<%= content_tag :ul, class: 'teams row teams_list' do %>
+				<%= render @teams %>
+			<% end %>
+		<% end %>
+		<%= content_tag :div, class: 'tab-pane', id: 'users' do %>
+			<%= content_tag :ul, class: 'users row users_list' do %>
+				<%= render @users %>
 			<% end %>
 		<% end %>
 	<% end %>
