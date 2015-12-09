@@ -19,6 +19,11 @@
 		<%= content_tag :li do %>
 			<%= content_tag :a, 'Users', href: "#users", 'aria-controls' => "users", role: 'tab', 'data-toggle' => 'tab' %>
 		<% end %>
+
+		<%= content_tag :div, id: 'filter_container', class: 'input-group pull-right', style: 'display:none' do %>
+			<%= content_tag :span, 'Search', class: 'input-group-addon' %>
+			<input id="filter" type="text" class="filter form-control">
+		<% end %>
 	<% end %>
 
 	<!-- Tab panes -->
@@ -78,12 +83,12 @@
 			<%= render 'brackets' %>
 		<% end %>
 		<%= content_tag :div, class: 'tab-pane', id: 'teams' do %>
-			<%= content_tag :ul, class: 'teams row teams_list' do %>
+			<%= content_tag :ul, class: 'teams row filter_list' do %>
 				<%= render @teams %>
 			<% end %>
 		<% end %>
 		<%= content_tag :div, class: 'tab-pane', id: 'users' do %>
-			<%= content_tag :ul, class: 'users row users_list' do %>
+			<%= content_tag :ul, class: 'users row filter_list' do %>
 				<%= render @users %>
 			<% end %>
 		<% end %>
@@ -91,4 +96,5 @@
 
 	<%= tag :br %>
 	<%= submit_tag 'Save Changes', class: 'form-control col-md-3 btn btn-primary' %>
+
 <% end %>

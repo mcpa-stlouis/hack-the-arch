@@ -7,7 +7,7 @@
 	
 	<div class="input-group"> 
 		<span class="input-group-addon">Search</span>
-		<input id="filter" type="text" class="form-control">
+		<input id="filter" type="text" class="filter form-control">
 	</div>
 	<br />
 	<div>
@@ -24,13 +24,13 @@
 		<!-- Tab panes -->
 		<div class="tab-content">
   		<div role="tabpanel" class="tab-pane active" id="all">
-				<ul class="teams row teams_list">
+				<ul class="teams row filter_list">
 					<%= render @sorted_teams %>
 				</ul>
 			</div>
 			<% for bracket in @brackets do %>
 				<%= content_tag :div, role: 'tabpanel', class: 'tab-pane', id: add_id('bracket', bracket) do %>
-					<ul class="teams row teams_list">
+					<ul class="teams row filter_list">
 						<%= render @sorted_teams.select { |b| b.bracket_id == bracket.id } %>
 					</ul>
 				<% end %>
