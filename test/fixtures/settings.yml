@@ -8,12 +8,12 @@ setting_competition_name:
 
 setting_start_time_active:
   name: "start_time"
-  value: <%= Time.zone.now %>
+  value: <%= DateTime.current.strftime("%m/%d/%Y %I:%M %p") %>
   setting_type: "text"
 
 setting_end_time_active:
   name: "end_time"
-  value: <%= (Time.zone.now + 1.days) %>
+  value: <%= (DateTime.current + 1.days).strftime("%m/%d/%Y %I:%M %p") %>
   setting_type: "text"
 
 setting_subtract_hint_points_before_solve:

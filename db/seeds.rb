@@ -5,9 +5,9 @@
 Setting.create!(label: "Competition Name:", 
 								name: "competition_name", value: "HackTheArch", setting_type: "text", category: "General")
 Setting.create!(label: "Competition Start Time:", 
-								name: "start_time", value: Time.zone.now.to_s, setting_type: "date", category: "General")
+								name: "start_time", value: DateTime.current.strftime("%m/%d/%Y %I:%M %p"), setting_type: "date", category: "General")
 Setting.create!(label: "Competition End Time:", 
-								name: "end_time", value: (Time.zone.now + 24.hours).to_s, setting_type: "date", category: "General")
+								name: "end_time", value: (DateTime.current + 1.days).strftime("%m/%d/%Y %I:%M %p"), setting_type: "date", category: "General")
 Setting.create!(label: "Max number of members per team:", 
 								name: "max_members_per_team", value: "5", setting_type: "text", category: "General")
 Setting.create!(label: "Send activation e-mails?", tooltip: "Requires mailer config", 

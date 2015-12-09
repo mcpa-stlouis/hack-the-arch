@@ -17,6 +17,10 @@
 //= require turbolinks
 //= require_tree .
 //= require bootstrap-switch
+//= require moment
+//= require bootstrap-datetimepicker
+//= require c3
+//= require d3
 var mouseover = false;
 
 $(document).ready(function() {
