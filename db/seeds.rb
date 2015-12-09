@@ -11,21 +11,21 @@ Setting.create!(label: "Competition End Time:",
 Setting.create!(label: "Max number of members per team:", 
 								name: "max_members_per_team", value: "5", setting_type: "text", category: "General")
 Setting.create!(label: "Send activation e-mails?", tooltip: "Requires mailer config", 
-								name: "send_activation_emails", value: "true", setting_type: "boolean", category: "General")
+								name: "send_activation_emails", value: "1", setting_type: "boolean", category: "General")
 Setting.create!(label: "Use bracket based handicap system?", 
-								name: "use_bracket_handicaps", value: "false", setting_type: "boolean", category: "General")
+								name: "use_bracket_handicaps", value: "0", setting_type: "boolean", category: "General")
 
 # Scoring Category
 Setting.create!(label: "Subtract hint deductions before problem is solved?", 
-								name: "subtract_hint_points_before_solve", value: "true", setting_type: "boolean", category: "Scoring")
+								name: "subtract_hint_points_before_solve", value: "1", setting_type: "boolean", category: "Scoring")
 Setting.create!(label: "Scoreboard (on/off):", 
-								name: "scoreboard_on", value: "true", setting_type: "boolean", category: "Scoring")
+								name: "scoreboard_on", value: "1", setting_type: "boolean", category: "Scoring")
 Setting.create!(label: "Maximum number of submissions per team:", tooltip: "0 means no limit",
 								name: "max_submissions_per_team", value: "0", setting_type: "text", category: "Scoring")
 
 # Payment Category
 Setting.create!(label: "Require Payment?", tooltip: "Reqires 'stripe' configuration", 
-								name: "require_payment", value: "false", setting_type: "boolean", category: "Payment")
+								name: "require_payment", value: "0", setting_type: "boolean", category: "Payment")
 Setting.create!(label: "Entry cost:", tooltip: "in $0.01 increments (e.g., 500 = $5.00 USD)", 
 								name: "entry_cost", value: "500", setting_type: "text", category: "Payment")
 
