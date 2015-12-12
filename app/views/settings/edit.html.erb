@@ -3,11 +3,3 @@
 <%= content_tag :div, id: 'settings', class: 'row' do %>
 	<%= render 'form' %>
 <% end %>
-<%= content_tag :div, class: 'row' do %>
-	<%= render 'brackets' %>
-<% end %>
-<%= content_tag :h1, 'Other links:' %>
-<ul>
-	<li><h3><%= link_to 'Teams Admin', teams_url %></h3></li>
-	<li><h3><%= link_to 'Users Admin', users_url %></h3></li>
-</ul>

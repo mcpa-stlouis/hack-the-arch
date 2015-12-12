@@ -1,12 +1,12 @@
 module SettingsHelper
 	def competition_started?
-		start_time = Time.parse(Setting.find_by(name: 'start_time').value)
-		start_time < Time.zone.now
+		start_time = DateTime.strptime(Setting.find_by(name: 'start_time').value, '%m/%d/%Y %I:%M %p')
+		DateTime.current.to_i > start_time.to_i
 	end
 	
 	def competition_ended?
-		end_time = Time.parse(Setting.find_by(name: 'end_time').value)
-		Time.zone.now > end_time
+		end_time = DateTime.strptime(Setting.find_by(name: 'end_time').value, '%m/%d/%Y %I:%M %p')
+		DateTime.current.to_i > end_time.to_i
 	end
 
 	def competition_active?
@@ -29,8 +29,28 @@ module SettingsHelper
 		(Setting.find_by(name: 'send_activation_emails').value == "0") ? false : true
 	end
 
+	def view_other_profiles?
+		(Setting.find_by(name: 'view_other_profiles').value == "0") ? false : true
+	end
+
 	def use_handicap?
 		(Setting.find_by(name: 'use_bracket_handicaps').value == "0") ? false : true
+	end
+
+	def require_payment?
+		(Setting.find_by(name: 'require_payment').value == "0") ? false : true
+	end
+
+	def entry_cost
+		Setting.find_by(name: 'entry_cost').value
+	end
+
+	def fifty_percent_off
+		Setting.find_by(name: 'fifty_percent_off').value
+	end
+
+	def one_hundred_percent_off
+		Setting.find_by(name: 'one_hundred_percent_off').value
 	end
 
 	# returns int value of setting if it's between 0 and 2 ^ 16, otherwise 0

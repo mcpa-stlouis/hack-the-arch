@@ -1,6 +1,6 @@
 <%= content_tag :div do %>
   <!-- Nav tabs -->
-	<%= content_tag :ul, role: 'tablist', class: 'nav nav-tabs' do %>
+	<%= content_tag :ul, role: 'tablist', class: 'nav nav-tabs', id: add_id('problem_tabs',@problem) do %>
 		<% #  Problem Tab # %>
 		<%= content_tag :li, role: 'presentation', class: 'active' do %>
 			<%= link_to 'Problem', add_id('#problem',@problem), 'aria-controls' => add_id('problem',@problem), role: 'tab', 'data-toggle' => 'tab' %>

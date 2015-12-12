@@ -1,0 +1,26 @@
+<% provide(:title, 'Checkout') %>
+
+<%= content_tag :h1, 'Checkout' %>
+<%= content_tag :div, class: 'row' do %>
+	<%= content_tag :div, class: 'col-md-6 col-md-offset-3' do %>
+
+		<%= content_tag :h6, 'To finish your registration, please checkout using stripe below.' %>
+		<%= form_tag charge_path(@user) do %>
+  		<article>
+    		<label class="amount">
+      		<span>Amount: <%= number_to_currency(@cost.to_f / 100) %></span>
+    		</label>
+  		</article>
+
+  		<script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+          		data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+          		data-description="<%= competition_name %> Registration"
+          		data-amount="<%= @cost %>"
+          		data-locale="auto">
+			</script>
+			<%= hidden_field_tag "user_id", :id, value: @user.id %>
+  	<% end %>
+
+  <% end %>
+<% end %>
+

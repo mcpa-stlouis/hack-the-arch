@@ -6,15 +6,14 @@ init = ->
   if !document.getElementById('filter') 
     return
   
-  $('#filter').keyup ->
+  $('.filter').keyup ->
     rex = new RegExp($(this).val(), 'i')
-    $(".teams_list > li").each ->
+    $(".filter_list > li").each ->
       $(this).hide()
       $(this).filter(->
         rex.test $(this).text()
       ).show()
     return
   return
-
 
 $(document).on('page:change', init)

@@ -17,12 +17,38 @@
 //= require turbolinks
 //= require_tree .
 //= require bootstrap-switch
+//= require moment
+//= require bootstrap-datetimepicker
+//= require c3
+//= require d3
+var mouseover = false;
+
 $(document).ready(function() {
-	setTimeout(function(){ 
+
+	if( $("div.alert") ) {
+
+		$("div.alert")
+			.mouseover(function() {
+				mouseover = true;
+			})
+			.mouseout(function() {
+				mouseover = false;
+			});
+	}
+	
+	setTimeout(checkAlert, 2000);
+});
+
+function checkAlert() {
+	if ( mouseover == false ) {
 		$().alert('close');
 		$("div.alert").fadeTo(500, 0).slideUp(500, function(){
 			$("div.alert").remove();
 		});
-			
-	}, 2000);
-});
+	}
+	
+	if( $("div.alert") ) {
+		setTimeout(checkAlert, 2000);
+	}
+}
+
