@@ -54,3 +54,8 @@ entry_cost:
   name: "entry_cost"
   value: "500"
   setting_type: "text"
+
+view_other_profiles:
+  name: "view_other_profiles"
+  value: "1"
+  setting_type: "boolean"

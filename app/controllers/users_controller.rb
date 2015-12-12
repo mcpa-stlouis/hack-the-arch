@@ -58,7 +58,11 @@ class UsersController < ApplicationController
 	def create
 		@user = User.new(user_params)
 		if @user.save || ( @user.id && User.find(@user) && !@user.paid )
-			redirect_to checkout_path(@user)
+			if require_payment?
+				redirect_to checkout_path(@user)
+			else
+				activate_user(@user)
+			end
 		else
 			render 'new'
 		end
