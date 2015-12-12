@@ -17,20 +17,10 @@
   <%= f.password_field :password_confirmation, class: 'form-control' %>
 
 	<% if require_payment? && @new_user_page %>
-  	<article>
-    	<label class="amount">
-      	<span>Amount: <%= number_to_currency(@amount.to_f / 100) %></span>
-    	</label>
-  	</article>
-
-  	<script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-          	data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-          	data-description="<%= competition_name %> registration"
-          	data-amount="<%= @amount %>"
-          	data-locale="auto">
-		</script>
-	<% else %>
-  	<%= f.submit yield(:button_text), class: "btn btn-primary" %>
+		<%= f.label "Discount Code" %>
+		<%= f.text_field :discount_code, class: 'form-control' %>
 	<% end %>
+
+  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
 
 <% end %>

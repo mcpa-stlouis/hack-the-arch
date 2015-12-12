@@ -34,6 +34,8 @@
 				<% @cat_settings = @settings.where(category: @category) %>
 				<% for @setting in @cat_settings %>
 					<%= content_tag :div, class: 'row settings-row' do %>
+
+						<% # Switches for boolean settings # %>
 						<% if @setting.setting_type == 'boolean' %>
 							<%= hidden_field_tag "admin[#{@setting.id.to_s}][id]", :id, value: @setting.id %>
 							<%= content_tag :div, class: 'col-md-4' do %>
@@ -43,8 +45,11 @@
 							<% end %>
 							<%  checked = (@setting.value == '1') ? true : false %>
 							<%= check_box_tag "admin[#{@setting.id.to_s}][value]", @setting.value, checked, class: 'col-md-8 bootstrap-switches' %>
+
+						<% # Color picker for 'color' settings # %>
 						<% #elsif @setting.setting_type == 'color' %>
 			
+						<% # Datetime picker for 'date' settings # %>
 						<% elsif @setting.setting_type == 'date' %>
 							<%= hidden_field_tag "admin[#{@setting.id.to_s}][id]", :id, value: @setting.id %>
 							<%= content_tag :div, class: 'col-md-4' do %>
@@ -65,6 +70,7 @@
 								$('#datetimepicker_<%= @setting.id %>').datetimepicker();
 							<% end %>
 
+						<% # Text box for standard text settings # %>
 						<% else #setting.setting_type == 'text' %>
 							<%= hidden_field_tag "admin[#{@setting.id.to_s}][id]", :id, value: @setting.id %>
 							<%= content_tag :div, class: 'col-md-4' do %>

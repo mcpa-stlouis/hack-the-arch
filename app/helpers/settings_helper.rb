@@ -29,6 +29,10 @@ module SettingsHelper
 		(Setting.find_by(name: 'send_activation_emails').value == "0") ? false : true
 	end
 
+	def view_other_profiles?
+		(Setting.find_by(name: 'view_other_profiles').value == "0") ? false : true
+	end
+
 	def use_handicap?
 		(Setting.find_by(name: 'use_bracket_handicaps').value == "0") ? false : true
 	end
@@ -38,7 +42,15 @@ module SettingsHelper
 	end
 
 	def entry_cost
-		Setting.find_by(name: 'require_payment').value
+		Setting.find_by(name: 'entry_cost').value
+	end
+
+	def fifty_percent_off
+		Setting.find_by(name: 'fifty_percent_off').value
+	end
+
+	def one_hundred_percent_off
+		Setting.find_by(name: 'one_hundred_percent_off').value
 	end
 
 	# returns int value of setting if it's between 0 and 2 ^ 16, otherwise 0

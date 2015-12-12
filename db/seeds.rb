@@ -14,6 +14,8 @@ Setting.create!(label: "Send activation e-mails?", tooltip: "Requires mailer con
 								name: "send_activation_emails", value: "1", setting_type: "boolean", category: "General")
 Setting.create!(label: "Use bracket based handicap system?", 
 								name: "use_bracket_handicaps", value: "0", setting_type: "boolean", category: "General")
+Setting.create!(label: "Allow users to view profiles other than their own?", 
+								name: "view_other_profiles", value: "1", setting_type: "boolean", category: "General")
 
 # Scoring Category
 Setting.create!(label: "Subtract hint deductions before problem is solved?", 
@@ -28,6 +30,10 @@ Setting.create!(label: "Require Payment?", tooltip: "Reqires 'stripe' configurat
 								name: "require_payment", value: "0", setting_type: "boolean", category: "Payment")
 Setting.create!(label: "Entry cost:", tooltip: "in $0.01 increments (e.g., 500 = $5.00 USD)", 
 								name: "entry_cost", value: "500", setting_type: "text", category: "Payment")
+Setting.create!(label: "50% Off Discount Code:", tooltip: "empty string disables", 
+								name: "fifty_percent_off", value: "", setting_type: "text", category: "Payment")
+Setting.create!(label: "100% Off Discount Code:", tooltip: "empty string disables", 
+								name: "one_hundred_percent_off", value: "", setting_type: "text", category: "Payment")
 
 bracket = Bracket.create!(name: "Professional", priority: "10", hints_available: 0)
           Bracket.create!(name: "College", priority: "5", hints_available: 2)
