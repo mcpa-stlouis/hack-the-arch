@@ -51,6 +51,7 @@ user = User.create!(id: Random.rand(10000),
  						 				password_confirmation: "password",
  						 				admin: true,
  						 				activated: true,
+ 						 				paid: true,
 						 				team_id: team.id,
  						 				activated_at: Time.zone.now)
 
