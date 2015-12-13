@@ -51,7 +51,6 @@ class UsersController < ApplicationController
 
   def new
 		@new_user_page = true
-		@amount = entry_cost
 		@user = User.new
   end
 
@@ -71,13 +70,12 @@ class UsersController < ApplicationController
 	def checkout
 		if params[:id]
 			@user = User.find(params[:id])
+			@cost = entry_cost.to_f
 
 			if !one_hundred_percent_off.blank? && @user.discount_code == one_hundred_percent_off
 				activate_user(@user)
 			elsif !fifty_percent_off.blank? && @user.discount_code == fifty_percent_off
 				@cost = @cost / 2
-			else
-				@cost = entry_cost
 			end
 
 		else
@@ -93,7 +91,7 @@ class UsersController < ApplicationController
 			redirect_to @user
 		end
 
-		@cost = entry_cost
+		@cost = entry_cost.to_f
 
 		if !fifty_percent_off.blank? && @user.discount_code == fifty_percent_off
 			@cost = @cost / 2
@@ -106,7 +104,7 @@ class UsersController < ApplicationController
 	
   	charge = Stripe::Charge.create(
    		:customer    => customer.id,
-   		:amount      => @cost,
+   		:amount      => @cost.to_i.to_s,
    		:description => 'Rails Stripe customer',
    		:currency    => 'usd'
   	)
