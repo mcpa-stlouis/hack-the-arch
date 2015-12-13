@@ -4,25 +4,43 @@
 <%= content_tag :div, class: 'row' do %>
 	<%= content_tag :div, class: 'col-md-6 col-md-offset-3' do %>
 
-		<%= content_tag :h4, 'To finish your registration, please checkout using stripe below:' %>
+		<div class="well">
+			<div><strong>Name:</strong> <%= @user.fname %> <%= @user.lname %></div>
+			<div><strong>E-Mail:</strong> <%= @user.email %></div>
+			<div><strong>Date:</strong> <%= @user.created_at.localtime.strftime("%m/%d/%Y %I:%M %p") %></div>
+		</div>
+
 		<%= form_tag charge_path(@user) do %>
 			<table class="table">
 				<thead>
 					<tr>
 						<td>Qty.</td>
 						<td>Item</td>
-						<td>Amount</td>
+						<td class="text-right">Amount</td>
 					</tr>
 				</thead>
 				<tbody>
 					<tr> 
 						<td>1.</td>
 						<td>Registration for <%= competition_name %></td>
-						<td><%= number_to_currency(@cost.to_f / 100) %></td>
+						<td class="text-right"><%= number_to_currency(@cost.to_f / 100) %>&nbsp;</td>
+					</tr>
+					<% if @discount != 0 %>
+						<tr> 
+							<td></td>
+							<td>Discount with code: <%= @user.discount_code %></td>
+							<td class="text-right text-danger">(<%= number_to_currency(@discount.to_f / 100) %>)</td>
+						</tr>
+					<% end %>
+					<tr> 
+						<td></td>
+						<td class="text-right">Total:</td>
+						<td class="text-right"><%= number_to_currency((@cost - @discount).to_f / 100) %>&nbsp;</td>
 					</tr>
 				</tbody>
 			</table>
 
+			<a href="#" onclick="window.print();return false;">Print</a> 
 			<div class="row pull-right">
   			<script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
           			data-key="<%= Rails.configuration.stripe[:publishable_key] %>"

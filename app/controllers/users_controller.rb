@@ -71,11 +71,12 @@ class UsersController < ApplicationController
 		if params[:id]
 			@user = User.find(params[:id])
 			@cost = entry_cost.to_f
+			@discount = 0.00
 
 			if !one_hundred_percent_off.blank? && @user.discount_code == one_hundred_percent_off
 				activate_user(@user)
 			elsif !fifty_percent_off.blank? && @user.discount_code == fifty_percent_off
-				@cost = @cost / 2
+				@discount = @cost / 2
 			end
 
 		else
