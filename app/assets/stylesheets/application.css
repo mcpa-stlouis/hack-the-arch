@@ -12,6 +12,9 @@
  *
  *= require_tree .
  *= require_self
+ *= require bootstrap
  *= require bootstrap3-switch
+ *= require bootstrap-datetimepicker
+ *= require c3
  */
 

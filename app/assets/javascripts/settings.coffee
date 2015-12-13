@@ -4,6 +4,14 @@
 draw_switches = ->
   if document.getElementById('settings') 
     $(".bootstrap-switches").bootstrapSwitch()
-		return
+    return
+
+search_toggle = ->
+  $('a[data-toggle="tab"]').on 'shown.bs.tab', (e) ->
+    if e.target.hash == '#teams' || e.target.hash == '#users'
+      $("#filter_container").show()
+    else
+      $("#filter_container").hide()
 
 $(document).on('page:change', draw_switches)
+$(document).on('page:change', search_toggle)

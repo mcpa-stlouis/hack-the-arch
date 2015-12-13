@@ -41,3 +41,10 @@
 	<% end %>
 <% end %>
 
+<% # Show hint tab if referred from hint_request controller # %>
+<% if @hint_requested %>
+	<%= javascript_tag do %>
+		$('#problem_tabs_<%= @problem.id %> a[href="#hints_<%= @problem.id %>"]').tab('show') 
+	<% end %>
+<% end %>
+

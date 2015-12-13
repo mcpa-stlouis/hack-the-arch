@@ -11,7 +11,7 @@ class ProblemsTest < ActionDispatch::IntegrationTest
 
 	def make_comp_inactive
 		log_in_as(@admin)
-		@start_time.value = Time.zone.now + 5.minutes
+		@start_time.value = (DateTime.current + 5.minutes).strftime("%m/%d/%Y %I:%M %p")
 		@start_time.save
 		log_out
 	end
