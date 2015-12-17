@@ -22,3 +22,14 @@ archer:
   paid: true
   team_id: 2
   activated_at: <%= Time.zone.now %>
+
+malory:
+  id: 3
+  fname: Malory
+  lname: Archer
+  email: malory@isis.gov
+  password_digest: <%= User.digest('password') %>
+  activated: true
+  paid: true
+  team_id: 2
+  activated_at: <%= Time.zone.now %>

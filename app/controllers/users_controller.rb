@@ -36,7 +36,7 @@ class UsersController < ApplicationController
 	end
 
 	def get_stats
-		if @user = User.find(params[:id])
+		if @user = User.find_by_id(params[:id])
 
 			@accuracy_data = @user.get_accuracy_data
 			@category_data = @user.get_category_data
@@ -158,11 +158,17 @@ class UsersController < ApplicationController
 		
 		def correct_user
 			@user = User.find(params[:id])
-			redirect_to(root_url) unless current_user?(@user)
+			unless current_user?(@user)
+				flash[:danger] = "Access denied"
+				redirect_to root_url
+			end
 		end
 
 		def admin_user
-      redirect_to(root_url) unless current_user.admin?
+    	unless admin_user?
+				flash[:danger] = "Access denied"
+				redirect_to root_url
+			end
     end
 
 		def activate_user(user)
