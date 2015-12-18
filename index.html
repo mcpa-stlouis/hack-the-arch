@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <title>HackTheArch by mcpa-stlouis</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>HackTheArch</h1>
+        <h2>Welcome to HackTheArch!  A free open source scoring server for cyber Capture the Flag competitions!</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/mcpa-stlouis/hack-the-arch/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/mcpa-stlouis/hack-the-arch/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/mcpa-stlouis/hack-the-arch" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>
+<a id="readme---hack-the-arch" class="anchor" href="#readme---hack-the-arch" aria-hidden="true"><span class="octicon octicon-link"></span></a>README - Hack the Arch</h1>
+
+<p>This is a scoring server built using Ruby on Rails by the Military Cyber Professionals Association (MCPA).  It is free to use and extend under the MIT license (see LICENSE file).  The goal of this project is to provide a standard generic scoring server that provides an easy way to add and modify problems and track statistics of a Cyber Capture the Flag event.  While it's not recommended, this server can be hosted with your challenges but we do recommend sand-boxing your challenges so they do not affect the scoring server.</p>
+
+<h2>
+<a id="whats-different-about-hackthearch" class="anchor" href="#whats-different-about-hackthearch" aria-hidden="true"><span class="octicon octicon-link"></span></a>What's different about HackTheArch?</h2>
+
+<p>We created this application after using the <a href="https://github.com/picoCTF/picoCTF-Platform-2">PicoCTF platform</a> for our annual CTF.  It was okay, but we found it lacking some features that we wanted.  We wanted a way to be able to offer competitors hints for a cost, and we also wanted a way to create and modify problems from a web interface.  We looked around and didn't see any others that met our requirements.  <a href="https://github.com/isislab/CTFd">CTFd</a>: no web admin interface for creating challenges.  <a href="https://github.com/moloch--/RootTheBox">Root The Box</a>: We didn't like all the extra stuff with the bank accounts and it just seemed too complex for our needs.  So we decided to roll our own scoring server and now you can benefit from our hard work!  This application implements an optional dynamic hint system which will deduct points for requesting hints and also implements a web interface for creating and modifying hints and challenges.  We hope you enjoy this application and are open to feedback so let us know what you like, hate, would like to see added, etc...</p>
+
+<h2>
+<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requirements</h2>
+
+<ul>
+<li>Ruby version 2.2.2p95</li>
+<li>Activation and password reset e-mails depend on Heroku SendGrid add-on configuration (this feature can be optionally disabled or easily modified to be used with other mailers)</li>
+<li>To store challenge pictures in the production environment, you'll need to modify 'config/initializers/carrier_wave.rb' to work with your cloud storage solution</li>
+<li>See Gemfile for further requirements</li>
+</ul>
+
+<h2>
+<a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting Started</h2>
+
+<ul>
+<li>For the latest stable release either download the latest tagged release <a href="https://github.com/mcpa-stlouis/hack-the-arch/releases">here</a>, or checkout the 'master' branch.  For the latest features and a less-stable version, checkout the 'dev' branch.</li>
+<li>This app is presently designed to be deployed in a heroku environment.  You'll need to add the sendgrid addon before deploying (<code>heroku addons:create sendgrid:starter</code>) and update the host to match your domain in 'config/environments/production.rb'.  To deploy to Heroku, see their help page <a href="https://devcenter.heroku.com/articles/getting-started-with-ruby#set-up">here</a>
+</li>
+<li>It can be deployed outside a heroku environment but will require some alternative for sending account activation e-mails (or alternatively activation e-mails can be disabled in the admin console)</li>
+<li>To initialize the database, run: <code>bundle exec rake db:seed</code>.  After initialization, the admin login credentials will be: <strong><a href="mailto:admin@gmail.com">admin@gmail.com</a></strong> : <strong>password</strong>
+</li>
+<li>
+<strong>Important</strong>: It is highly advised that you change the admin credentials post-deployment</li>
+</ul>
+
+<h2>
+<a id="quick-start-local-deployment" class="anchor" href="#quick-start-local-deployment" aria-hidden="true"><span class="octicon octicon-link"></span></a>Quick Start (Local Deployment)</h2>
+
+<p>Tested using Ubuntu Server 15.10.</p>
+
+<ul>
+<li>We recommend you remove the debug box in: <code>app/views/layouts/application.html.erb</code>
+</li>
+<li>Install the following packages <code>gcc make ruby ruby2.2 bundler zlib1g-dev postgresql-server-dev-all libsqlite3-dev nodejs</code>
+</li>
+<li>Run: <code>rake db:seed</code>
+</li>
+<li>Run: <code>sudo rails server -p 80 -b 0.0.0.0 -d</code>
+</li>
+</ul>
+
+<h2>
+<a id="contact" class="anchor" href="#contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contact</h2>
+
+<ul>
+<li>
+<a href="http://paullj1.com">Paul Jordan</a> @ paullj1[at]gmail[dot]com</li>
+<li>
+<a href="http://CyDefe.com">Raymond Evans</a> @ REvans[at]CyDefe[dot]com</li>
+</ul>
+
+<h2>
+<a id="acknowledgements" class="anchor" href="#acknowledgements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Acknowledgements</h2>
+
+<ul>
+<li>Base code derived from the <a href="http://railstutorial.org">Rails Tutorial</a> by Michael Hartl</li>
+</ul>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
