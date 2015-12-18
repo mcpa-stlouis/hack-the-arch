@@ -50,7 +50,6 @@ class UsersController < ApplicationController
 	end
 
   def new
-		@new_user_page = true
 		@user = User.new
   end
 
@@ -125,6 +124,7 @@ class UsersController < ApplicationController
 	end
 
 	def edit
+		@edit_user_page = true
 	end
 
 	def update

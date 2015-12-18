@@ -16,7 +16,7 @@
   <%= f.label :password_confirmation, "Confirmation" %>
   <%= f.password_field :password_confirmation, class: 'form-control' %>
 
-	<% if require_payment? && @new_user_page %>
+	<% if require_payment? && !@edit_user_page %>
 		<%= f.label "Discount Code" %>
 		<%= f.text_field :discount_code, class: 'form-control' %>
 	<% end %>
