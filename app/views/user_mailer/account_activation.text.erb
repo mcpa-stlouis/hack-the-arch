@@ -2,7 +2,7 @@ Hello <%= @user.fname %>!
 
 Thanks for supporting the MCPA and welcome to HackTheArch! Please click on the link below to activate your account:
 
-<%= edit_account_activation_url(@user.activation_token, email: @user.email, id: @user.id) %>
+<%= edit_account_activation_url(id: @user.activation_token, email: @user.email) %>
 
 Best of luck!
 -The HackTheArch Team
