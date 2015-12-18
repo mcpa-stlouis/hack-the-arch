@@ -175,6 +175,7 @@ class UsersController < ApplicationController
 			user.update_attributes(paid: true)
 	
 			if send_activation_emails?
+  			user.create_activation_digest
 				user.send_activation_email
     		flash[:info] = "Please check your email to activate your account."
     		redirect_to root_url
