@@ -105,7 +105,7 @@ class UsersController < ApplicationController
   	charge = Stripe::Charge.create(
    		:customer    => customer.id,
    		:amount      => @cost.to_i.to_s,
-   		:description => 'Rails Stripe customer',
+   		:description => "#{competition_name} registration for: #{@user.email}",
    		:currency    => 'usd'
   	)
 
