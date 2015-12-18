@@ -9,11 +9,12 @@ example_problem:
   correct_message: Correct!
   false_message: Incorrect
   visible: true
+  hints: "1,2,3"
   solution_case_sensitive: true
 
 example_problem_2:
   name: HackTheArch2
-  description: Help us hack the arch!
+  description: Help us hack the arch again!
   category: NetEx
   points: 100
   solution: answer
