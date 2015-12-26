@@ -89,11 +89,13 @@
 			<%= render 'brackets' %>
 		<% end %>
 		<%= content_tag :div, class: 'tab-pane', id: 'teams' do %>
+			<%= content_tag :h4, "Count: #{@teams.count}", class: 'text-center' %>
 			<%= content_tag :ul, class: 'teams row filter_list' do %>
 				<%= render @teams %>
 			<% end %>
 		<% end %>
 		<%= content_tag :div, class: 'tab-pane', id: 'users' do %>
+			<%= content_tag :h4, "Count: #{@users.count}", class: 'text-center' %>
 			<%= content_tag :ul, class: 'users row filter_list' do %>
 				<%= render @users %>
 			<% end %>
