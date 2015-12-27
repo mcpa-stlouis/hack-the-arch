@@ -12,7 +12,14 @@ class ProblemsController < ApplicationController
 		end
 
 		if params[:problem_id]
+			# If a specific problem was open, keep it open
 			@problem_view = Problem.find(params[:problem_id])
+
+			# If the hints tab was active, keep it active
+			if session[:hint_requested]
+				@hint_requested = true
+    		session.delete(:hint_requested)
+			end
 		end
 	end
 

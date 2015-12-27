@@ -1,4 +1,3 @@
-<%= content_tag :h1, 'Brackets' %>
 <% if @brackets %>
 	<%= content_tag :table, id: 'brackets', class: 'table' do %>
 		<%= content_tag :thead do %>
@@ -8,8 +7,8 @@
 				<%= content_tag :td, 'Options' %>
 			<% end %>
 		<% end %>
-		<% for bracket in @brackets do %>
-			<%= content_tag :tbody do %>
+		<%= content_tag :tbody do %>
+			<% for bracket in @brackets do %>
 				<%= content_tag :tr do %>
 					<%= content_tag :td, bracket.name %>
 					<%= content_tag :td, bracket.priority %>
