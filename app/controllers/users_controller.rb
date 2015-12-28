@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
 	before_action :logged_in_user, only: [:show, :index, :destroy, :edit, :update, :get_stats]
+	before_action :registration_active, only: [:new, :create]
 	before_action :correct_user, only: [:edit, :update]
 	before_action :admin_user, only: [:index, :destroy]
 	before_action :require_payment, only: [:checkout, :charge]
@@ -138,7 +139,7 @@ class UsersController < ApplicationController
 
 	private
 		def user_params
-			params.require(:user).permit(:fname, :lname, :email, :password, :password_confirmation, :discount_code)
+			params.require(:user).permit(:fname, :lname, :username, :email, :password, :password_confirmation, :discount_code)
 		end
 
 		def logged_in_user
@@ -184,6 +185,13 @@ class UsersController < ApplicationController
 				log_in(user)
     		flash[:success] = "Welcome to #{competition_name}!"
     		redirect_to user
+			end
+		end
+
+		def registration_active
+			unless registration_active?
+				flash[:info] = "Registration is not open"
+				redirect_to root_url
 			end
 		end
 

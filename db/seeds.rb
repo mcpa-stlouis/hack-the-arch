@@ -12,6 +12,8 @@ Setting.create!(label: "Max number of members per team:",
 								name: "max_members_per_team", value: "5", setting_type: "text", category: "General")
 Setting.create!(label: "Send activation e-mails?", tooltip: "Requires mailer config", 
 								name: "send_activation_emails", value: "1", setting_type: "boolean", category: "General")
+Setting.create!(label: "Registration on?", 
+								name: "registration_active", value: "0", setting_type: "boolean", category: "General")
 Setting.create!(label: "Use bracket based handicap system?", 
 								name: "use_bracket_handicaps", value: "0", setting_type: "boolean", category: "General")
 Setting.create!(label: "Allow users to view profiles other than their own?", 
@@ -46,6 +48,7 @@ team = Team.create!(name:  "admins",
 user = User.create!(id: Random.rand(10000),
 						 				fname:  "admin",
  						 				lname: "user",
+ 						 				username: "admin",
  						 				email: "admin@gmail.com",
  						 				password:              "password",
  						 				password_confirmation: "password",

@@ -41,6 +41,10 @@ module SettingsHelper
 		(Setting.find_by(name: 'require_payment').value == "0") ? false : true
 	end
 
+	def registration_active?
+		(Setting.find_by(name: 'registration_active').value == "0") ? false : true
+	end
+
 	def entry_cost
 		Setting.find_by(name: 'entry_cost').value
 	end

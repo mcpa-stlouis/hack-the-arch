@@ -11,6 +11,14 @@
     scoring server application developed by the Military Cyber Professionals Association - St. Louis Chapter.
   </h2>
 
-  <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
+	<% if registration_active? %>
+  	<%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
+	<% else %>
+		<% if competition_started? %>
+			<h3>Registration closed!</h3>
+		<% else %>
+			<h3>Registration hasn't opened yet, check back soon!</h3>
+		<% end %>
+	<% end %>
 </div>
 

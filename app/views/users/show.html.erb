@@ -4,10 +4,11 @@
     <%= content_tag :section, class: 'user_info' do %>
       <%= content_tag :h1, class: 'text-right' do %>
         <%= gravatar_for @user %>
-        <%= @user.fname %>
-        <%= @user.lname %>
+				<%= @user.username %>
       <% end %>
-			<%= content_tag :p, class: 'text-right' do %>
+			<%= content_tag :h2, class: 'text-right' do %>
+        <%= "#{@user.fname} #{@user.lname}" %>
+				<%= tag :br %>
 				<%= mail_to @user.email %>
 			<% end %>
 			<%= content_tag :p,  class: 'text-right' do %>

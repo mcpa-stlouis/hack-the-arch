@@ -4,18 +4,20 @@
 		<h3 class='col-md-1 col-xs-1'>
 			<%= @sorted_teams.index(team) + 1 %>
 		</h3>
-		<h3 class='col-md-8 col-xs-6'>
-			<%= link_to team.name, team %>
-		</h3>
+		<div class='col-md-8 col-xs-6'>
+			<h3> <%= link_to team.name, team %> </h3>
+			<h5 class='text-muted'> (<%= pluralize(team.users.count, "member") %>) </h5>
+		</div>
 		<h3 class='col-md-3 col-xs-5'>
 			<%= team.get_score %>
 		</h3>
 
 	<% else %>
 
-		<h3 class='col-md-9 col-xs-7'>
-			<%= link_to team.name, team %>
-		</h3>
+		<div class='col-md-9 col-xs-7'>
+			<h3> <%= link_to team.name, team %> </h3>
+			<h5 class='text-muted'> (<%= pluralize(team.users.count, "member") %>) </h5>
+		</div>
 		<h3 class='col-md-3 col-xs-5'>
 			<% if admin_user? %>
    			<%= link_to 'delete', team, method: :delete,
