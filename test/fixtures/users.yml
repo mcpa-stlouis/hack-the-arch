@@ -4,6 +4,7 @@ example_user:
   id: 1
   fname: Another
   lname: Example User
+  username: example
   email: another_user@example.com
   password_digest: <%= User.digest('password') %>
   activated: true
@@ -16,6 +17,7 @@ archer:
   id: 2
   fname: Sterling
   lname: Archer
+  username: archer
   email: archer@isis.gov
   password_digest: <%= User.digest('password') %>
   activated: true
@@ -27,6 +29,7 @@ malory:
   id: 3
   fname: Malory
   lname: Archer
+  username: mother
   email: malory@isis.gov
   password_digest: <%= User.digest('password') %>
   activated: true

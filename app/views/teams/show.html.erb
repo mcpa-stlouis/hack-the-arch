@@ -14,7 +14,7 @@
        		<%= gravatar_for @member %>
 				</td> <td>
 					<%= content_tag :h5, id: @member.id do %>
-						<p><%= link_to @member.email, @member %></p>
+						<p><%= link_to @member.username, @member %></p>
 						<% if admin_user? || member_of_team(current_user, @team) %>
 							<p>Points Scored: <%= @member.get_score %></p>
 						<% end %>

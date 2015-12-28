@@ -1,9 +1,11 @@
 <%= content_tag :li, class: 'searchable' do %>
 	<%= gravatar_for user, size: 50 %>
-	<%= link_to user.email, user %>
+	<%= link_to user.username, user %>
 	<% if current_user.admin? && !current_user?(user) %>
     | <%= link_to "delete", user, method: :delete,
                                   data: { confirm: "You sure?" } %>
+		<br />
+		<%= mail_to user.email %>
 		<% if !user.activated? %>
 			<%= content_tag :div, "Not Activated, created #{distance_of_time_in_words(user.created_at, Time.now)} ago.", class: "text-danger" %>
 		<% end %>

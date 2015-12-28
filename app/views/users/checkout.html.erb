@@ -6,6 +6,7 @@
 
 		<div class="well">
 			<div><strong>Name:</strong> <%= @user.fname %> <%= @user.lname %></div>
+			<div><strong>Username:</strong> <%= @user.username %></div>
 			<div><strong>E-Mail:</strong> <%= @user.email %></div>
 			<div><strong>Date:</strong> <%= @user.created_at.localtime.strftime("%m/%d/%Y %I:%M %p") %></div>
 		</div>
