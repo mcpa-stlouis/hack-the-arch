@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# https://cloud.google.com/storage/docs/json_api/v1/buckets
+export GOOGLE_BUCKET=GOOGLE_BUCKET_NAME
+export GOOGLE_ACCESS_KEY=GOOGLE_BUCKET_ACCESS_KEY
+export GOOGLE_SECRET_KEY=GOOGLE_BUCKET_SECRET_KEY
+
+# https://stripe.com
+export STRIPE_PUBLISHABLE_KEY=YOUR_STRIPE_PUBLISHABLE_KEY
+export STRIPE_SECRET_KEY=YOUR_STRIPE_SECRET_KEY
+
+# https://sendgrid.com
+export SENDGRID_PASSWORD=YOUR_SENDGRID_PASSWORD
+export SENDGRID_USERNAME=YOUR_SENDGRID_USERNAME
+
+export DATABASE_URL=YOUR_POSTGRESQL_URL # postgres://user@address:database 
+export SECRET_KEY_BASE= # Use `bundle exec rake secret` to generate a secure secret key.
+
+export RAILS_ENV=production
+export RACK_ENV=production
+export RAILS_SERVE_STATIC_FILES=enabled
+export LANG=en_US.UTF-8
+export PORT=80 # For non-SSL connections (will automatically force SSL if used)
+
+key=/path/to/server/key
+cert=/path/to/server/cert
+
+rake assets:precompile 
+bundle exex puma -C config/puma.rb -b 'ssl://0.0.0.0:443?key='$key'&cert='$cert
