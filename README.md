@@ -22,13 +22,19 @@ Getting Started
 * To initialize the database, run: `bundle exec rake db:seed`.  After initialization, the admin login credentials will be: **admin@gmail.com** : **password**
 * **Important**: It is highly advised that you change the admin credentials post-deployment
 
-Quick Start (Local Deployment)
+Quick Start (Simple Local Deployment)
 ------------------------------
 Tested using Ubuntu Server 15.10.
 * We recommend you remove the debug box in: `app/views/layouts/application.html.erb`
 * Install the following packages `gcc make ruby ruby2.2 bundler zlib1g-dev postgresql-server-dev-all libsqlite3-dev nodejs`
 * Run: `rake db:seed`
 * Run: `sudo rails server -p 80 -b 0.0.0.0 -d`
+
+Production (Advanced Local Deployment)
+--------------------------------------
+* Deploying HackTheArch in a production environment will provide a much more robust service but requires slightly more advanced configuration.
+* Fill in variables and follow instructions in `OfflineSetup/start_local`
+* Once the `start_local` script is complete, it can simply be run to start the server.
 
 Contact
 -------
