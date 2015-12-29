@@ -36,6 +36,11 @@ Production (Advanced Local Deployment)
 * Fill in variables and follow instructions in `OfflineSetup/start_local`
 * Once the `start_local` script is complete, it can simply be run to start the server.
 
+Want to help?
+-------------
+* Want to add a new feature or fix a bug? Check out a branch and submit working code with tests via pull request to merge into the 'dev' branch.
+* Test coverage would be a good place to start: [here](coverage/index.html)
+
 Contact
 -------
 * [Paul Jordan](http://paullj1.com) @ paullj1[at]gmail[dot]com
