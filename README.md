@@ -1,5 +1,5 @@
-README - Hack the Arch
-======================
+HackTheArch
+===========
 
 This is a scoring server built using Ruby on Rails by the Military Cyber Professionals Association (MCPA).  It is free to use and extend under the MIT license (see LICENSE file).  The goal of this project is to provide a standard generic scoring server that provides an easy way to add and modify problems and track statistics of a Cyber Capture the Flag event.  While it's not recommended, this server can be hosted with your challenges but we do recommend sand-boxing your challenges so they do not affect the scoring server.
 
@@ -16,6 +16,8 @@ Requirements
 * To store challenge pictures in the production environment, you'll need to modify 'config/initializers/carrier\_wave.rb' to work with your cloud storage solution
 * See Gemfile for further requirements
 
+Deployment Options
+==================
 Getting Started
 ---------------
 * For the latest stable release either download the latest tagged release [here](https://github.com/mcpa-stlouis/hack-the-arch/releases), or checkout the 'master' branch.  For the latest features and a less-stable version, checkout the 'dev' branch.
@@ -38,6 +40,11 @@ Production (Advanced Local Deployment)
 * Fill in variables and follow instructions in `OfflineSetup/start_local`
 * Once the `start_local` script is complete, it can simply be run to start the server.
 
+### More configuration details on our project [wiki](https://github.com/mcpa-stlouis/hack-the-arch/wiki).
+
+
+Contribute and Contact
+======================
 Want to help?
 -------------
 * Want to add a new feature or fix a bug? Check out a branch and submit working code with tests via pull request to merge into the 'dev' branch.
