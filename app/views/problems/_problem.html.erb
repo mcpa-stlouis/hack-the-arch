@@ -1,3 +1,7 @@
+<% @hints_requested = current_team.get_hints_requested(@problem.id).count > 0 %>
+<% @solved_by_current_team = @problem.solved_by?(current_team.id) %>
+<% @num_solves_for_problem = Submission.get_solves_for_problem(@problem.id) %>
+
 <%= content_tag :div do %>
   <!-- Nav tabs -->
 	<%= content_tag :ul, role: 'tablist', class: 'nav nav-tabs', id: add_id('problem_tabs',@problem) do %>
@@ -6,7 +10,7 @@
 			<%= link_to 'Problem', add_id('#problem',@problem), 'aria-controls' => add_id('problem',@problem), role: 'tab', 'data-toggle' => 'tab' %>
 		<% end %>
 		<% #  Hints Tab # %>
-		<% if @problem.number_of_hints_available > 0 || admin_user? %>
+		<% if @hints_requested || admin_user? || (!@solved_by_current_team && @problem.number_of_hints_available > 0) %>
 			<%= content_tag :li, role: 'presentation' do %>
 				<%= link_to 'Hints', add_id('#hints',@problem), 'aria-controls' => add_id('hints',@problem), role: 'tab', 'data-toggle' => 'tab' %>
 			<% end %>
@@ -18,10 +22,10 @@
 
 		<% #  Problem Tab Content # %>
 		<%= content_tag :div, role: 'tabpanel', class: 'tab-pane active', id: add_id('problem',@problem) do %>
-			<%= content_tag :h4, "Solves: #{Submission.get_solves_for_problem(@problem.id)}", class: 'text-center' %>
+			<%= content_tag :h4, "Solves: #{@num_solves_for_problem}", class: 'text-center' %>
 			<%= content_tag :p, simple_format(@problem.description) %>
 			<p><%= image_tag @problem.picture.url if @problem.picture? %></p>
-			<% if @problem.solved_by?(current_user.team_id) %>
+			<% if @solved_by_current_team %>
 				<p>Your team has solved this challenge!</p>
 			<% else %>
 				<%= render 'submit' %>
@@ -42,7 +46,7 @@
 					<% else %>
 						<%= content_tag :div, class: 'col-md-12' do %>
 							<h4 class='text-center'>Hints Requested</h4>
-							<% if current_team.get_hints_requested(@problem.id).count > 0 %>
+							<% if @hints_requested %>
 								<%= render 'hints' %>
 							<% else %>
 								<p class='col-md-6 col-md-offset-3'>No hints requested yet</p>
@@ -50,7 +54,7 @@
 						<% end %>
 	
 						<% # Request Hint Button # %>
-						<% if !@problem.solved_by?(current_user.team_id) %>
+						<% if !@problem.solved_by?(current_team.id) %>
 							<%= content_tag :div, class: 'col-md-12' do %>
 								<%= link_to 'Request Hint', request_hint_path(problem_id: @problem.id),  method: :post, class: 'btn btn-primary', 
                                   data: { confirm: "You sure?" } %>
