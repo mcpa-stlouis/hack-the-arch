@@ -1,6 +1,14 @@
 Release Notes:
 ==============
 
+1.2
+---
+* Added: Stripe Payment option
+* Added: Mouseover on notifications keeps them from disappearing
+* Added: DateTime picker for dates in settings
+* Settings page redesigned with tabs and styling improvements
+* When Hints are requested, hint tab will become active after redirect
+
 1.1
 ---
 * Added: setting for bracket based handicaps
