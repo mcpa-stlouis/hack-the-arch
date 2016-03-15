@@ -11,15 +11,17 @@
  
   <br>
 
-	<% if registration_active? %>
-  	<%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
-  	<br>
-  	<h3>Registration Fee: Individuals ($5) Team of up to 5 ($20)
+	<h3>Registration Fee: Individuals ($5) Team of up to 5 ($20)
   	<br>
   	Location: Southern Illinois University Edwardsville	
        <br>
        When: May 7th 2016
        <br>
+       <br>
+	
+	<% if registration_active? %>
+  	<%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
+  	<br>
        <br>
        
        Available prizes: cash, premium CTF365 accounts, Steam codes, Bawls enerygy drink swag, and more
