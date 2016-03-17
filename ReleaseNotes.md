@@ -1,6 +1,21 @@
 Release Notes:
 ==============
 
+1.2.1
+-----
+* Added: "Registration Active" setting
+* Added: username attribute to protect e-mail privacy
+* Added: member count to team views
+
+1.2
+---
+* Added: Stripe Payment option
+* Added: Mouseover on notifications keeps them from disappearing
+* Added: DateTime picker for dates in settings
+* Settings page redesigned with tabs and styling improvements
+* When Hints are requested, hint tab will become active after redirect
+* Using CDN for all JavaScript and CSS imports now
+
 1.1
 ---
 * Added: setting for bracket based handicaps
