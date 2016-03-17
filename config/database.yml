@@ -23,3 +23,12 @@ test:
 production:
   <<: *default
   database: db/production.sqlite3
+
+# Use for local production mode (use above for Heroku)
+#production:
+  #adapter: postgresql
+  #encoding: unicode
+  #database: <Your DB Name>
+  #pool: 5
+  #username: postgres
+  #password: <password>
