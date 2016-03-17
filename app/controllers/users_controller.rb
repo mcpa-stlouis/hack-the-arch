@@ -73,6 +73,10 @@ class UsersController < ApplicationController
 			@cost = entry_cost.to_f
 			@discount = 0.00
 
+      if @user && @user.activated
+        redirect_to root_url
+      end
+
 			if !one_hundred_percent_off.blank? && @user.discount_code == one_hundred_percent_off
 				activate_user(@user)
 			elsif !fifty_percent_off.blank? && @user.discount_code == fifty_percent_off
