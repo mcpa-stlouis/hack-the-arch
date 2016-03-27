@@ -12,7 +12,9 @@
   </h2>
 
 	<% if registration_active? %>
-  	<%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
+		<% if !logged_in? %>
+  			<%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
+  		<% end %>
 	<% else %>
 		<% if competition_started? %>
 			<h3>Registration closed!</h3>
