@@ -23,6 +23,9 @@
 						<% end %>
 						<div class="col-md-3 text-right">
  							<% if admin_user? %>
+                <% if @problem.visible %>
+                  ENABLED
+                <% end %>
    							<%= link_to "edit", edit_problem_path(@problem), class: 'btn btn-primary' %>
    							<%= link_to "delete", @problem, method: :delete,
                              	 				data: { confirm: "You sure?" },
