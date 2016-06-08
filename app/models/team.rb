@@ -155,8 +155,12 @@ class Team < ActiveRecord::Base
 	end
 
 	def get_most_recent_solve
-		sub = self.submissions.last
-		sub.created_at if sub
+        sub = self.submissions.where(correct: true).last
+        if sub
+            sub.created_at
+        else
+            DateTime.new(2000,1,1)
+        end
 	end
 
 	def authenticate(passphrase)
