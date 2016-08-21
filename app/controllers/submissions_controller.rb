@@ -41,7 +41,7 @@ class SubmissionsController < ApplicationController
 			end
 
 		# Or the answer has already been guessed
-        elsif ( @problem.solved_by(current_user.team_id)) )
+        elsif ( @problem.solved_by?(current_user.team_id)) )
 			flash[:warning] = "Your team has already guessed that!"
 			redirect_to @problem
 		else
