@@ -154,13 +154,15 @@ class Team < ActiveRecord::Base
 		self.hint_requests.where(problem: problem_id)
 	end
 
-	def get_most_recent_solve
-		sub = self.submissions.where(correct: true).last
-		if sub
-			sub.created_at
-		else
-			DateTime.new(2000,1,1)
-		end
+  # DateTime 0 is returned in case the teams has no
+  # valid submissions
+	def get_most_recent_solve_datetime
+        sub = self.submissions.where(correct: true).last
+        if sub
+            sub.created_at
+        else
+            DateTime.new(0)
+        end
 	end
 
 	def authenticate(passphrase)

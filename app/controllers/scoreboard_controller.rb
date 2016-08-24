@@ -6,7 +6,7 @@ class ScoreboardController < ApplicationController
 		# reject admins
 		@teams = Team.where.not(name: 'admins')
 		@brackets = Bracket.all
-		@sorted_teams = @teams.sort_by { |team| [-team.get_score, team.get_most_recent_solve] }
+		@sorted_teams = @teams.sort_by { |team| [-team.get_score, team.get_most_recent_solve_datetime] }
 	end
 
 	def get_score_data
