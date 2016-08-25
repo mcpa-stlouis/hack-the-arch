@@ -21,8 +21,8 @@ class SubmissionsTest < ActionDispatch::IntegrationTest
 
 		@score = Team.find(@non_admin.team_id).get_score
 		assert_response :success
-    post submit_path, submission: { id: @problem.id, 
-																	 	value: @problem.solution }
+    post submit_path, params: {submission: { id: @problem.id, 
+																	 	value: @problem.solution }}
 		assert_not_equal @score, Team.find(@non_admin.team_id).get_score
 	end
 
@@ -33,14 +33,14 @@ class SubmissionsTest < ActionDispatch::IntegrationTest
 
 		@score = Team.find(@non_admin.team_id).get_score
 		assert_response :success
-    post submit_path, submission: { id: @problem.id, 
-																	 	value: "  " }
+    post submit_path, params: {submission: { id: @problem.id, 
+																	 	value: "  " }}
 		assert_equal @score, Team.find(@non_admin.team_id).get_score
 	end
 
 	test "should not work when not logged in" do
-    post submit_path, submission: { id: @problem.id, 
-																	 	value: "  " }
+    post submit_path, params: {submission: { id: @problem.id, 
+																	 	value: "  " }}
 		assert_not flash.empty?
 		assert_redirected_to login_url
 	end
@@ -53,8 +53,8 @@ class SubmissionsTest < ActionDispatch::IntegrationTest
 
 		@score = Team.find(@non_admin.team_id).get_score
 		assert_response :success
-    post submit_path, submission: { id: @problem.id, 
-																	 	value: @problem.solution.capitalize! }
+    post submit_path, params: {submission: { id: @problem.id, 
+																	 	value: @problem.solution.capitalize! }}
 		assert_not_equal @score, Team.find(@non_admin.team_id).get_score
 	end
 		
