@@ -7,7 +7,6 @@ gem 'uglifier',     '3.0.0'
 gem 'coffee-rails', '4.2.1'
 gem 'turbolinks',   '5.0.0'
 gem 'jbuilder',     '2.4.1'
-gem 'rack',         '2.0.1'
 gem 'jquery-turbolinks'
 gem 'bcrypt', '~> 3.1.7'
 gem 'carrierwave', '0.10.0'
@@ -49,6 +48,8 @@ end
 
 # Configured for Heroku 
 group :production do
-  gem 'pg',	'0.18.4'
+  gem 'ruby',           '2.3.1'
+  gem 'rack',           '2.0.1'
+  gem 'pg',	            '0.18.4'
   gem 'rails_12factor', '0.0.2'
 end
