@@ -154,9 +154,15 @@ class Team < ActiveRecord::Base
 		self.hint_requests.where(problem: problem_id)
 	end
 
-	def get_most_recent_solve
-		sub = self.submissions.last
-		sub.created_at if sub
+  # DateTime 0 is returned in case the teams has no
+  # valid submissions
+	def get_most_recent_solve_datetime
+        sub = self.submissions.where(correct: true).last
+        if sub
+            sub.created_at
+        else
+            DateTime.new(0)
+        end
 	end
 
 	def authenticate(passphrase)
@@ -168,9 +174,9 @@ class Team < ActiveRecord::Base
 			Setting.find_by(name: 'max_members_per_team').value.to_i
 		end
 
-    def bracket_exists
-      if !Bracket.exists?(bracket_id)
-        errors.add(:bracket_id, "Couldn't find bracket_id with specified id")
-      end
-    end
+		def bracket_exists
+			if !Bracket.exists?(bracket_id)
+				errors.add(:bracket_id, "Couldn't find bracket_id with specified id")
+			end
+		end
 end

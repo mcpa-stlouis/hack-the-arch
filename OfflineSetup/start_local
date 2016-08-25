@@ -13,7 +13,7 @@ export STRIPE_SECRET_KEY=YOUR_STRIPE_SECRET_KEY
 export SENDGRID_PASSWORD=YOUR_SENDGRID_PASSWORD
 export SENDGRID_USERNAME=YOUR_SENDGRID_USERNAME
 
-export DATABASE_URL=YOUR_POSTGRESQL_URL # postgres://user@address:database 
+export DATABASE_URL=YOUR_POSTGRESQL_URL # postgres://user@address/database 
 export SECRET_KEY_BASE= # Use `bundle exec rake secret` to generate a secure secret key.
 
 export RAILS_ENV=production
@@ -26,4 +26,4 @@ key=/path/to/server/key
 cert=/path/to/server/cert
 
 rake assets:precompile 
-bundle exex puma -C config/puma.rb -b 'ssl://0.0.0.0:443?key='$key'&cert='$cert
+bundle exec puma -C config/puma.rb -b 'ssl://0.0.0.0:443?key='$key'&cert='$cert

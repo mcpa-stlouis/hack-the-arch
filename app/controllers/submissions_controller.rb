@@ -41,8 +41,7 @@ class SubmissionsController < ApplicationController
 			end
 
 		# Or the answer has already been guessed
-		elsif ( Submission.find_by(team_id: current_user.team_id,
-														 	submission: user_solution) )
+        elsif ( @problem.solved_by?(current_user.team_id)) )
 			flash[:warning] = "Your team has already guessed that!"
 			redirect_to @problem
 		else
@@ -79,6 +78,6 @@ class SubmissionsController < ApplicationController
 				redirect_to login_url
 			end
 		end
-		
+
 
 end
