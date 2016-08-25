@@ -7,6 +7,7 @@ gem 'uglifier',     '3.0.0'
 gem 'coffee-rails', '4.2.1'
 gem 'turbolinks',   '5.0.0'
 gem 'jbuilder',     '2.4.1'
+gem 'rack',         '2.0.1'
 gem 'jquery-turbolinks'
 gem 'bcrypt', '~> 3.1.7'
 gem 'carrierwave', '0.10.0'
@@ -29,14 +30,16 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.14.30'
 gem 'c3-rails', '0.4.10'
 gem 'd3-rails', '3.5.6'
 
-group :development do
+group :development,:test do
 	gem 'sqlite3'
+end
+
+group :development do
   gem 'byebug',  '9.0.0', platform: :mri
   gem 'web-console', '~> 2.0'
 end
 
 group :test do
-	gem 'sqlite3'
   gem 'rails-controller-testing', '0.1.1'
   gem 'minitest-reporters',       '1.1.9'
   gem 'guard',                    '2.13.0'

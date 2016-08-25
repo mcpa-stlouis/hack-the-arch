@@ -344,6 +344,7 @@ DEPENDENCIES
   net-ssh
   pg (= 0.18.4)
   puma (= 3.4.0)
+  rack (= 2.0.1)
   rails (= 5.0.0)
   rails-controller-testing (= 0.1.1)
   rails_12factor (= 0.0.2)
