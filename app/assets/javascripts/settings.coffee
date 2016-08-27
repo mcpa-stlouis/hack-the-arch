@@ -13,5 +13,5 @@ search_toggle = ->
     else
       $("#filter_container").hide()
 
-$(document).on('page:change', draw_switches)
-$(document).on('page:change', search_toggle)
+$(document).on('turbolinks:load', draw_switches)
+$(document).on('turbolinks:load', search_toggle)

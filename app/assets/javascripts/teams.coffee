@@ -16,4 +16,4 @@ init = ->
     return
   return
 
-$(document).on('page:change', init)
+$(document).on('turbolinks:load', init)

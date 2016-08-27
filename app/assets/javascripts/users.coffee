@@ -34,4 +34,4 @@ finish_drawing_graphs = ->
       title: 'Category'
   return
 
-$(document).on('page:change', draw_graphs)
+$(document).on('turbolinks:load', draw_graphs)
