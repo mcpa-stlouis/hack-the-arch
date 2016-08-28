@@ -1,4 +1,4 @@
-class CreateBrackets < ActiveRecord::Migration
+class CreateBrackets < ActiveRecord::Migration[4.2]
   def change
     create_table :brackets do |t|
       t.string :name

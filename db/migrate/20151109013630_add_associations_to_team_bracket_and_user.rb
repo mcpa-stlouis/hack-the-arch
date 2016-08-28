@@ -1,4 +1,4 @@
-class AddAssociationsToTeamBracketAndUser < ActiveRecord::Migration
+class AddAssociationsToTeamBracketAndUser < ActiveRecord::Migration[4.2]
   def change
 		add_index :teams, :bracket_id
 		add_index :users, :team_id
