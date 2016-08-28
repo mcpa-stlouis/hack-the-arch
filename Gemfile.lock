@@ -46,7 +46,7 @@ GEM
       debug_inspector (>= 0.0.1)
     bootstrap-sass (3.2.0.0)
       sass (~> 3.2)
-    bootstrap-switch-rails (3.3.1)
+    bootstrap-switch-rails (3.3.2)
     bootstrap-will_paginate (0.0.10)
       will_paginate
     bootstrap3-datetimepicker-rails (4.14.30)
@@ -322,7 +322,7 @@ PLATFORMS
 DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootstrap-sass (= 3.2.0.0)
-  bootstrap-switch-rails (= 3.3.1)
+  bootstrap-switch-rails (= 3.3.2)
   bootstrap-will_paginate (= 0.0.10)
   bootstrap3-datetimepicker-rails (~> 4.14.30)
   byebug (= 9.0.0)
