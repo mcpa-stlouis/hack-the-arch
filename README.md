@@ -1,4 +1,4 @@
-HackTheArch
+HackTheArch 
 ===========
 
 ![Build Status](https://travis-ci.org/mcpa-stlouis/hack-the-arch.svg?branch=master)
