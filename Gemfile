@@ -45,7 +45,7 @@ group :test do
   gem 'guard',                    '2.13.0'
   gem 'guard-minitest',           '2.4.4'
   gem 'mini_backtrace',	          '0.1.3'
-  gem 'rake',                     '11.2.2'
+  gem 'rake'
 end
 
 # Configured for Heroku 
