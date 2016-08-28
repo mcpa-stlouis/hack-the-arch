@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -37,11 +36,10 @@ ActiveRecord::Schema.define(version: 20151228172424) do
     t.integer  "hint_id"
     t.integer  "points"
     t.integer  "problem_id"
+    t.index ["problem_id"], name: "index_hint_requests_on_problem_id"
+    t.index ["team_id"], name: "index_hint_requests_on_team_id"
+    t.index ["user_id"], name: "index_hint_requests_on_user_id"
   end
-
-  add_index "hint_requests", ["problem_id"], name: "index_hint_requests_on_problem_id"
-  add_index "hint_requests", ["team_id"], name: "index_hint_requests_on_team_id"
-  add_index "hint_requests", ["user_id"], name: "index_hint_requests_on_user_id"
 
   create_table "hints", force: :cascade do |t|
     t.string   "hint"
@@ -88,11 +86,10 @@ ActiveRecord::Schema.define(version: 20151228172424) do
     t.integer  "problem_id"
     t.integer  "points"
     t.string   "submission"
+    t.index ["problem_id"], name: "index_submissions_on_problem_id"
+    t.index ["team_id"], name: "index_submissions_on_team_id"
+    t.index ["user_id"], name: "index_submissions_on_user_id"
   end
-
-  add_index "submissions", ["problem_id"], name: "index_submissions_on_problem_id"
-  add_index "submissions", ["team_id"], name: "index_submissions_on_team_id"
-  add_index "submissions", ["user_id"], name: "index_submissions_on_user_id"
 
   create_table "teams", force: :cascade do |t|
     t.string   "name"
@@ -100,9 +97,8 @@ ActiveRecord::Schema.define(version: 20151228172424) do
     t.datetime "updated_at", null: false
     t.string   "passphrase"
     t.integer  "bracket_id"
+    t.index ["bracket_id"], name: "index_teams_on_bracket_id"
   end
-
-  add_index "teams", ["bracket_id"], name: "index_teams_on_bracket_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "fname"
@@ -122,8 +118,7 @@ ActiveRecord::Schema.define(version: 20151228172424) do
     t.boolean  "paid"
     t.string   "discount_code"
     t.string   "username"
+    t.index ["team_id"], name: "index_users_on_team_id"
   end
-
-  add_index "users", ["team_id"], name: "index_users_on_team_id"
 
 end
