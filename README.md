@@ -51,6 +51,7 @@ Contribute and Contact
 Want to help?
 -------------
 * Want to add a new feature or fix a bug? Check out a branch and submit working code with tests via pull request to merge into the 'dev' branch.
+* Check out the [slack](https://hack-the-arch.slack.com) channel for more.
 * Test coverage would be a good place to start: [here](coverage/index.html)
 
 Contact
