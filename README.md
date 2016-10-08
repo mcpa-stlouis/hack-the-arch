@@ -1,7 +1,7 @@
 HackTheArch 
 ===========
 
-![Build Status](https://travis-ci.org/mcpa-stlouis/hack-the-arch.svg?branch=master)
+![Build Status](https://travis-ci.org/mcpa-stlouis/hack-the-arch.svg?branch=dev)
 ![Heroku](https://heroku-badge.herokuapp.com/?app=hackthearch)
 
 This is a scoring server built using Ruby on Rails by the Military Cyber Professionals Association (MCPA).  It is free to use and extend under the MIT license (see LICENSE file).  The goal of this project is to provide a standard generic scoring server that provides an easy way to add and modify problems and track statistics of a Cyber Capture the Flag event.  While it's not recommended, this server can be hosted with your challenges but we do recommend sand-boxing your challenges so they do not affect the scoring server.
@@ -51,6 +51,7 @@ Contribute and Contact
 Want to help?
 -------------
 * Want to add a new feature or fix a bug? Check out a branch and submit working code with tests via pull request to merge into the 'dev' branch.
+* Check out the [slack](https://hack-the-arch.slack.com) channel for more.
 * Test coverage would be a good place to start: [here](coverage/index.html)
 
 Contact

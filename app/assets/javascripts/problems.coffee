@@ -27,4 +27,4 @@ setup_hooks = ->
       return
   return
 
-$(document).on('page:change', setup_hooks)
+$(document).on('turbolinks:load', setup_hooks)

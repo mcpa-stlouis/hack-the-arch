@@ -1,4 +1,4 @@
-class AddCaseSensitiveToProblem < ActiveRecord::Migration
+class AddCaseSensitiveToProblem < ActiveRecord::Migration[4.2]
   def change
     add_column :problems, :case_sensitive, :boolean
   end

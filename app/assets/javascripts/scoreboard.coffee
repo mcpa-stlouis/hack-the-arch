@@ -32,4 +32,4 @@ finish_drawing_scoreboard = ->
   setTimeout draw_scoreboard, 30000
   return
 
-$(document).on('page:change', draw_scoreboard)
+$(document).on('turbolinks:load', draw_scoreboard)

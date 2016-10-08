@@ -24,7 +24,7 @@ class HintRequestsTest < ActionDispatch::IntegrationTest
 		@score = Team.find(@non_admin.team_id).get_score
 		@hints = Team.find(@non_admin.team_id).get_hints_requested(@problem.id).size
 		assert_response :success
-    post request_hint_path, problem_id: @problem.id
+    post request_hint_path, params: {problem_id: @problem.id}
 		assert_equal @score, Team.find(@non_admin.team_id).get_score
 		assert_not_equal @hints, Team.find(@non_admin.team_id).get_hints_requested(@problem.id).size
 	end
@@ -37,7 +37,7 @@ class HintRequestsTest < ActionDispatch::IntegrationTest
 
 		@score = Team.find(@non_admin.team_id).get_score
 		assert_response :success
-    post request_hint_path, problem_id: @problem.id
+    post request_hint_path, params: {problem_id: @problem.id}
 		assert_not_equal @score, Team.find(@non_admin.team_id).get_score
 	end
 

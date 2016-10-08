@@ -1,4 +1,4 @@
-class CreateHintRequests < ActiveRecord::Migration
+class CreateHintRequests < ActiveRecord::Migration[4.2]
   def change
     create_table :hint_requests do |t|
 

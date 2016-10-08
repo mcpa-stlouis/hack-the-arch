@@ -1,11 +1,20 @@
 language: ruby
-rvm:
-  - 2.2
-
-install:
-  - gem install bundler
-  - bundle install --jobs=3 --retry=3
+sudo: required
+bundler_args: "--without test --jobs 3 --retry 3"
+before_install:
+- rm ${BUNDLE_GEMFILE}.lock
 before_script:
-  - bundle exec rake db:migrate
+- bundle exec rails db:migrate
+rvm:
+- 2.3.1
+install:
+- gem install bundler
+- bundle install --jobs=3 --retry=3
+before_script:
+- bundle exec rake db:migrate
 script:
-  - bundle exec rake test
+- bundle exec rails test
+notifications:
+  slack:
+    rooms:
+      secure: ljJ/JkMba6h4xHVkC7GZCZXwLcataoxvnY1vn6532yU7B/XtkkKw7NRIhPWiBmyk0W38DMnltfvD7vyNUeRooOD7GmYL0/mF5BCu3sZiIe0cEPXH8DruImCT6ulbwb8XYkiioXQL3GF/qN9zutdtqF6RahxckENR1LZ+aWhigUnCQsqxaLpzj5jVFw/lIBlc0PUlYqZu1D1j05koW6jebbkqVtCkN78ZXP+z2VcmseAis5dBy8ymaSgNX2UOmlCQ8ik4rEK9vd33CRchI1gwc56sEmG3PXtSw9Zx3uUzPLXsxaX7UBw54dycAui9Io7JcIp0n4NfdUjiCXFbinGfT7Mb9oUx8n08l8v1LZBKjpLvMejTECO6CwMhV8vCcV2mr47M/fzrPiEln0TpwmQMb/TqEoTsAt8HqEwD51x/WIhIlwxZzVl7cSdKcFKLKrPDY9rKSaxAQOeyt0LO3TxWnf1qpMrOmpCAMk8DWj97pr9E30EHImhGs3grv0zhcVGbw5WqAeVGQx8vE/bAfcbP52qtRFE9S4t/Wbwvr2UzKfM3LUqvn3y7Ej8OyewEXiNVtPt7SYX+JNYuNED+M4X9FnJrMS7skZqCZpAq7nUWWJHvFM9zK/biiOMnCXkKtRk24Q+jHWYqMQ2U7jmg8TH80s+u0Y5bZanjxiGKTo6KfiU=
