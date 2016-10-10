@@ -3,9 +3,9 @@ if Rails.env.production?
     # Configuration for Google Drive
 	 	config.fog_credentials = {
    		provider:                         'Google',
-   		google_storage_access_key_id:     ENV['GOOGLE_ACCESS_KEY'],
-   		google_storage_secret_access_key: ENV['GOOGLE_SECRET_KEY']
+      google_storage_access_key_id:     ENV.fetch("GOOGLE_ACCESS_KEY") { "DISABLED" },
+   		google_storage_secret_access_key: ENV.fetch("GOOGLE_SECRET_KEY") { "DISABLED" },
   	}
-   	config.fog_directory = ENV['GOOGLE_BUCKET']
+   	config.fog_directory = ENV.fetch("GOOGLE_BUCKET") { "DISABLED" }
   end
 end
