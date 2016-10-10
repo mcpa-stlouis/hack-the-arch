@@ -11,7 +11,7 @@ Setting.create!(label: "Competition End Time:",
 Setting.create!(label: "Max number of members per team:", 
 								name: "max_members_per_team", value: "5", setting_type: "text", category: "General")
 Setting.create!(label: "Send activation e-mails?", tooltip: "Requires mailer config", 
-								name: "send_activation_emails", value: "1", setting_type: "boolean", category: "General")
+								name: "send_activation_emails", value: "0", setting_type: "boolean", category: "General")
 Setting.create!(label: "Registration on?", 
 								name: "registration_active", value: "0", setting_type: "boolean", category: "General")
 Setting.create!(label: "Use bracket based handicap system?", 
