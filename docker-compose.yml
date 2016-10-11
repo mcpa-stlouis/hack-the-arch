@@ -1,0 +1,17 @@
+version: '2'
+services:
+  db:
+    image: postgres:9.6
+  web:
+    build: .
+    env_file:
+      - web-variables.env
+    command: bundle exec puma -C "config/puma.rb" -b "ssl://0.0.0.0:3000?key=certs/server.key&cert=certs/server.crt"
+    volumes:
+      - .:/hta
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    external_links:
+      - db:db
