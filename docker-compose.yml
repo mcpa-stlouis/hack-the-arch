@@ -10,7 +10,7 @@ services:
     volumes:
       - .:/hta
     ports:
-      - "3000:3000"
+      - "443:3000"
     depends_on:
       - db
     external_links:
