@@ -7,6 +7,7 @@ class ProblemsController < ApplicationController
 	def index
 		if current_user && current_user.admin?
 			@problems = Problem.all.order!(category: 'ASC', points: 'ASC')
+      @points_available = Problem.sum(:points)
 		else
 			@problems = Problem.where(visible: true).order!(category: 'ASC', points: 'ASC')
 		end

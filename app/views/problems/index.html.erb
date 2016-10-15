@@ -1,5 +1,6 @@
 <% provide(:title, 'Problems') %>
 <h1>Problems</h1>
+<h4 class='text-center'>Total points: <%= @points_available %></h4>
 
 <% if admin_user? %>
 	<%= link_to "Create", new_problem_path, class: 'btn btn-primary' %>
@@ -19,7 +20,9 @@
         			<%= @problem.name %> : <%= @problem.points.to_s %>
 							<% if !admin_user? && @problem.solved_by?(current_team.id) %>
 								| SOLVED
-							<% end %>
+							<% else %>
+                | Solves: <%= Submission.get_solves_for_problem(@problem.id) %>
+              <% end %>
 						<% end %>
 						<div class="col-md-3 text-right">
  							<% if admin_user? %>
