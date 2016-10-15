@@ -21,7 +21,7 @@
         			<%= @problem.name %> : <%= @problem.points.to_s %>
 							<% if !admin_user? && @problem.solved_by?(current_team.id) %>
 								| SOLVED
-							<% else if admin_user? %>
+							<% elsif admin_user? %>
                 | Solves: <%= Submission.get_solves_for_problem(@problem.id) %>
               <% end %>
 						<% end %>
