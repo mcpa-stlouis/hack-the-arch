@@ -1,7 +1,8 @@
-### Pre-Requisites
+### Docker-Compose
 This guide will help you setup a docker network for running the HackTheArch
 platform.  First, make sure your private/public key pair are in the `certs`
-directory. Then, from the root directory, with your docker-machine running:
+directory. Then, set the variables in `web-variables.env`.  Finally, from the
+root directory, with your docker-machine running:
 
 
 1. Build and launch the HTA image:
