@@ -1,4 +1,5 @@
-class Submission < ActiveRecord::Base
+class Submission < ApplicationRecord
+  after_create_commit { SubmissionBroadcastJob.perform_later self }
   before_save :invalidate_cache
 	belongs_to :user
 	belongs_to :team
