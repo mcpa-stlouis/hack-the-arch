@@ -7,6 +7,7 @@ class ScoreboardController < ApplicationController
 		@teams = Team.where.not(name: 'admins')
 		@brackets = Bracket.all
 		@sorted_teams = @teams.sort_by { |team| [-team.get_score, team.get_most_recent_solve_datetime] }
+    @points_available = Problem.where(visible: true).sum(:points)
 	end
 
 	def get_score_data

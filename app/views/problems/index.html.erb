@@ -1,8 +1,9 @@
 <% provide(:title, 'Problems') %>
 <h1>Problems</h1>
-<h4 class='text-center'>Total points: <%= @points_available %></h4>
+<h4 class='text-center'>Total points available: <%= @points_available %></h4>
 
 <% if admin_user? %>
+  <h4 class='text-center'>Total points (including hidden challenges): <%= @points_created %></h4>
 	<%= link_to "Create", new_problem_path, class: 'btn btn-primary' %>
 <% end %>
 
