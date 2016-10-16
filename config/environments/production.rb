@@ -1,6 +1,6 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-  host = 'https://hta-demo.mcpa-stl.org'
+  host = 'hta-demo.mcpa-stl.org'
 
   # Code is not reloaded between requests.
   config.cache_classes = true
@@ -38,7 +38,7 @@ Rails.application.configure do
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
   # config.action_cable.url = 'wss://example.com/cable'
-  config.action_cable.allowed_request_origins = [ host, 'localhost', 'localhost.ssl' ]
+  config.action_cable.allowed_request_origins = [ 'localhost', 'localhost.ssl', host ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
