@@ -13,12 +13,17 @@ docker-compose up -d
 
 2. Build the database:
 ```
-docker-compose run web rake db:migrate
+docker-compose run web rails db:migrate
 ```
 
 3. Seed the database:
 ```
-docker-compose run web rake db:seed
+docker-compose run web rails db:seed
+```
+
+4. Pre-Compile assets:
+```
+docker-compose run web rails assets:precompile
 ```
 
 HackTheArch should now be browsable on your docker-machine's IP!
