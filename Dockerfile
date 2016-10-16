@@ -5,7 +5,7 @@ FROM ruby:2.3
 MAINTAINER Paul Jordan <paullj1@gmail.com>
 
 HEALTHCHECK --interval=5m --timeout=3s \
-  CMD curl -f https://localhost:3000/ || exit 1
+  CMD curl -f https://localhost/ || exit 1
 
 ARG secret
 

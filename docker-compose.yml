@@ -3,7 +3,7 @@ services:
   db:
     image: postgres:9.6
   web:
-    build: .
+    image: paullj1/hackthearch:latest
     env_file:
       - web-variables.env
     command: bundle exec puma -C "config/puma.rb" -b "ssl://0.0.0.0:3000?key=certs/server.key&cert=certs/server.crt"
