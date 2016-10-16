@@ -56,10 +56,12 @@ Getting Started
   highly recommend this configuration.  A few things must be configured to
   deploy to Heroku:
 
-  1.  You'll need to set your host in 'config/environments/production.rb'.
-  2.  You'll need to add the sendgrid addon before deploying (`heroku
+  1.  Set your host in 'config/environments/production.rb'.
+  2.  For mailer support, add the sendgrid addon before deploying (`heroku
       addons:create sendgrid:starter`).  More info on Sendgrid
       [here](https://devcenter.heroku.com/articles/getting-started-with-ruby#set-up).
+  3.  For live streaming (submissions, chat, etc...), add the Redis To Go
+      addon.
   
 * It can be deployed outside a heroku environment but will require some
   alternative for sending account activation e-mails (or alternatively
