@@ -14,7 +14,7 @@
     <ul>
       <li><b>User:</b> <%= submission.user.username %></li>
       <li><b>Team:</b> <%= submission.team.name %></li>
-      <li><b>Submission:</b> <%= submission.submission.html_safe %></li>
+      <li><b>Submission:</b> <%= h submission.submission %></li>
     </ul>
   </p>
 </li>
