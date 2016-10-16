@@ -1,7 +1,6 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-  host = 'hackthearch.herokuapp.com'
-  alt_host = 'hta-demo.mcpa-stl.org'
+  host = ENV.fetch("HOST") { 'localhost' }
 
   # Code is not reloaded between requests.
   config.cache_classes = true
@@ -38,9 +37,9 @@ Rails.application.configure do
 
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
-  config.action_cable.url = 'wss://'+host+'/cable'
+  # config.action_cable.url = 'wss://'+host+'/cable'
   config.action_cable.allowed_request_origins = [ 'localhost', 'localhost.ssl', 
-    'https://'+host, 'http://'+host, 'https://'+alt_host, 'http://'+alt_host ]
+                                                  'https://'+host, 'http://'+host ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true

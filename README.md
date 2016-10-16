@@ -56,7 +56,8 @@ Getting Started
   highly recommend this configuration.  A few things must be configured to
   deploy to Heroku:
 
-  1.  Set your host in 'config/environments/production.rb'.
+  1.  Create a `HOST` environment variable that contains the url for your app
+      (e.g., HOST=hackthearch.herokuapp.com).
   2.  For mailer support, add the sendgrid addon before deploying (`heroku
       addons:create sendgrid:starter`).  More info on Sendgrid
       [here](https://devcenter.heroku.com/articles/getting-started-with-ruby#set-up).

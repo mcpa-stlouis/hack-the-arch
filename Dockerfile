@@ -18,7 +18,7 @@ RUN apt-get update \
 
 RUN mkdir /hta
 WORKDIR /hta
-ADD Gemfile /hta/Gemfile
+ADD Gemfile Gemfile.lock /hta/
 RUN bundle install
 ADD . /hta
 RUN chown -R $USER:$USER .
