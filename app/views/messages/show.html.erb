@@ -1,0 +1,10 @@
+<% provide(:title, 'Chat') %>
+<h1>Chat</h1>
+
+<div id='messages' class='panel panel-default pre-scrollable' style='height:250px'>
+  <ul id='message_list' class='list-group'>
+    <%= render partial: 'messages/message', collection: @messages %>
+  </ul>
+</div>
+
+<%= render partial: 'messages/message_form', locals: {message: @message}%>

@@ -1,0 +1,5 @@
+<%=form_for message, remote: true, authenticity_token: true do |f|%>
+  <%= f.text_field :message, class: "form-control", data: {text: "message"}%>
+  <%= f.submit "Send", class: "btn btn-primary", data: {send: "message"}%>
+<%end%>
+

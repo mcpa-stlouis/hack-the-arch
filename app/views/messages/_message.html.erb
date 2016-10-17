@@ -1,0 +1,11 @@
+<% ########################################################### %>
+<% # IMPORTANT:  Be extremely careful displaying these since # %>
+<% #             they are essentially raw user input and     # %>
+<% #             could be designed to break web services or  # %>
+<% #             steal user cookies.                         # %>
+<% ########################################################### %>
+
+
+<li class="list-group-item" data-toggle="tooltip" data-placement="left" title="<%= message.created_at %>">
+  <b><%= message.user.username %></b>: <%= h message.message %>
+</li>

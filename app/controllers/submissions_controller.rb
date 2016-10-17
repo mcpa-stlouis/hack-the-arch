@@ -53,12 +53,22 @@ class SubmissionsController < ApplicationController
       flash[:danger] = @problem.false_message
       redirect_to @problem
     end
-    sub = Submission.create(team_id:  current_user.team_id,
-                            user_id: current_user.id,
-                            problem_id: @problem.id,
-                            submission: user_solution,
-                            correct: correct,
-                            points: points)
+
+    Submission.create(team_id:  current_user.team_id,
+                      user_id: current_user.id,
+                      problem_id: @problem.id,
+                      submission: user_solution,
+                      correct: correct,
+                      points: points)
+
+    if correct
+      Message.create(user_id: User.where(admin: true).first.id,
+                     priority: :success,
+                     message: "#{current_user.username} just scored
+                               #{points} points for 
+                               #{current_user.team.name}!")
+    end
+
   end
 
   private

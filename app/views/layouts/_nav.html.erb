@@ -2,6 +2,7 @@
 <li><%= link_to "Help",   help_path %></li>
 <li><%= link_to "Scoreboard", scoreboard_path %></li>
 <% if logged_in? %>
+  <li><%= link_to "Chat",   chat_path %></li>
   <li><%= link_to "Problems", problems_path %></li>
 	<% if current_user.admin? %>
 		<li><%= link_to "Submissions", submissions_path %></li>
