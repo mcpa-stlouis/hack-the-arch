@@ -64,3 +64,13 @@ registration_active:
   name: "registration_active"
   value: "1"
   setting_type: "boolean"
+
+registration_active:
+  name: "chat_enabled"
+  value: "1"
+  setting_type: "boolean"
+
+registration_active:
+  name: "scoring_notifications"
+  value: "1"
+  setting_type: "boolean"
