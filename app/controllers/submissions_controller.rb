@@ -64,6 +64,7 @@ class SubmissionsController < ApplicationController
     if correct and scoring_notifications?
       Message.create(user_id: User.where(admin: true).first.id,
                      priority: :success,
+                     url: scoreboard_path,
                      message: "#{current_user.username} just scored
                                #{points} points for 
                                #{current_user.team.name}!")

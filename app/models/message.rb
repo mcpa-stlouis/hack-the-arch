@@ -5,5 +5,4 @@ class Message < ApplicationRecord
   validates :priority, inclusion: {in: ['success', 'danger', 'warning', 'info'] }
   validates :priority, exclusion: {in: [nil] }
 	validates :user_id,  presence: true, numericality: { only_integer: true, greater_than: 0 }
-
 end

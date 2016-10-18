@@ -10,6 +10,7 @@ class MessagesController < ApplicationController
   def create
     Message.create!(user_id: current_user.id,
                     priority: :info,
+                    url: chat_path,
                     message: params[:message][:message])
     redirect_to chat_path
   end
