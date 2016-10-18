@@ -13,6 +13,7 @@ class SettingsController < ApplicationController
     @brackets = Bracket.all.order('priority ASC')
     @users = User.all
     @teams = Team.all
+    @num_challenges = Problem.where(visible: true).count
   end
   
   def update

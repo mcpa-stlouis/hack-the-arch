@@ -169,6 +169,10 @@ class Team < ActiveRecord::Base
 		passphrase == self.passphrase
 	end
 
+  def challenges_solved
+    Submission.where(team: self.id, correct: true).count
+  end
+
 	private
 		def max_members_per_team
 			Setting.find_by(name: 'max_members_per_team').value.to_i

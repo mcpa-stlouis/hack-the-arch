@@ -91,7 +91,7 @@
 		<%= content_tag :div, class: 'tab-pane', id: 'teams' do %>
 			<%= content_tag :h4, "Count: #{@teams.count}", class: 'text-center' %>
 			<%= content_tag :ul, class: 'teams row filter_list' do %>
-				<%= render @teams %>
+				<%= render partial: 'teams/team', collection: @teams, locals: {num_challenges: @num_challenges } %>
 			<% end %>
 		<% end %>
 		<%= content_tag :div, class: 'tab-pane', id: 'users' do %>

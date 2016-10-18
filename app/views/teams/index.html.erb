@@ -20,7 +20,7 @@
 	<div class="tab-content">
   	<div role="tabpanel" class="tab-pane active" id="all">
 			<ul class="teams row filter_list">
-				<%= render @teams %>
+				<%= render partial: 'teams/team', collection: @teams, locals: {num_challenges: @num_challenges } %>
 			</ul>
 		</div>
 		<% for bracket in @brackets do %>

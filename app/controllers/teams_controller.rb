@@ -6,6 +6,7 @@ class TeamsController < ApplicationController
 		# reject admins
 		@teams = Team.where.not(name: 'admins')
 		@brackets = Bracket.all
+    @num_challenges = Problem.where(visible: true).count
 	end
 
 	def show
