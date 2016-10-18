@@ -31,7 +31,7 @@
 		<% for @category in @categories %>
 			<%= content_tag :div, class: "tab-pane #{((@category == @categories.first) ? 'active' : '')}", id: @category do %>
 
-				<% @cat_settings = @settings.where(category: @category) %>
+				<% @cat_settings = @settings.select { |setting| setting.category == @category } %>
 				<% for @setting in @cat_settings %>
 					<%= content_tag :div, class: 'row settings-row' do %>
 

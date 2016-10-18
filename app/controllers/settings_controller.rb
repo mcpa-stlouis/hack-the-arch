@@ -2,8 +2,14 @@ class SettingsController < ApplicationController
   before_action :admin_user, only: [:index, :edit, :update]
 
   def edit
-    @categories = Setting.distinct.pluck(:category).sort
-    @settings = Setting.all.order(category: :asc, id: :asc)
+    # Ordering General first, then all others
+    @categories = ["General"]
+    @categories += Setting.where.not(category: 'General').distinct.pluck(:category).sort
+
+    @general = Setting.where(category: 'General').order(id: :asc)
+    @other_settings = Setting.where.not(category: 'General').order(category: :asc, id: :asc)
+    @settings = @general + @other_settings
+
     @brackets = Bracket.all.order('priority ASC')
     @users = User.all
     @teams = Team.all

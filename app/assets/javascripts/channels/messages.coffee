@@ -12,12 +12,6 @@ App.messages = App.cable.subscriptions.create "MessagesChannel",
       $("#messages").animate({scrollTop: $('#messages').prop("scrollHeight")}, "fast")
 
     # If user isn't on chat window create notification
-    if data.sender is 'admin' # and document.location.pathname is not '/chat'
-      msg = "<div style='display:none' class='alert fade in alert-#{data.priority}'> \
-               <button type='button' class='close' data-dismiss='alert' aria-label='Close'> \
-            <span aria-hidden='true'>&times;</span> \
-          </button> \
-          #{data.text} \
-        </div>"
-      $(msg).appendTo('#notifications').show()
-      setTimeout checkAlert, 10000
+    if data.sender is 'admin'  and document.location.pathname != '/chat'
+      $.notify { message: "#{data.text}" }, type: "#{data.priority}"
+      return

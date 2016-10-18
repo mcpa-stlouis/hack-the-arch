@@ -1,0 +1,11 @@
+<% flash.each do |message_type, message| %>
+  <script>
+    (function() {
+      $.notify({
+        message: '<%= message %>'
+      },{
+        type: '<%= message_type %>'
+      });
+    }).call(this);
+  </script>
+<% end %>

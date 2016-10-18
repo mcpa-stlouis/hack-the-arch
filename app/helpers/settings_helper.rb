@@ -57,6 +57,14 @@ module SettingsHelper
 		Setting.find_by(name: 'one_hundred_percent_off').value
 	end
 
+  def chat_enabled?
+		(Setting.find_by(name: 'chat_enabled').value == "0") ? false : true
+  end
+
+  def scoring_notifications?
+		(Setting.find_by(name: 'scoring_notifications').value == "0") ? false : true
+  end
+
 	# returns int value of setting if it's between 0 and 2 ^ 16, otherwise 0
 	# 0 = no limit on submissions
 	def max_submissions_per_team

@@ -27,6 +27,12 @@ Setting.create!(label: "Scoreboard (on/off):",
 Setting.create!(label: "Maximum number of submissions per team:", tooltip: "0 means no limit",
 								name: "max_submissions_per_team", value: "0", setting_type: "text", category: "Scoring")
 
+# Chat Category
+Setting.create!(label: "Chat enabled?", 
+								name: "chat_enabled", value: "1", setting_type: "boolean", category: "Chat")
+Setting.create!(label: "Scoring notifications?", 
+								name: "scoring_notifications", value: "1", setting_type: "boolean", category: "Chat")
+
 # Payment Category
 Setting.create!(label: "Require Payment?", tooltip: "Reqires 'stripe' configuration", 
 								name: "require_payment", value: "0", setting_type: "boolean", category: "Payment")

@@ -61,7 +61,7 @@ class SubmissionsController < ApplicationController
                       correct: correct,
                       points: points)
 
-    if correct
+    if correct and scoring_notifications?
       Message.create(user_id: User.where(admin: true).first.id,
                      priority: :success,
                      message: "#{current_user.username} just scored
