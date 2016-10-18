@@ -4,7 +4,11 @@
       $.notify({
         message: '<%= message %>'
       },{
-        type: '<%= message_type %>'
+        type: '<%= message_type %>',
+        mouse_over: 'pause',
+        offset: {
+          y: 60
+        }
       });
     }).call(this);
   </script>
