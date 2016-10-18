@@ -13,5 +13,6 @@ App.messages = App.cable.subscriptions.create "MessagesChannel",
 
     # If user isn't on chat window create notification
     if data.sender is 'admin'  and document.location.pathname != '/chat'
-      $.notify { message: "#{data.text}" }, type: "#{data.priority}"
+      $.notify { message: "#{data.text}", url: "#{data.url}", target: '_self' },
+        type: "#{data.priority}", mouse_over: 'pause', offset: y: 60
       return
