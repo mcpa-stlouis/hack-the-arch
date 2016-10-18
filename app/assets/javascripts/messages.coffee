@@ -7,6 +7,7 @@ scroll_to_bottom = ->
     return
 
   $("#messages").scrollTop -> return this.scrollHeight
+  $("#message_message").focus()
   return
 
 $(document).on('turbolinks:load', scroll_to_bottom)

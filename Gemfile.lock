@@ -345,6 +345,7 @@ DEPENDENCIES
   minitest-reporters (= 1.1.9)
   momentjs-rails (>= 2.9.0)
   net-ssh
+  nokogiri (~> 1.6.8.1)
   pg (= 0.18.4)
   puma (= 3.4.0)
   rack (= 2.0.1)
