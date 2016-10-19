@@ -1,11 +1,13 @@
 module SettingsHelper
 	def competition_started?
-		start_time = DateTime.strptime(Setting.find_by(name: 'start_time').value, '%m/%d/%Y %I:%M %p')
+		offset = " #{DateTime.current.formatted_offset(false)}"
+		start_time = DateTime.strptime(Setting.find_by(name: 'start_time').value + offset, '%m/%d/%Y %I:%M %p %Z').in_time_zone
 		DateTime.current.to_i > start_time.to_i
 	end
 	
 	def competition_ended?
-		end_time = DateTime.strptime(Setting.find_by(name: 'end_time').value, '%m/%d/%Y %I:%M %p')
+		offset = " #{DateTime.current.formatted_offset(false)}"
+		end_time = DateTime.strptime(Setting.find_by(name: 'end_time').value + offset, '%m/%d/%Y %I:%M %p %Z').in_time_zone
 		DateTime.current.to_i > end_time.to_i
 	end
 
