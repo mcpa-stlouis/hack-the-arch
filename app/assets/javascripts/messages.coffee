@@ -6,6 +6,7 @@ scroll_to_bottom = ->
   if !document.getElementById('messages') 
     return
 
+  $('[data-toggle="tooltip"]').tooltip()
   $("#messages").scrollTop -> return this.scrollHeight
   $("#message_message").focus()
   return

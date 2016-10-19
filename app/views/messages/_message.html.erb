@@ -6,6 +6,7 @@
 <% ########################################################### %>
 
 
-<li class="list-group-item" data-toggle="tooltip" data-placement="left" title="<%= message.created_at %>">
+<li class="list-group-item" style="border:0" data-toggle="tooltip" data-placement="left" 
+  title="<%= message.created_at.strftime("%m/%d/%y %X") %>">
   <b><%= message.user.username %></b>: <%= h message.message %>
 </li>
