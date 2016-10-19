@@ -7,6 +7,6 @@
 
 
 <li class="list-group-item" style="border:0" data-toggle="tooltip" data-placement="left" 
-  title="<%= message.created_at.strftime("%m/%d/%y %X") %>">
+  title="<%= distance_of_time_in_words message.created_at, Time.now %> ago">
   <b><%= message.user.username %></b>: <%= h message.message %>
 </li>
