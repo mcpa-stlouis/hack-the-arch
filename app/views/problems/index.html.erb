@@ -28,7 +28,7 @@
 						<div class="col-md-3 text-right">
  							<% if admin_user? %>
                 <% if @problem.visible %>
-                  <%= link_to "enabled", "#", class: 'btn btn-primary' %>
+                  <%= link_to "enabled", "#", class: 'btn btn-primary disabled' %>
                 <% end %>
    							<%= link_to "edit", edit_problem_path(@problem), class: 'btn btn-primary' %>
    							<%= link_to "delete", @problem, method: :delete,
