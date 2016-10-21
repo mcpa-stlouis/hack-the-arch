@@ -10,16 +10,19 @@ class HintRequestsController < ApplicationController
 		@user = current_user
 
 		@team = Team.find(@user.team_id)
-		hints_requested = @team.get_hints_requested(@problem.id)
+		hints_requested = @team.get_hints_requested(@problem.id).count
 
 		if @problem.solved_by?(@team.id)
 			flash[:warning] = "Your team has already solved this challenge!"
-			redirect_to @problem
-		elsif ((!hints_requested || 
-				 hints_requested.count < @problem.number_of_hints_available) &&
-				 @problem.number_of_hints_available > 0 &&
-				 ((use_handicap? && hints_requested.count < @bracket.hints_available) || !use_handicap?))
 
+    elsif hints_requested >= @problem.number_of_hints_available ||
+		      @problem.number_of_hints_available <= 0 
+			flash[:warning] = "No more hints available!"
+
+    elsif use_handicap? && hints_requested >= @bracket.hints_available
+			flash[:warning] = "No more hints for your bracket!"
+
+		else
 			@hint = Hint.find(@problem.get_next_hint(@team.id, @problem.id))
 
 
@@ -28,13 +31,10 @@ class HintRequestsController < ApplicationController
  						 						 problem_id: @problem.id,
 												 hint_id:	@hint.id,
  						 						 points:	@hint.points)
-    	session[:hint_requested] = true
-			redirect_to @problem
-		else
-			flash[:warning] = "No more hints available!"
-    	session[:hint_requested] = true
-			redirect_to @problem
 		end
+
+    session[:hint_requested] = true # Used to activate hint tab on page load
+    redirect_to @problem
 	end
 
 	private
