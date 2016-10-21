@@ -10,7 +10,7 @@ class SettingsController < ApplicationController
     @other_settings = Setting.where.not(category: 'General').order(category: :asc, id: :asc)
     @settings = @general + @other_settings
 
-    @brackets = Bracket.all.order('priority ASC')
+    @brackets = Bracket.all.order(priority: :asc)
     @users = User.all
     @teams = Team.all
     @num_challenges = Problem.where(visible: true).count

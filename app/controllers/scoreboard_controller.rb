@@ -5,7 +5,7 @@ class ScoreboardController < ApplicationController
 		@scoreboard_on = scoreboard_on?
 		# reject admins
 		@teams = Team.where.not(name: 'admins')
-		@brackets = Bracket.all
+		@brackets = Bracket.all.order(priority: :asc)
 		@sorted_teams = @teams.sort_by { |team| [-team.get_score, team.get_most_recent_solve_datetime] }
     @points_available = Problem.where(visible: true).sum(:points)
 	end
