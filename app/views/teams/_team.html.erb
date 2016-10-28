@@ -27,9 +27,11 @@
 		</div>
 		<h3 class='col-md-4 col-xs-5'>
 			<% if admin_user? %>
-   			<%= link_to 'delete', team, method: :delete,
-                               			data: { confirm: 'You sure?' },
-																		class: 'btn btn-primary' %>
+   			<%= link_to team, method: :delete, class: 'btn btn-danger',
+              data: { confirm: 'Are you sure?' }, 
+              form: {style: 'display:inline-block;'} do %>
+          <span class='glyphicon glyphicon-trash' aria-hidden='true'></span>
+        <% end %>
  			<% end %>
 		</h3>
 
