@@ -1,8 +1,8 @@
 class MessagesController < ApplicationController
-  before_action :user_logged_in, only: [:show, :create]
-  before_action :chat_enabled, only: [:show, :create]
+  before_action :user_logged_in, only: [:index, :create]
+  before_action :chat_enabled, only: [:index, :create]
 
-  def show
+  def index
     @messages = Message.all
     @message = Message.new
   end

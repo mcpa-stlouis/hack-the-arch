@@ -1,5 +1,5 @@
 class SubmissionsController < ApplicationController
-  before_action :user_logged_in, only: [:create, :new]
+  before_action :user_logged_in, only: [:index, :create, :new]
   before_action :belong_to_team, only: [:create, :new]
   before_action :competition_active, only: [:create, :new]
   before_action :admin_user, only: [:index]
