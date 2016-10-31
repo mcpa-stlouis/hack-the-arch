@@ -74,11 +74,11 @@ Getting Started
   post-deployment
 * For other deployment options, keep reading.
 
-Docker
+Docker [![](https://images.microbadger.com/badges/image/paullj1/hackthearch.svg)](https://microbadger.com/images/paullj1/hackthearch)
 ------
 * A Dockerfile is included along with a docker-compose.yml for deploying a
   containerized version of HackTheArch.  More detailed instructions can be
-  found in: `DOCKER_README.md`.
+  found in: [DOCKER_README.md](https://github.com/mcpa-stlouis/hack-the-arch/blob/dev/DOCKER_README.md).
 
 ### More configuration details on our project
 [wiki](https://github.com/mcpa-stlouis/hack-the-arch/wiki).
