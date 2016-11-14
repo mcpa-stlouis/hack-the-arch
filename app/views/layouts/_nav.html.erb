@@ -7,6 +7,10 @@
     <li><%= link_to "Chat",   chat_path %></li>
   <% end %>
 
+  <% if console_enabled? %>
+    <li><%= link_to "Console",   console_path %></li>
+  <% end %>
+
   <li><%= link_to "Problems", problems_path %></li>
 
 	<% if current_user.admin? %>

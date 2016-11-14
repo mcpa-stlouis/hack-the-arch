@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get 'scoreboard'    => 'scoreboard#index'
   get 'submissions'   => 'submissions#index'
   get 'chat'          => 'messages#index'
+  get 'console'       => 'console#index'
 
   get 'teams/get_score_data' => 'scoreboard#get_score_data'
   get 'users/get_stats'      => 'users#get_stats'

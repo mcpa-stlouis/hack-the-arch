@@ -59,6 +59,14 @@ module SettingsHelper
 		Setting.find_by(name: 'one_hundred_percent_off').value
 	end
 
+  def console_enabled?
+		(Setting.find_by(name: 'console_enabled').value == "0") ? false : true
+  end
+
+	def console_host
+		Setting.find_by(name: 'console_host').value
+	end
+
   def chat_enabled?
 		(Setting.find_by(name: 'chat_enabled').value == "0") ? false : true
   end
