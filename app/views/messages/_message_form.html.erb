@@ -1,0 +1,8 @@
+<%=form_for message, remote: true, authenticity_token: true, class: "row" do |f|%>
+  <%= content_tag :div, class: "col-md-9 col-sm-12" do %>
+    <%= f.text_field :message, class: "form-control", data: {text: "message"}%>
+  <%end%>
+  <%= content_tag :div, class: "col-md-3 col-sm-12" do %>
+    <%= f.submit "Send", class: "btn btn-primary", data: {send: "message"}%>
+  <%end%>
+<%end%>

@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   get 'admin'         => 'settings#edit'
   get 'login'         => 'sessions#new'
   get 'scoreboard'    => 'scoreboard#index'
+  get 'submissions'   => 'submissions#index'
+  get 'chat'          => 'messages#index'
+  get 'console'       => 'console#index'
 
   get 'teams/get_score_data' => 'scoreboard#get_score_data'
   get 'users/get_stats'      => 'users#get_stats'
@@ -37,9 +40,13 @@ Rails.application.routes.draw do
   resources :problems
   resources :teams
   resources :charges
+  resources :messages
   resources :account_activations, only: [:edit]
   resources :hints,               only: [:new, :edit, :create, :update]
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :brackets,            only: [:new, :create, :edit, :update]
+
+  # Action Cable
+  mount ActionCable.server => '/cable'
 
 end

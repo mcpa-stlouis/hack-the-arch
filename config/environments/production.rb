@@ -1,5 +1,6 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+  host = ENV.fetch("HOST") { 'localhost' }
 
   # Code is not reloaded between requests.
   config.cache_classes = true
@@ -36,8 +37,9 @@ Rails.application.configure do
 
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
-  # config.action_cable.url = 'wss://example.com/cable'
-  # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
+  # config.action_cable.url = 'wss://'+host+'/cable'
+  config.action_cable.allowed_request_origins = [ 'localhost', 'localhost.ssl', 
+                                                  'https://'+host, 'http://'+host ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
@@ -61,14 +63,13 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
  	config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
-  host = 'hackthearch.herokuapp.com'
   config.action_mailer.default_url_options = { host: host }
   ActionMailer::Base.smtp_settings = {
     :address        => 'smtp.sendgrid.net',
     :port           => '587',
     :authentication => :plain,
-    :user_name      => ENV.fetch("SENDGRID_USERNAME"),
-    :password       => ENV.fetch("SENDGRID_PASSWORD"),
+    :user_name      => ENV.fetch("SENDGRID_USERNAME") { "DISABLED" },
+    :password       => ENV.fetch("SENDGRID_PASSWORD") { "DISABLED" },
     :domain         => 'heroku.com',
     :enable_starttls_auto => true
   }

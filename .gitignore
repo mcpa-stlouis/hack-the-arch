@@ -26,3 +26,8 @@
 
 # Ignore precompiled assets
 /public/assets/
+
+# Ignore certificates
+/certs/*.key
+/certs/*.crt
+/certs/*.csr

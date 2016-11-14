@@ -1,6 +1,35 @@
 Release Notes:
 ==============
 
+2.0.0 (DRAFT)
+-----
+* Added:  Docker Compose network for easier production deployment option
+* Added:  Live submission feed for admin users
+* Added:  Chat function (optional)
+  - Broadcasts messages to users from admin users so they appear as
+    notifications if chat window is not active
+* Added:  Notifications when users score (optional)
+* Added:  Bootstrap Notify styled notifications
+* Added:  More info for admins:
+  - Showing number of solves for each team
+  - Showing number of points available
+* Fixed:  Deploying to Heroku now much easier
+* Fixed:  Production environment variables now have alternate "DISABLED" values
+  so app does not crash when not present
+* Fixed:  Problem descriptions now wrap automatically
+* Fixed:  Timezones are all local now (defaults to central time, override with
+  `TIMEZONE` env var)
+
+
+1.3.0
+-----
+* Migrating to Rails 5
+
+1.2.2
+-----
+* Added: Hide hints after challenge solve if none were requested
+* Fixed: checkout is no longer visible after a user has activated his/her account
+
 1.2.1
 -----
 * Added: "Registration Active" setting

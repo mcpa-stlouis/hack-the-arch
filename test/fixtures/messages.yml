@@ -1,0 +1,16 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# Belongs to non-admin user
+test:
+  id: 1
+  message: testing
+  url: localhost
+  priority: info
+  user_id: 2
+
+test2:
+  id: 2
+  message: admin testing
+  url: localhost
+  priority: info
+  user_id: 1

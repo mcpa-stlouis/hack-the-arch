@@ -1,11 +1,13 @@
 module SettingsHelper
 	def competition_started?
-		start_time = DateTime.strptime(Setting.find_by(name: 'start_time').value, '%m/%d/%Y %I:%M %p')
+		offset = " #{DateTime.current.formatted_offset(false)}"
+		start_time = DateTime.strptime(Setting.find_by(name: 'start_time').value + offset, '%m/%d/%Y %I:%M %p %Z').in_time_zone
 		DateTime.current.to_i > start_time.to_i
 	end
 	
 	def competition_ended?
-		end_time = DateTime.strptime(Setting.find_by(name: 'end_time').value, '%m/%d/%Y %I:%M %p')
+		offset = " #{DateTime.current.formatted_offset(false)}"
+		end_time = DateTime.strptime(Setting.find_by(name: 'end_time').value + offset, '%m/%d/%Y %I:%M %p %Z').in_time_zone
 		DateTime.current.to_i > end_time.to_i
 	end
 
@@ -56,6 +58,22 @@ module SettingsHelper
 	def one_hundred_percent_off
 		Setting.find_by(name: 'one_hundred_percent_off').value
 	end
+
+  def console_enabled?
+		(Setting.find_by(name: 'console_enabled').value == "0") ? false : true
+  end
+
+	def console_host
+		Setting.find_by(name: 'console_host').value
+	end
+
+  def chat_enabled?
+		(Setting.find_by(name: 'chat_enabled').value == "0") ? false : true
+  end
+
+  def scoring_notifications?
+		(Setting.find_by(name: 'scoring_notifications').value == "0") ? false : true
+  end
 
 	# returns int value of setting if it's between 0 and 2 ^ 16, otherwise 0
 	# 0 = no limit on submissions

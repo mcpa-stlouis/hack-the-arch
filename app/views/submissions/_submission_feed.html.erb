@@ -1,0 +1,20 @@
+<% ########################################################### %>
+<% # IMPORTANT:  Do not display the actual submission unless # %>
+<% #             you make it safe first.  These could be     # %>
+<% #             specifically designed to break web services # %>
+<% #             or steal user cookies.                      # %>
+<% ########################################################### %>
+<li class="filter_list list-group-item list-group-item-<%= submission.correct ? 'success' : 'danger'%>">
+  <h4 class='list-group-item-heading'>
+    <b>Problem:</b> <%= submission.problem.name %>,
+    <b>Points:</b> <%= submission.points %>,
+    <b>Submitted:</b> <%= submission.created_at.to_s(:long) %>
+  </h4>
+  <p class='list-group-item-text'>
+    <ul>
+      <li><b>User:</b> <%= submission.user.username %></li>
+      <li><b>Team:</b> <%= submission.team.name %></li>
+      <li><b>Submission:</b> <%= h submission.submission %></li>
+    </ul>
+  </p>
+</li>

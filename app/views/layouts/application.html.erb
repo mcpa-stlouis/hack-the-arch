@@ -8,19 +8,13 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <%= action_cable_meta_tag %>
 	<%= render 'layouts/ie9shim' %>
 </head>
 <body>
 	<%= render 'layouts/header' %>
+  <%= render 'layouts/notifications' %>
 	<div class="container">
-		<% flash.each do |message_type, message| %>
-      <div class="alert fade in alert-<%= message_type %>">
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			  	<span aria-hidden="true">&times;</span>
-				</button>
-				<%= message %>
-			</div>
-    <% end %>
     <%= yield %>
     <%= render 'layouts/footer' %>
     <%= debug(params) if Rails.env.development? %>

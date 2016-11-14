@@ -1,0 +1,15 @@
+<% flash.each do |message_type, message| %>
+  <script>
+    (function() {
+      $.notify({
+        message: '<%= message %>'
+      },{
+        type: '<%= message_type %>',
+        mouse_over: 'pause',
+        offset: {
+          y: 60
+        }
+      });
+    }).call(this);
+  </script>
+<% end %>

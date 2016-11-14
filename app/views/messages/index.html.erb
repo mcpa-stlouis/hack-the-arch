@@ -1,0 +1,15 @@
+<% provide(:title, 'Chat') %>
+<h1>Chat</h1>
+
+<div class='row col-sm-10 col-xs-12 col-sm-offset-1'>
+  <div id='messages' class='panel panel-default pre-scrollable' style='height:400px'>
+    <ul id='message_list' class='list-group'>
+      <%= render partial: 'messages/message', collection: @messages %>
+    </ul>
+  </div>
+
+  <%= render partial: 'messages/message_form', locals: {message: @message}%>
+</div>
+
+<% # Pushes nav bar to bottom # %>
+<div class='clearfix'></div> 

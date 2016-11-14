@@ -1,7 +1,12 @@
 class SubmissionsController < ApplicationController
-  before_action :user_logged_in, only: [:create, :new]
-  before_action :belong_to_team, only: [:index]
+  before_action :user_logged_in, only: [:index, :create, :new]
+  before_action :belong_to_team, only: [:create, :new]
   before_action :competition_active, only: [:create, :new]
+  before_action :admin_user, only: [:index]
+
+  def index
+    @submissions = Submission.order(id: :desc)
+  end
 
   def new
   end
@@ -48,12 +53,23 @@ class SubmissionsController < ApplicationController
       flash[:danger] = @problem.false_message
       redirect_to @problem
     end
+
     Submission.create(team_id:  current_user.team_id,
                       user_id: current_user.id,
                       problem_id: @problem.id,
                       submission: user_solution,
                       correct: correct,
                       points: points)
+
+    if correct and scoring_notifications?
+      Message.create(user_id: User.where(admin: true).first.id,
+                     priority: :success,
+                     url: scoreboard_path,
+                     message: "#{current_user.username} just scored
+                               #{points} points for 
+                               #{current_user.team.name}!")
+    end
+
   end
 
   private
@@ -79,5 +95,12 @@ class SubmissionsController < ApplicationController
       end
     end
 
+    def admin_user
+      unless logged_in? && current_user.admin?
+        store_location
+        flash[:danger] = "Access Denied."
+        redirect_to root_url
+      end
+    end
 
 end

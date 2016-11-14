@@ -1,0 +1,52 @@
+<% ######################################################################### %>
+<% # This is essentially a switch statement.  The type of setting          # %>
+<% # determines how it is rednered.                                        # %>
+<% ######################################################################### %>
+<%= content_tag :div, class: 'row settings-row' do %>
+
+  <% # Switches for boolean settings # %>
+  <% if setting.setting_type == 'boolean' %>
+    <%= hidden_field_tag "admin[#{setting.id.to_s}][id]", :id, value: setting.id %>
+    <%= content_tag :div, class: 'col-md-4' do %>
+      <%= label_tag nil, setting.label, class: 'control-label' %>
+      <%= tag :br %>
+      <%= content_tag :small, simple_format(setting.tooltip), class: 'text-muted' %>
+    <% end %>
+    <%  checked = (setting.value == '1') ? true : false %>
+    <%= check_box_tag "admin[#{setting.id.to_s}][value]", setting.value, checked, class: 'col-md-8 bootstrap-switches' %>
+
+  <% # Color picker for 'color' settings # %>
+  <% #elsif setting.setting_type == 'color' %>
+
+  <% # Datetime picker for 'date' settings # %>
+  <% elsif setting.setting_type == 'date' %>
+    <%= hidden_field_tag "admin[#{setting.id.to_s}][id]", :id, value: setting.id %>
+    <%= content_tag :div, class: 'col-md-4' do %>
+      <%= label_tag nil, setting.label, class: 'control-label' %>
+      <%= tag :br %>
+      <%= content_tag :small, simple_format(setting.tooltip), class: 'text-muted' %>
+    <% end %>
+
+    <%= content_tag :div, class: 'form-group' do %>
+      <%= content_tag :div, class: 'input-group date', id: add_id('datetimepicker',setting) do %>
+        <%= text_field "admin[#{setting.id.to_s}]", 'value', value: setting.value, class: 'col-md-8 form-control' %>
+        <%= content_tag :span, class: 'input-group-addon' do %>
+          <%= content_tag :span, nil, class: 'glyphicon glyphicon-calendar' %>
+        <% end %>
+      <% end %>
+    <% end %>
+    <%= javascript_tag do %>
+      $('#datetimepicker_<%= setting.id %>').datetimepicker();
+    <% end %>
+
+  <% # Text box for standard text settings # %>
+  <% else #setting.setting_type == 'text' %>
+    <%= hidden_field_tag "admin[#{setting.id.to_s}][id]", :id, value: setting.id %>
+    <%= content_tag :div, class: 'col-md-4' do %>
+      <%= label_tag nil, setting.label, class: 'control-label' %>
+      <%= tag :br %>
+      <%= content_tag :small, simple_format(setting.tooltip), class: 'text-muted' %>
+    <% end %>
+    <%= text_field "admin[#{setting.id.to_s}]", 'value', value: setting.value, class: 'col-md-8 form-control' %>
+  <% end %>
+<% end %>

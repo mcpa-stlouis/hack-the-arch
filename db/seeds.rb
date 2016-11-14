@@ -11,7 +11,7 @@ Setting.create!(label: "Competition End Time:",
 Setting.create!(label: "Max number of members per team:", 
 								name: "max_members_per_team", value: "5", setting_type: "text", category: "General")
 Setting.create!(label: "Send activation e-mails?", tooltip: "Requires mailer config", 
-								name: "send_activation_emails", value: "1", setting_type: "boolean", category: "General")
+								name: "send_activation_emails", value: "0", setting_type: "boolean", category: "General")
 Setting.create!(label: "Registration on?", 
 								name: "registration_active", value: "0", setting_type: "boolean", category: "General")
 Setting.create!(label: "Use bracket based handicap system?", 
@@ -26,6 +26,19 @@ Setting.create!(label: "Scoreboard (on/off):",
 								name: "scoreboard_on", value: "1", setting_type: "boolean", category: "Scoring")
 Setting.create!(label: "Maximum number of submissions per team:", tooltip: "0 means no limit",
 								name: "max_submissions_per_team", value: "0", setting_type: "text", category: "Scoring")
+
+# Console Category
+Setting.create!(label: "Remote:", 
+                tooltip: "Run <a href='https://code.google.com/archive/p/shellinabox/'>ShellInABox</a> as: 'shellinaboxd -s /:SSH:<remote>'", 
+								name: "console_host", value: "localhost:4200", setting_type: "text", category: "Console")
+Setting.create!(label: "Console enabled?", 
+								name: "console_enabled", value: "0", setting_type: "boolean", category: "Console")
+
+# Chat Category
+Setting.create!(label: "Chat enabled?", 
+								name: "chat_enabled", value: "1", setting_type: "boolean", category: "Chat")
+Setting.create!(label: "Scoring notifications?", 
+								name: "scoring_notifications", value: "1", setting_type: "boolean", category: "Chat")
 
 # Payment Category
 Setting.create!(label: "Require Payment?", tooltip: "Reqires 'stripe' configuration", 

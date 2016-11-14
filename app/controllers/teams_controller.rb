@@ -5,7 +5,8 @@ class TeamsController < ApplicationController
 	def index
 		# reject admins
 		@teams = Team.where.not(name: 'admins')
-		@brackets = Bracket.all
+		@brackets = Bracket.all.order(priority: :asc)
+    @num_challenges = Problem.where(visible: true).count
 	end
 
 	def show

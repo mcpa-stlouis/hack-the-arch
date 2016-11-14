@@ -14,15 +14,24 @@
 
 	<% else %>
 
-		<div class='col-md-9 col-xs-7'>
+		<div class='col-md-8 col-xs-7'>
 			<h3> <%= link_to team.name, team %> </h3>
-			<h5 class='text-muted'> (<%= pluralize(team.users.count, "member") %>) </h5>
+			<h5 class='text-muted'> 
+        (
+          <%= pluralize(team.users.count, "member") %>
+          <% if admin_user? %>/
+            <%= team.challenges_solved %>/<%= local_assigns[:num_challenges] %> solves
+          <% end %>
+        )
+      </h5>
 		</div>
-		<h3 class='col-md-3 col-xs-5'>
+		<h3 class='col-md-4 col-xs-5'>
 			<% if admin_user? %>
-   			<%= link_to 'delete', team, method: :delete,
-                               			data: { confirm: 'You sure?' },
-																		class: 'btn btn-primary' %>
+   			<%= link_to team, method: :delete, class: 'btn btn-danger',
+              data: { confirm: 'Are you sure?' }, 
+              form: {style: 'display:inline-block;'} do %>
+          <span class='glyphicon glyphicon-trash' aria-hidden='true'></span>
+        <% end %>
  			<% end %>
 		</h3>
 

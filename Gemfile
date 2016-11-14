@@ -17,7 +17,10 @@ gem 'fog-google'
 gem 'will_paginate', '3.1.0' 
 gem 'stripe', '1.31.0'
 gem 'simplecov', '0.11.1'
+gem 'nokogiri', '~> 1.6.8.1'
 gem 'net-ssh'
+gem 'bootstrap-growl-rails'
+gem 'animate-rails'
 
 # Javascript and CSS
 gem 'sass-rails', '~> 5.0'
@@ -53,4 +56,5 @@ group :production do
   gem 'rack',           '2.0.1'
   gem 'pg',	            '0.18.4'
   gem 'rails_12factor', '0.0.2'
+  gem 'redis'
 end

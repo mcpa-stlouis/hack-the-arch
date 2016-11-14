@@ -1,0 +1,15 @@
+<% provide(:title, 'Feed') %>
+
+<h1>Submissions Feed</h1>
+<div class='input-group'> 
+	<span class='input-group-addon'>Search</span>
+	<input id='filter' type='text' class='filter form-control'>
+</div>
+<br />
+
+<ul id='submissions' class='list-group filter_list'>
+  <% for submission in @submissions %>
+    <%= render partial: 'submissions/submission_feed', 
+               locals: { submission: submission } %>
+  <% end %>
+</ul>

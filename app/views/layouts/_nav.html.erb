@@ -2,7 +2,21 @@
 <li><%= link_to "Help",   help_path %></li>
 <li><%= link_to "Scoreboard", scoreboard_path %></li>
 <% if logged_in? %>
+
+  <% if chat_enabled? %>
+    <li><%= link_to "Chat",   chat_path %></li>
+  <% end %>
+
+  <% if console_enabled? %>
+    <li><%= link_to "Console",   console_path %></li>
+  <% end %>
+
   <li><%= link_to "Problems", problems_path %></li>
+
+	<% if current_user.admin? %>
+		<li><%= link_to "Submissions", submissions_path %></li>
+	<% end %>
+
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
       Account <b class="caret"></b>
