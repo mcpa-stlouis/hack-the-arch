@@ -35,6 +35,10 @@ setting_use_handicap:
   name: "use_bracket_handicaps"
   value: "0"
 
+admin_account_auth:
+  name: "admin_account_auth"
+  value: "0"
+
 max_members_per_team:
   name: "max_members_per_team"
   value: "1"

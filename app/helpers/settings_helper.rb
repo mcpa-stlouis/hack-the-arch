@@ -39,6 +39,10 @@ module SettingsHelper
 		(Setting.find_by(name: 'use_bracket_handicaps').value == "0") ? false : true
 	end
 
+  def admin_account_auth?
+		(Setting.find_by(name: 'admin_account_auth').value == "0") ? false : true
+  end
+
 	def require_payment?
 		(Setting.find_by(name: 'require_payment').value == "0") ? false : true
 	end

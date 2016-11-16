@@ -18,6 +18,8 @@ Setting.create!(label: "Use bracket based handicap system?",
 								name: "use_bracket_handicaps", value: "0", setting_type: "boolean", category: "General")
 Setting.create!(label: "Allow users to view profiles other than their own?", 
 								name: "view_other_profiles", value: "1", setting_type: "boolean", category: "General")
+Setting.create!(label: "Require admin authorization for account creation?", tooltip: "Requires changing admin's e-mail address",  
+								name: "admin_account_auth", value: "0", setting_type: "boolean", category: "General")
 
 # Scoring Category
 Setting.create!(label: "Subtract hint deductions before problem is solved?", 
@@ -66,9 +68,12 @@ user = User.create!(id: Random.rand(10000),
  						 				password:              "password",
  						 				password_confirmation: "password",
  						 				admin: true,
+ 						 				super_admin: true,
  						 				activated: true,
  						 				paid: true,
 						 				team_id: team.id,
+                    authorized: true,
+ 						 				authorized_at: Time.zone.now,
  						 				activated_at: Time.zone.now)
 
 user.join_team(team)

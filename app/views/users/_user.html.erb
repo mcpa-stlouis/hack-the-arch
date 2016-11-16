@@ -10,7 +10,11 @@
 			<%= content_tag :div, "Hasn't paid, created #{distance_of_time_in_words(user.created_at, Time.now)} ago.", class: "text-danger" %>
 		<% elsif !user.activated? %>
 			<%= content_tag :div, "Not Activated, created #{distance_of_time_in_words(user.created_at, Time.now)} ago.", class: "text-danger" %>
-		<% else %>
+		<% elsif !user.authorized? %>
+      <br />
+      <%= content_tag :span, "Not authorized, created #{distance_of_time_in_words(user.created_at, Time.now)} ago.", class: "text-warning" %>
+      | <%= link_to "authorize", authorize_user_url(user) %>
+    <% else %>
 			<%= content_tag :div, "User active.", class: "text-success" %>
 		<% end %>
   <% end %>

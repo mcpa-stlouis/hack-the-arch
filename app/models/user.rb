@@ -56,6 +56,13 @@ class User < ActiveRecord::Base
 	def activate
     update_attribute(:activated,    true)
     update_attribute(:activated_at, Time.zone.now)
+    send_authorization_email if admin_account_auth?
+  end
+
+  def authorize
+    update_attribute(:authorized,    true)
+    update_attribute(:authorized_at, Time.zone.now)
+    send_authorized_email
   end
 
   # Creates and assigns the activation token and digest.
@@ -66,6 +73,14 @@ class User < ActiveRecord::Base
 
 	def send_activation_email
     UserMailer.account_activation(self).deliver_now
+  end
+
+  def send_authorization_email
+    AdminMailer.new_user(User.where(super_admin: true).first, self).deliver_now
+  end
+
+  def send_authorized_email
+    UserMailer.account_authorized(self).deliver_now
   end
 
 	def create_reset_digest
