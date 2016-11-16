@@ -2,7 +2,7 @@ HackTheArch
 ===========
 
 ![Build Status](https://travis-ci.org/mcpa-stlouis/hack-the-arch.svg?branch=dev)
-![Heroku](https://heroku-badge.herokuapp.com/?app=hackthearch)
+![Heroku](https://heroku-badge.herokuapp.com/?app=hackthearch&svg=1)
 
 This is a scoring server built using Ruby on Rails by the Military Cyber
 Professionals Association (MCPA).  It is free to use and extend under the MIT
