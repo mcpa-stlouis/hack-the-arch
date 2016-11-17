@@ -43,6 +43,14 @@ module SettingsHelper
 		(Setting.find_by(name: 'admin_account_auth').value == "0") ? false : true
   end
 
+  def admin_auth_email
+		Setting.find_by(name: 'admin_auth_email').value
+  end
+
+  def contact_email
+		Setting.find_by(name: 'contact_email').value
+  end
+
 	def require_payment?
 		(Setting.find_by(name: 'require_payment').value == "0") ? false : true
 	end

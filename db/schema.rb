@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161116215414) do
+ActiveRecord::Schema.define(version: 20161117154835) do
 
   create_table "brackets", force: :cascade do |t|
     t.string   "name"
@@ -128,7 +128,6 @@ ActiveRecord::Schema.define(version: 20161116215414) do
     t.boolean  "paid"
     t.string   "discount_code"
     t.string   "username"
-    t.boolean  "super_admin",       default: false
     t.boolean  "authorized",        default: false
     t.datetime "authorized_at"
     t.index ["team_id"], name: "index_users_on_team_id"

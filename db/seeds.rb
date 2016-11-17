@@ -10,16 +10,22 @@ Setting.create!(label: "Competition End Time:",
 								name: "end_time", value: (DateTime.current + 1.days).strftime("%m/%d/%Y %I:%M %p"), setting_type: "date", category: "General")
 Setting.create!(label: "Max number of members per team:", 
 								name: "max_members_per_team", value: "5", setting_type: "text", category: "General")
-Setting.create!(label: "Send activation e-mails?", tooltip: "Requires mailer config", 
-								name: "send_activation_emails", value: "0", setting_type: "boolean", category: "General")
 Setting.create!(label: "Registration on?", 
 								name: "registration_active", value: "0", setting_type: "boolean", category: "General")
 Setting.create!(label: "Use bracket based handicap system?", 
 								name: "use_bracket_handicaps", value: "0", setting_type: "boolean", category: "General")
 Setting.create!(label: "Allow users to view profiles other than their own?", 
 								name: "view_other_profiles", value: "1", setting_type: "boolean", category: "General")
-Setting.create!(label: "Require admin authorization for account creation?", tooltip: "Requires changing admin's e-mail address",  
-								name: "admin_account_auth", value: "0", setting_type: "boolean", category: "General")
+
+# E-mail Category
+Setting.create!(label: "Send activation e-mails?", tooltip: "Requires mailer config", 
+								name: "send_activation_emails", value: "0", setting_type: "boolean", category: "E-Mail")
+Setting.create!(label: "Require admin authorization for account creation?", tooltip: "Requires setting authorization e-mail",  
+								name: "admin_account_auth", value: "0", setting_type: "boolean", category: "E-Mail")
+Setting.create!(label: "Authorization e-mail", tooltip: "E-mail address where authorization requests will be sent",  
+								name: "admin_auth_email", value: "contact.stlouis@milcyber.org", setting_type: "text", category: "E-Mail")
+Setting.create!(label: "Contact e-mail", tooltip: "Will be used in emails and help/contact info on site",  
+								name: "contact_email", value: "contact.stlouis@milcyber.org", setting_type: "text", category: "E-Mail")
 
 # Scoring Category
 Setting.create!(label: "Subtract hint deductions before problem is solved?", 
@@ -68,7 +74,6 @@ user = User.create!(id: Random.rand(10000),
  						 				password:              "password",
  						 				password_confirmation: "password",
  						 				admin: true,
- 						 				super_admin: true,
  						 				activated: true,
  						 				paid: true,
 						 				team_id: team.id,

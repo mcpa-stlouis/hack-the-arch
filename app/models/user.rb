@@ -76,7 +76,7 @@ class User < ActiveRecord::Base
   end
 
   def send_authorization_email
-    AdminMailer.new_user(User.where(super_admin: true).first, self).deliver_now
+    AdminMailer.new_user(self).deliver_now
   end
 
   def send_authorized_email
