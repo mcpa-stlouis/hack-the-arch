@@ -3,7 +3,7 @@ class MessageBroadcastJob < ApplicationJob
 
   def perform(message)
     ActionCable.server.broadcast 'message_channel', message: render_message(message),
-                                                    sender: message.user.username,
+                                                    sender: (message.user.admin?) ? "admin" : message.user.username,
                                                     text: message.message,
                                                     url: message.url,
                                                     priority: message.priority
