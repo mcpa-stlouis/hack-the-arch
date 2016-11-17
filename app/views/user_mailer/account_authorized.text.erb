@@ -2,9 +2,9 @@ Hello <%= @user.fname %>!
 
 Your account has been authorized by an administrator!  Happy Hacking!
 
-<%= root_url %>
+Log in at: <%= root_url %>
 
 Best of luck!
--The HackTheArch Team
+-The <%= @competition_name %> Team
 
-- Note: Please do not reply to this e-mail.  If you have questions, please e-mail: contact.stlouis@milcyber.org
+- Note: Please do not reply to this e-mail.  If you have questions, please e-mail: <%= @admin_email %>.

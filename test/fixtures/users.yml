@@ -11,6 +11,7 @@ example_user:
   paid: true
   team_id: 1
   admin: true
+  super_admin: true
   activated_at: <%= Time.zone.now %>
 
 archer:

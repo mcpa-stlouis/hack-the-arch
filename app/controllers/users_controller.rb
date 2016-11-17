@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 	before_action :logged_in_user, only: [:show, :index, :destroy, :edit, :update, :get_stats]
 	before_action :registration_active, only: [:new, :create]
 	before_action :correct_user, only: [:edit, :update]
-	before_action :admin_user, only: [:index, :destroy, :authorize]
+	before_action :admin_user, only: [:index, :destroy, :authorize, :activate]
 	before_action :require_payment, only: [:checkout, :charge]
 
 	def index
@@ -148,11 +148,22 @@ class UsersController < ApplicationController
     user = User.find(params[:id])
     if user && !user.authorized?
       user.authorize
-      flash[:success] = "User successfully activated."
+      flash[:success] = "User successfully authorized."
     else
       flash[:danger] = "Unable to find user or they have already been authorized."
     end
-    redirect_to admin_url
+    redirect_to users_url
+  end
+
+  def activate
+    user = User.find(params[:id])
+    if user && !user.activated? 
+      user.activate
+      flash[:success] = "User successfully activated."
+    else
+      flash[:danger] = "Unable to find user or they have already been activated."
+    end
+    redirect_to users_url
   end
 
 	private
