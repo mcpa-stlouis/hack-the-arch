@@ -1,10 +1,10 @@
 <h2>New user sign-up</h2>
 
 <ul>
-  <li><b>First Name:</b> <%= @user.fname %></li>
-  <li><b>Last Name:</b> <%= @user.lname %></li>
-  <li><b>Username:</b> <%= @user.username %></li>
-  <li><b>E-mail:</b> <%= @user.email %></li>
+  <li><b>First Name:</b> <%= sanitize @user.fname %></li>
+  <li><b>Last Name:</b> <%= sanitize @user.lname %></li>
+  <li><b>Username:</b> <%= sanitize @user.username %></li>
+  <li><b>E-mail:</b> <%= sanitize @user.email %></li>
 </ul>
 
 <ul>
