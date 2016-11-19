@@ -49,7 +49,7 @@ def contact_email:
 
 max_members_per_team:
   name: "max_members_per_team"
-  value: "1"
+  value: "2"
   setting_type: "text"
 
 max_submissions_per_team:

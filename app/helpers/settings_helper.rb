@@ -93,4 +93,9 @@ module SettingsHelper
 		(value = Setting.find_by(name: 'max_submissions_per_team').value.to_i).between?(0,2**16) ? value : 0
 	end
 
+  def max_members_per_team
+    Setting.find_by(name: 'max_members_per_team').value.to_i
+  end
+
+
 end
