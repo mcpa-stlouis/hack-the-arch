@@ -1,24 +1,23 @@
 Release Notes:
 ==============
 
-2.0.0 (DRAFT)
+2.0.0
 -----
-* Added:  Docker Compose network for easier production deployment option
-* Added:  Live submission feed for admin users
-* Added:  Chat function (optional)
-  - Broadcasts messages to users from admin users so they appear as
-    notifications if chat window is not active
-* Added:  Notifications when users score (optional)
-* Added:  Bootstrap Notify styled notifications
-* Added:  More info for admins:
+* Add:  Docker Compose network for easier production deployment option
+* Add:  Live submission feed for admin users
+* Add:  Chat function (optional)
+  - Broadcasts messages to users from admin users so they appear as notifications if chat window is not active
+* Add:  Notifications when users score (optional)
+* Add:  Bootstrap Notify styled notifications
+* Add:  More info for admins:
   - Showing number of solves for each team
   - Showing number of points available
-* Fixed:  Deploying to Heroku now much easier
-* Fixed:  Production environment variables now have alternate "DISABLED" values
-  so app does not crash when not present
-* Fixed:  Problem descriptions now wrap automatically
-* Fixed:  Timezones are all local now (defaults to central time, override with
-  `TIMEZONE` env var)
+* Add:  Optional console that uses a 'shellinthebox' backend to offer console to users
+* Fix:  Deploying to Heroku now much easier
+* Fix:  Production environment variables now have alternate "DISABLED" values so app does not crash when not present
+* Fix:  Problem descriptions now wrap automatically
+* Fix:  Timezones are all local now (defaults to central time, override with `TIMEZONE` env var)
+* Fix:  Adding new bracket doesn't require filling invisible field
 
 
 1.3.0
