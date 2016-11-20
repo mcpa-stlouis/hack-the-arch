@@ -37,8 +37,8 @@ Setting.create!(label: "Maximum number of submissions per team:", tooltip: "0 me
 
 # Console Category
 Setting.create!(label: "Remote:", 
-                tooltip: "Run <a href='https://code.google.com/archive/p/shellinabox/'>ShellInABox</a> as: 'shellinaboxd -s /:SSH:<remote>'", 
-								name: "console_host", value: "localhost:4200", setting_type: "text", category: "Console")
+                tooltip: "Run <a href='https://code.google.com/archive/p/shellinabox/'>ShellInABox</a> as: 'shellinaboxd -s /:SSH:remote'", 
+								name: "console_host", value: "https://localhost:4200", setting_type: "text", category: "Console")
 Setting.create!(label: "Console enabled?", 
 								name: "console_enabled", value: "0", setting_type: "boolean", category: "Console")
 
