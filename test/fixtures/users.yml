@@ -12,6 +12,7 @@ example_user:
   team_id: 1
   admin: true
   activated_at: <%= Time.zone.now %>
+  authorized: true
 
 archer:
   id: 2
@@ -24,6 +25,7 @@ archer:
   paid: true
   team_id: 2
   activated_at: <%= Time.zone.now %>
+  authorized: true
 
 malory:
   id: 3
@@ -36,3 +38,4 @@ malory:
   paid: true
   team_id: 3
   activated_at: <%= Time.zone.now %>
+  authorized: true

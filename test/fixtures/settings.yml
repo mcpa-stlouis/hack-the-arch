@@ -43,7 +43,7 @@ admin_auth_email:
   name: "admin_auth_email"
   value: "contact.stlouis@milcyber.org"
 
-def contact_email:
+contact_email:
   name: "contact_email"
   value: "contact.stlouis@milcyber.org"
 
@@ -61,6 +61,17 @@ require_payment:
   name: "require_payment"
   value: "0"
   setting_type: "boolean"
+
+fifty_percent_off:
+  name: "fifty_percent_off"
+  value: "HALF_OFF"
+  setting_type: "text"
+
+
+one_hundred_percent_off:
+  name: "one_hundred_percent_off"
+  value: "FREE"
+  setting_type: "text"
 
 entry_cost:
   name: "entry_cost"
