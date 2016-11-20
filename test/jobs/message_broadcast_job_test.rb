@@ -1,7 +1,11 @@
 require 'test_helper'
 
 class MessageBroadcastJobTest < ActiveJob::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+	def setup
+    @message = messages(:test)
+	end
+
+  test 'should send message' do
+    MessageBroadcastJob.perform_now(@message)
+  end
 end
