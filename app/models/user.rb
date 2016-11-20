@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
 	end
 
 	def is_member?(team)
-		self.team_id == team.id
+		self.team.id == team.id
 	end
 
 	def leave_team
@@ -35,7 +35,8 @@ class User < ActiveRecord::Base
 	end
 
 	def join_team(team)
-		update_attribute(:team_id, team.id)
+    self.team = team
+    self.save
 	end
 
 	def remember

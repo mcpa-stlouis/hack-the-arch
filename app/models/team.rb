@@ -96,7 +96,7 @@ class Team < ActiveRecord::Base
 	end
 
 	def at_capacity?
-		self.users.count > max_members_per_team
+		self.users.count >= max_members_per_team
 	end
 
 	def get_score
