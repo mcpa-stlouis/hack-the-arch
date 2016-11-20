@@ -65,7 +65,7 @@ class ProblemsTest < ActionDispatch::IntegrationTest
     assert_redirected_to problems_url
     get problems_path
     @problem = Problem.last
-    assert_select "a[href=?]", "#main_problem_#{@problem.id}", count: 1
+    assert_select "h4[href=?]", "#main_problem_#{@problem.id}", count: 1
 
     # Add existing hint
     get problems_path

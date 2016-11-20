@@ -4,8 +4,16 @@ admins:
   id: 1
   name: admins
   bracket_id: 1
+  passphrase: password
 
 example_team:
   id: 2
   name: example_team
   bracket_id: 1
+  passphrase: password
+
+opponent_team:
+  id: 3
+  name: opponent_team
+  bracket_id: 1
+  passphrase: password

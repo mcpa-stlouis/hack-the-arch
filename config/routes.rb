@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   get 'teams/get_score_data' => 'scoreboard#get_score_data'
   get 'users/get_stats'      => 'users#get_stats'
   get 'users/:id/checkout'   => 'users#checkout', as: 'checkout'
+  get 'users/:id/authorize'  => 'users#authorize', as: 'authorize_user'
+  get 'users/:id/activate'   => 'users#activate', as: 'activate_user'
 
   post 'login'          => 'sessions#create'
   post 'request_hint'   => 'hint_requests#create'

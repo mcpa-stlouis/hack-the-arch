@@ -1,6 +1,7 @@
 class TeamsController < ApplicationController
-	before_action :logged_in_user, only: [:create, :show, :destroy, :edit, :update]
+	before_action :logged_in_user, only: [:create, :show, :destroy, :edit, :update, :new]
 	before_action :member_of_team, only: [:destroy, :edit, :update]
+  before_action :admin_team, only: [:show]
 
 	def index
 		# reject admins
@@ -13,10 +14,6 @@ class TeamsController < ApplicationController
 		@team = Team.find(params[:id])
 		@bracket = Bracket.find(@team.bracket_id)
 		@members = @team.users.sort_by { |user| user.get_score }.reverse
-		if !current_user.admin? && params[:id] == 1
-			flash[:danger] = "Access Denied"
-			redirect_to root_url
-		end	
 	end
 
   def new
@@ -57,7 +54,7 @@ class TeamsController < ApplicationController
 	def remove_member
 		@team = Team.find(params[:team_id])
 		@user = User.find(params[:user_id])
-		if !current_user.team == @team && !current_user.admin?
+		if !(current_user.team == @team) && !current_user.admin?
 			flash[:danger] = "You can only remove members from your team"
 			redirect_to @team
 		else
@@ -79,15 +76,12 @@ class TeamsController < ApplicationController
 		elsif !@team.authenticate(params[:passphrase])
 			flash[:danger] = "Incorrect passphrase"
 			redirect_to @team
-		elsif @team.id == 1 && @user.id != 1
+		elsif @team.name == "admins" && !@user.admin?
 			flash[:danger] = "Access denied"
 			redirect_to root_url
 		else
 			if @user.join_team(@team)
 				flash[:success] = "Welcome to " + @team.name
-				redirect_to @team
-			else
-				flash[:danger] = "Unable to join " + @team.name
 				redirect_to @team
 			end
 		end
@@ -113,4 +107,12 @@ class TeamsController < ApplicationController
 				redirect_to login_url
 			end
 		end
+
+    def admin_team
+      @team = Team.find(params[:id])
+      if @team.name == "admins" && !current_user.admin?
+        flash[:danger] = "Access denied"
+        redirect_to root_url
+      end
+    end
 end

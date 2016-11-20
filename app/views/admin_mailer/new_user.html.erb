@@ -1,0 +1,13 @@
+<h2>New user sign-up</h2>
+
+<ul>
+  <li><b>First Name:</b> <%= sanitize @user.fname %></li>
+  <li><b>Last Name:</b> <%= sanitize @user.lname %></li>
+  <li><b>Username:</b> <%= sanitize @user.username %></li>
+  <li><b>E-mail:</b> <%= sanitize @user.email %></li>
+</ul>
+
+<ul>
+<li><%= link_to "Authorize", authorize_user_url(@user) %></li>
+<li><%= link_to "Delete", @user, method: :delete, data: { confirm: "You sure?" } %></li>
+</ul>

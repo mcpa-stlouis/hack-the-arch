@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
-	before_action :logged_in_user, only: [:show, :index, :destroy, :edit, :update, :get_stats]
+	before_action :logged_in_user, only: [:show, :index, :destroy, :edit, :update, :get_stats, :authorize, :activate]
 	before_action :registration_active, only: [:new, :create]
 	before_action :correct_user, only: [:edit, :update]
-	before_action :admin_user, only: [:index, :destroy]
+	before_action :admin_user, only: [:index, :destroy, :authorize, :activate]
 	before_action :require_payment, only: [:checkout, :charge]
 
 	def index
@@ -11,7 +11,7 @@ class UsersController < ApplicationController
 
 	def show
 		user = User.find(params[:id])
-		if user.activated? 
+		if user.activated? && (!admin_account_auth? || user.authorized?)
 			if view_other_profiles? || current_user?(user) || admin_user?
 				@user = user
 				@score = @user.get_score
@@ -27,9 +27,13 @@ class UsersController < ApplicationController
   			redirect_to root_url
   		end
 		else
-      message  = "Account not activated. "
+      message  = "Account not activated or authorized. "
 			if current_user?(user)
-      	message += "Check your email for the activation link."
+        if user.activated?
+          message += "Please allow additional time for your account to be authorized by an administrator."
+        else
+          message += "Check your email for the activation link."
+        end
 			end
       flash[:warning] = message
 			redirect_to root_url
@@ -119,7 +123,6 @@ class UsersController < ApplicationController
 		rescue Stripe::CardError => e
   		flash[:error] = e.message
   		redirect_to checkout_path(@user)
-
 	end
 
 	def destroy
@@ -140,6 +143,28 @@ class UsersController < ApplicationController
 			render 'edit'
 		end
 	end
+
+  def authorize
+    user = User.find(params[:id])
+    if user && !user.authorized?
+      user.authorize
+      flash[:success] = "User successfully authorized."
+    else
+      flash[:danger] = "Unable to find user or they have already been authorized."
+    end
+    redirect_to users_url
+  end
+
+  def activate
+    user = User.find(params[:id])
+    if user && !user.activated? 
+      user.activate
+      flash[:success] = "User successfully activated."
+    else
+      flash[:danger] = "Unable to find user or they have already been activated."
+    end
+    redirect_to users_url
+  end
 
 	private
 		def user_params

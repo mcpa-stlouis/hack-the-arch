@@ -19,6 +19,22 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
 		assert_template 'users/new'
 	end
 
+	test "valid signup information without account activation emails" do
+    settings(:setting_send_activation_emails).update_attribute(:value, '0') 
+		get signup_path
+		assert_difference 'User.count', 1 do
+			post users_path, params: {
+                            user: { fname:  "Example",
+                           		 lname: "User",
+                           		 username: "user_101",
+                           		 email: "user@example.com",
+                           		 password:              "password",
+                           		 password_confirmation: "password" }}
+		end
+    user = assigns(:user)
+    assert user.activated?
+	end
+
 	test "valid signup information with account activation" do
 		get signup_path
 		assert_difference 'User.count', 1 do
@@ -49,4 +65,41 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     assert_template 'users/show'
     assert is_logged_in?
 	end
+
+  test "valid signup information with payment should go to checkout" do
+    # Enable payment
+    log_in_as(users(:example_user))
+    settings(:require_payment).update_attribute(:value, '1')
+    log_out
+
+		get signup_path
+		assert_difference 'User.count', 1 do
+			post users_path, params: {
+                            user: { fname:  "Example",
+                           		 lname: "User",
+                           		 username: "user_101",
+                           		 email: "user@example.com",
+                           		 password:              "password",
+                           		 password_confirmation: "password" }}
+		end
+    # Pay
+    follow_redirect!
+    assert_template 'users/checkout'
+    # Actual charge should be tested using your stripe keys manually
+  end
+
+  test "should redirect create when registration isn't active" do
+    settings(:registration_active).update_attribute(:value, '0')
+		get signup_path
+		assert_no_difference 'User.count', 1 do
+			post users_path, params: {
+                            user: { fname:  "Example",
+                           		 lname: "User",
+                           		 username: "user_101",
+                           		 email: "user@example.com",
+                           		 password:              "password",
+                           		 password_confirmation: "password" }}
+		end
+    assert_redirected_to root_url
+  end
 end

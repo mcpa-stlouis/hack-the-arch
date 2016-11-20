@@ -1,0 +1,18 @@
+<h1><%= @competition_name %></h1>
+
+<p>Hello <%= @user.fname %>!</p>
+
+<p>
+Your account has been authorized by an administrator!  Happy Hacking!
+</p>
+
+Log in at: <%= link_to "#{@competition_name}", root_url %>
+
+<p>
+Best of luck!<br />
+-The <%= @competition_name %> Team
+</p>
+
+<p>
+- Note: Please do not reply to this e-mail.  If you have questions, please e-mail: <%= mail_to @admin_email %>.
+</p>

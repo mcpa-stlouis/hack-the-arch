@@ -2,16 +2,42 @@
 	<%= gravatar_for user, size: 50 %>
 	<%= link_to user.username, user %>
 	<% if current_user.admin? && !current_user?(user) %>
-    | <%= link_to "delete", user, method: :delete,
-                                  data: { confirm: "You sure?" } %>
+    <%= content_tag :span, class: 'pull-right' do %>
+      <% if !user.activated? %>
+        <%= link_to activate_user_url(user), class: 'btn btn-info', 
+            title: "Activate",
+            data: {toggle: "tooltip", placement:"bottom"}, 
+            form: {style: 'display:inline-block;'} do %>
+          <span class='glyphicon glyphicon-check' aria-hidden='true'></span>
+        <% end %>
+      <% elsif !user.authorized? %>
+        <%= link_to authorize_user_url(user), class: 'btn btn-success',
+            title: "Authorize",
+            data: {toggle: "tooltip", placement:"bottom"}, 
+            form: {style: 'display:inline-block;'} do %>
+          <span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span>
+        <% end %>
+      <% end %>
+      <%= link_to user, method: :delete, class: 'btn btn-danger',
+            title: "Delete",
+            data: { confirm: 'Are you sure?', toggle: "tooltip", placement: "bottom" }, 
+            form: {style: 'display:inline-block;'} do %>
+        <span class='glyphicon glyphicon-trash' aria-hidden='true'></span>
+      <% end %>
+    <% end %>
+
 		<br />
 		<%= mail_to user.email %>
+    <br />
 		<% if !user.paid? %>
 			<%= content_tag :div, "Hasn't paid, created #{distance_of_time_in_words(user.created_at, Time.now)} ago.", class: "text-danger" %>
 		<% elsif !user.activated? %>
 			<%= content_tag :div, "Not Activated, created #{distance_of_time_in_words(user.created_at, Time.now)} ago.", class: "text-danger" %>
-		<% else %>
+		<% elsif !user.authorized? %>
+      <%= content_tag :div, "Not authorized, created #{distance_of_time_in_words(user.created_at, Time.now)} ago.", class: "text-warning" %>
+    <% else %>
 			<%= content_tag :div, "User active.", class: "text-success" %>
 		<% end %>
+
   <% end %>
 <% end %>

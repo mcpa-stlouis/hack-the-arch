@@ -2,7 +2,7 @@ class ValidateAtCapacity < ActiveModel::Validator
 
   def validate(record)
     if record.at_capacity?
-      record.errors[] << 'Team has reached capcity'
+      record.errors[:capacity] << 'Team has reached capcity'
     end
   end
 end
@@ -174,10 +174,6 @@ class Team < ActiveRecord::Base
   end
 
 	private
-		def max_members_per_team
-			Setting.find_by(name: 'max_members_per_team').value.to_i
-		end
-
 		def bracket_exists
 			if !Bracket.exists?(bracket_id)
 				errors.add(:bracket_id, "Couldn't find bracket_id with specified id")

@@ -22,3 +22,13 @@
 //= require bootstrap-datetimepicker
 //= require c3
 //= require d3
+
+(function() {
+  var init_bootstrap_modules = function() {
+    $(".bootstrap-switches").bootstrapSwitch();
+    $('[data-toggle="tooltip"]').tooltip(); 
+  };
+
+  $(document).on('turbolinks:load', init_bootstrap_modules);
+
+}).call(this);

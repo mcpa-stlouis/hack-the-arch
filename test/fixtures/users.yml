@@ -4,7 +4,7 @@ example_user:
   id: 1
   fname: Another
   lname: Example User
-  username: example
+  username: admin
   email: another_user@example.com
   password_digest: <%= User.digest('password') %>
   activated: true
@@ -12,6 +12,7 @@ example_user:
   team_id: 1
   admin: true
   activated_at: <%= Time.zone.now %>
+  authorized: true
 
 archer:
   id: 2
@@ -24,6 +25,7 @@ archer:
   paid: true
   team_id: 2
   activated_at: <%= Time.zone.now %>
+  authorized: true
 
 malory:
   id: 3
@@ -34,5 +36,19 @@ malory:
   password_digest: <%= User.digest('password') %>
   activated: true
   paid: true
-  team_id: 2
+  team_id: 3
   activated_at: <%= Time.zone.now %>
+  authorized: true
+
+cyril:
+  id: 4
+  fname: Cyril
+  lname: Figgis
+  username: cyril
+  email: cyril@isis.gov
+  password_digest: <%= User.digest('password') %>
+  activated: true
+  paid: true
+  team_id: 3
+  activated_at: <%= Time.zone.now %>
+  authorized: true

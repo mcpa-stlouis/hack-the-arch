@@ -35,9 +35,21 @@ setting_use_handicap:
   name: "use_bracket_handicaps"
   value: "0"
 
+admin_account_auth:
+  name: "admin_account_auth"
+  value: "0"
+
+admin_auth_email:
+  name: "admin_auth_email"
+  value: "contact.stlouis@milcyber.org"
+
+contact_email:
+  name: "contact_email"
+  value: "contact.stlouis@milcyber.org"
+
 max_members_per_team:
   name: "max_members_per_team"
-  value: "1"
+  value: "2"
   setting_type: "text"
 
 max_submissions_per_team:
@@ -49,6 +61,17 @@ require_payment:
   name: "require_payment"
   value: "0"
   setting_type: "boolean"
+
+fifty_percent_off:
+  name: "fifty_percent_off"
+  value: "HALF_OFF"
+  setting_type: "text"
+
+
+one_hundred_percent_off:
+  name: "one_hundred_percent_off"
+  value: "FREE"
+  setting_type: "text"
 
 entry_cost:
   name: "entry_cost"

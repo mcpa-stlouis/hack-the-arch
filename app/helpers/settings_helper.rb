@@ -39,6 +39,18 @@ module SettingsHelper
 		(Setting.find_by(name: 'use_bracket_handicaps').value == "0") ? false : true
 	end
 
+  def admin_account_auth?
+		(Setting.find_by(name: 'admin_account_auth').value == "0") ? false : true
+  end
+
+  def admin_auth_email
+		Setting.find_by(name: 'admin_auth_email').value
+  end
+
+  def contact_email
+		Setting.find_by(name: 'contact_email').value
+  end
+
 	def require_payment?
 		(Setting.find_by(name: 'require_payment').value == "0") ? false : true
 	end
@@ -80,5 +92,10 @@ module SettingsHelper
 	def max_submissions_per_team
 		(value = Setting.find_by(name: 'max_submissions_per_team').value.to_i).between?(0,2**16) ? value : 0
 	end
+
+  def max_members_per_team
+    Setting.find_by(name: 'max_members_per_team').value.to_i
+  end
+
 
 end
