@@ -1,6 +1,14 @@
 Release Notes:
 ==============
 
+2.0.1
+-----
+* Add: Optionally require all accounts to be authorized by administrator
+* Add: Styling emails
+* Add: Over 90% test coverage
+* Add: Styling problem index with button group and icons with tooltips
+* Fix: Uses "admin" as user for admin messages
+
 2.0.0
 -----
 * Add:  Docker Compose network for easier production deployment option
