@@ -1,5 +1,5 @@
 class SubmissionsController < ApplicationController
-  before_action :user_logged_in, only: [:index, :create, :new]
+  before_action :logged_in_user, only: [:index, :create, :new]
   before_action :belong_to_team, only: [:create, :new]
   before_action :competition_active, only: [:create, :new]
   before_action :admin_user, only: [:index]
@@ -73,33 +73,10 @@ class SubmissionsController < ApplicationController
   end
 
   private
-    def competition_active
-      unless competition_active?
-        flash[:danger] = "The competition isn't active!"
-        redirect_to root_url
-      end
-    end
-
     def belong_to_team
       unless current_user.team_id
         flash[:danger] = "You cannot solve problems unless you belong to a team!"
         redirect_to @problem
-      end
-    end
-
-    def user_logged_in
-      unless logged_in?
-        store_location
-        flash[:danger] = "Please log in."
-        redirect_to login_url
-      end
-    end
-
-    def admin_user
-      unless logged_in? && current_user.admin?
-        store_location
-        flash[:danger] = "Access Denied."
-        redirect_to root_url
       end
     end
 

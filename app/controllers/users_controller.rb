@@ -171,14 +171,6 @@ class UsersController < ApplicationController
 			params.require(:user).permit(:fname, :lname, :username, :email, :password, :password_confirmation, :discount_code)
 		end
 
-		def logged_in_user
-			unless logged_in?
-				store_location
-				flash[:danger] = "Please log in."
-				redirect_to login_url
-			end
-		end
-
 		def require_payment
 			unless require_payment?
 				flash[:danger] = "Access denied"
@@ -193,13 +185,6 @@ class UsersController < ApplicationController
 				redirect_to root_url
 			end
 		end
-
-		def admin_user
-    	unless admin_user?
-				flash[:danger] = "Access denied"
-				redirect_to root_url
-			end
-    end
 
 		def activate_user(user)
 			user.update_attributes(paid: true)

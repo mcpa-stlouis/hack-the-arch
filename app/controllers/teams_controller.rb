@@ -100,14 +100,6 @@ class TeamsController < ApplicationController
 			end
 		end
 
-		def logged_in_user
-			unless logged_in?
-				store_location
-				flash[:danger] = "Please log in."
-				redirect_to login_url
-			end
-		end
-
     def admin_team
       @team = Team.find(params[:id])
       if @team.name == "admins" && !current_user.admin?

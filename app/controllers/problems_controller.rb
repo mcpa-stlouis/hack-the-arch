@@ -101,34 +101,11 @@ class ProblemsController < ApplicationController
 		def problem_params
 			params.require(:problem).permit(:name, :category, :description, :points, :solution, :correct_message, :false_message, :picture, :visible, :solution_case_sensitive)
 		end
-
-		def logged_in_user
-			unless logged_in?
-				store_location
-				flash[:danger] = "Please log in."
-				redirect_to login_url
-			end
-		end
 		
 		def belong_to_team
 			unless current_user.team_id
 				flash[:danger] = "You must belong to a team to view the problems!"
 				redirect_to current_user
-			end
-		end
-		
-		def admin_user
-      unless current_user.admin?
-				store_location
-				flash[:danger] = "Access Denied."
-				redirect_to root_url
-			end
-    end
-
-		def competition_active
-			unless current_user.admin? || competition_active?
-				flash[:danger] = "The competition isn't active!"
-				redirect_to root_url
 			end
 		end
 end

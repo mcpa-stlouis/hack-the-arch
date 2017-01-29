@@ -17,12 +17,4 @@ class ScoreboardController < ApplicationController
 											status: :ok}
 	end
 
-	private
-		def competition_started
-			unless (current_user && current_user.admin?) || competition_started?
-				flash[:danger] = "The competition hasn't started!"
-				redirect_to root_url
-			end
-		end
-
 end

@@ -39,24 +39,9 @@ class HintRequestsController < ApplicationController
 
 	private
 
-		def logged_in_user
-			unless logged_in?
-				store_location
-				flash[:danger] = "Please log in."
-				redirect_to login_url
-			end
-		end
-		
 		def belong_to_team
 			unless current_user.team_id
 				flash[:danger] = "You must belong to a team to request hints!"
-				redirect_to root_url
-			end
-		end
-
-		def competition_active
-			unless competition_active?
-				flash[:danger] = "The competition isn't active!"
 				redirect_to root_url
 			end
 		end

@@ -41,19 +41,4 @@ class BracketsController < ApplicationController
 			params.require(:bracket).permit(:name, :priority, :hints_available)
 		end
 
-		def logged_in_user
-			unless logged_in?
-				store_location
-				flash[:danger] = "Please log in."
-				redirect_to login_url
-			end
-		end
-
-		def admin_user
-      unless current_user.admin?
-				flash[:danger] = "Access denied."
-				redirect_to root_url
-			end
-    end
-
 end

@@ -1,5 +1,5 @@
 class MessagesController < ApplicationController
-  before_action :user_logged_in, only: [:index, :create]
+  before_action :logged_in_user, only: [:index, :create]
   before_action :chat_enabled, only: [:index, :create]
 
   def index
@@ -16,14 +16,6 @@ class MessagesController < ApplicationController
   end
 
   private
-    def user_logged_in
-      unless logged_in?
-        store_location
-        flash[:danger] = "Please log in."
-        redirect_to login_url
-      end
-    end
-
     def chat_enabled
       unless chat_enabled?
         flash[:danger] = "Access denied."

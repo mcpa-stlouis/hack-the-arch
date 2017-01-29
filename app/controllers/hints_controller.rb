@@ -1,5 +1,5 @@
 class HintsController < ApplicationController
-  before_action :logged_in
+  before_action :logged_in_user
   before_action :admin_user, only: [:new, :create, :edit, :update]
 
   def new
@@ -37,21 +37,5 @@ class HintsController < ApplicationController
   private
     def hint_params
       params.require(:hint).permit(:priority, :hint, :points)
-    end
-
-    def logged_in
-      unless logged_in?
-        store_location
-        flash[:danger] = "Please log in"
-        redirect_to login_url
-      end
-    end
-
-    def admin_user
-      unless current_user.admin?
-        store_location
-        flash[:danger] = "Access Denied."
-        redirect_to root_url
-      end
     end
 end
