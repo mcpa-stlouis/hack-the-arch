@@ -1,6 +1,6 @@
 class ConsoleController < ApplicationController
-  before_action :user_logged_in, only: [:index, :create]
-  before_action :console_enabled, only: [:index, :create]
+  before_action :logged_in_user
+  before_action :console_enabled
 
   def index
     $host = console_host  
