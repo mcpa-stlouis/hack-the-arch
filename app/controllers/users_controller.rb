@@ -196,9 +196,14 @@ class UsersController < ApplicationController
     		redirect_to root_url
 			else
 				user.activate
-				log_in(user)
-    		flash[:success] = "Welcome to #{competition_name}!"
-    		redirect_to user
+        if admin_account_auth? && !user.authorized?
+          flash[:info] += "Your account will now be sent to an adminstrator for review.  Once authorized, you will receive an e-mail."
+          redirect_to root_url
+        else
+          log_in(user)
+          flash[:success] = "Welcome to #{competition_name}!"
+          redirect_to user
+        end
 			end
 		end
 

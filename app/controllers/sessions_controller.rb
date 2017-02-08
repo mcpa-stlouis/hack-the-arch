@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
         if !user.paid?
           flash[:warning] = 'Please finish checking out to complete your registration!'
           redirect_to checkout_path(user)
-        elsif !user.authorized?
+        elsif (admin_account_auth? && !user.authorized?)
           message  = 'Account not authorized '
           message += 'Please allow additional time for an administrator to authorized your account.'
           flash[:warning] = message
