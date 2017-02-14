@@ -1,5 +1,6 @@
 class Hint < ActiveRecord::Base
 	validates :hint, presence: true, length: { maximum: 500 }
+  validates :priority, presence: true, numericality: true
 	validates :points,  presence: true, inclusion: { in: 0..1000 }
 
 	def decrement_pointer_counter
