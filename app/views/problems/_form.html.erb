@@ -24,8 +24,8 @@
 
   <%= f.label :dependent_problems %>
   <%= f.select :dependent_problems, 
-    options_from_collection_for_select(@available_dependencies, 'id', 'name',
-    @problem.dependent_problem_ids.map(&:to_i)),
+    options_for_select(@available_dependencies.pluck(:name, :id),
+    @problem.dependent_problem_ids),
     { include_blank: "None", class: 'form-control' }, { multiple: true } %>
 
 	<%= f.label :visible, class: 'checkbox-inline' do %>

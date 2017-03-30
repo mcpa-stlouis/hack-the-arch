@@ -43,7 +43,7 @@ class ProblemsController < ApplicationController
 		if @problem.save
       redirect_to problems_url
 		else
-			render 'new'
+			render :new
 		end
 	end
 
@@ -110,7 +110,7 @@ class ProblemsController < ApplicationController
 			flash[:success] = "Changes saved successfully"
 			redirect_to @problem
 		else
-			render 'edit'
+			render :edit
 		end
 	end
 
