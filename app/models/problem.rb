@@ -17,16 +17,28 @@ class Problem < ActiveRecord::Base
 	validates :solution_case_sensitive, exclusion: { in: [nil] }
 	validate  :picture_size
 
-  def Problem.find_parents(problem)
-    unless problem.parent
+   def Problem.find_parents(problem)
+     unless problem.parent
+       return []
+     end
+     return [problem.parent].concat(find_parents(problem.parent))
+   end
+
+  def Problem.find_dependencies(problem)
+    if problem.dependent_problems.length <= 0
       return []
     end
-    return [problem.parent].concat(find_parents(problem.parent))
+    return problem.dependent_problems.concat(problem.dependent_problems.each { |p| find_dependencies(p) } )
   end
 
-  def parent_solved_by_team?(team_id)
-    if self.parent
-      return self.parent.solved_by?(team_id)
+  def dependencies_solved_by_team?(team_id)
+    deps = Problem.find_dependencies(self)
+    if deps.length > 0
+      deps.each do |p|
+        unless p.solved_by?(team_id)
+          return false
+        end
+      end
     end
     return true
   end

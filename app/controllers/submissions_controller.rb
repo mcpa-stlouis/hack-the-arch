@@ -17,8 +17,8 @@ class SubmissionsController < ApplicationController
     user_solution = params[:submission][:value]
     @problem = Problem.find(params[:submission][:id])
 
-    # If the parent problem hasn't been solved
-    unless (@problem.parent_solved_by_team?(current_team) || @problem.visible)
+    # If the dependent problems haven't been solved
+    unless (@problem.dependencies_solved_by_team?(current_team) || @problem.visible)
       flash[:warning] = "Access Denied"
       redirect_to problems_path
       return

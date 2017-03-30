@@ -11,7 +11,7 @@ class ProblemsController < ApplicationController
 		else
 			@problems = Problem.where(visible: true)
         .order!(category: 'ASC', points: 'ASC')
-        .select { |p| p.parent_solved_by_team?(current_team) }
+        .select { |p| p.dependencies_solved_by_team?(current_team) }
 		end
     @points_available = Problem.where(visible: true).sum(:points)
 
