@@ -23,6 +23,7 @@
   <%= f.text_field :false_message, class: 'form-control' %>
 
   <%= f.label :dependent_problems %>
+  <% @available_dependencies ||= Problem.all %>
   <%= f.select :dependent_problems, 
     options_for_select(@available_dependencies.pluck(:name, :id),
     @problem.dependent_problem_ids),

@@ -34,6 +34,7 @@ class ProblemsController < ApplicationController
 
 	def create
 		@problem = Problem.new(problem_params)
+    @available_dependencies = Problem.all
 
     if params[:problem][:dependent_problems]
       dependencies = params[:problem][:dependent_problems].select {|p| p != ""}
