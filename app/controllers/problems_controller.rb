@@ -9,7 +9,9 @@ class ProblemsController < ApplicationController
 			@problems = Problem.all.order!(category: 'ASC', points: 'ASC')
       @points_created = Problem.sum(:points)
 		else
-			@problems = Problem.where(visible: true).order!(category: 'ASC', points: 'ASC')
+			@problems = Problem.where(visible: true)
+        .order!(category: 'ASC', points: 'ASC')
+        .select { |p| p.parent_solved_by_team?(current_team) }
 		end
     @points_available = Problem.where(visible: true).sum(:points)
 
@@ -27,10 +29,17 @@ class ProblemsController < ApplicationController
 
 	def new
 		@problem = Problem.new
+    @available_dependencies = Problem.all
 	end
 
 	def create
 		@problem = Problem.new(problem_params)
+
+    if params[:problem][:dependent_problems]
+      dependencies = params[:problem][:dependent_problems].select {|p| p != ""}
+      @problem.dependent_problems = Problem.where(id: dependencies)
+    end
+
 		if @problem.save
       redirect_to problems_url
 		else
@@ -85,10 +94,18 @@ class ProblemsController < ApplicationController
 
 	def edit
 		@problem = Problem.find(params[:id])
+    @available_dependencies = Problem.where.not(id: [@problem.id].concat(Problem.find_parents(@problem).pluck(:id)))
 	end
 
 	def update
 		@problem = Problem.find(params[:id])
+
+    if params[:problem][:dependent_problems]
+      dependencies = params[:problem][:dependent_problems].select {|p| p != ""}
+      @problem.dependent_problems.replace Problem.where(id: dependencies)
+      @problem.save
+    end
+
 		if @problem.update_attributes(problem_params)
 			flash[:success] = "Changes saved successfully"
 			redirect_to @problem
@@ -99,9 +116,9 @@ class ProblemsController < ApplicationController
 
 	private
 		def problem_params
-			params.require(:problem).permit(:name, :category, :description, :points, :solution, :correct_message, :false_message, :picture, :visible, :solution_case_sensitive)
+			params.require(:problem).permit(:name, :category, :description, :points, :solution, :correct_message, :false_message, :picture, :visible, :solution_case_sensitive, :dependent_problems)
 		end
-		
+
 		def belong_to_team
 			unless current_user.team_id
 				flash[:danger] = "You must belong to a team to view the problems!"

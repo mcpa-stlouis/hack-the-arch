@@ -22,6 +22,12 @@
   <%= f.label :false_message %>
   <%= f.text_field :false_message, class: 'form-control' %>
 
+  <%= f.label :dependent_problems %>
+  <%= f.select :dependent_problems, 
+    options_from_collection_for_select(@available_dependencies, 'id', 'name',
+    @problem.dependent_problem_ids.map(&:to_i)),
+    { include_blank: "None", class: 'form-control' }, { multiple: true } %>
+
 	<%= f.label :visible, class: 'checkbox-inline' do %>
   	<%= f.check_box :visible %>
   	<%= content_tag :span, 'Problem enabled' %>

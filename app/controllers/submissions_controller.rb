@@ -16,8 +16,15 @@ class SubmissionsController < ApplicationController
     points = 0
     user_solution = params[:submission][:value]
     @problem = Problem.find(params[:submission][:id])
-    correct_solution = @problem.solution
 
+    # If the parent problem hasn't been solved
+    unless (@problem.parent_solved_by_team?(current_team) || @problem.visible)
+      flash[:warning] = "Access Denied"
+      redirect_to problems_path
+      return
+    end
+
+    correct_solution = @problem.solution
     # If the solution is not case sensitive
     if (!@problem.solution_case_sensitive?)
       user_solution.upcase!

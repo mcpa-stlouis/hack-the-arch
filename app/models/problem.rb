@@ -2,6 +2,10 @@ class Problem < ActiveRecord::Base
 	mount_uploader :picture, PictureUploader
 	has_many :hint_requests, dependent: :destroy, inverse_of: :problem
 	has_many :submissions, dependent: :destroy, inverse_of: :problem
+
+  belongs_to :parent, :class_name => "Problem", :foreign_key => "parent_problem_id"
+  has_many :dependent_problems, :class_name => "Problem", :foreign_key => "parent_problem_id"
+
 	validates :name,  presence: true, length: { maximum: 50 }
 	validates :category,  presence: true, length: { maximum: 100 }
 	validates :description,  presence: true, length: { maximum: 500 }
@@ -12,6 +16,20 @@ class Problem < ActiveRecord::Base
 	validates :solution_case_sensitive, inclusion: { in: [true, false] }
 	validates :solution_case_sensitive, exclusion: { in: [nil] }
 	validate  :picture_size
+
+  def Problem.find_parents(problem)
+    unless problem.parent
+      return []
+    end
+    return [problem.parent].concat(find_parents(problem.parent))
+  end
+
+  def parent_solved_by_team?(team_id)
+    if self.parent
+      return self.parent.solved_by?(team_id)
+    end
+    return true
+  end
 
 	def solved_by?(team_id)
 		self.submissions.where(team: team_id, correct: true).count > 0 ? true : false
