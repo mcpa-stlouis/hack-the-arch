@@ -24,6 +24,13 @@ class SubmissionsController < ApplicationController
       return
     end
 
+    # If the user is trying to brute force
+    unless (!current_user.last_submission || current_user.last_submission > DateTime.now + 15.seconds)
+      flash[:warning] = "Slow down!  You can only attempt to answer once every fifteen seconds!"
+      redirect_to @problem
+      return
+    end
+
     correct_solution = @problem.solution
     # If the solution is not case sensitive
     if (!@problem.solution_case_sensitive?)
@@ -61,6 +68,7 @@ class SubmissionsController < ApplicationController
       redirect_to @problem
     end
 
+    current_user.update_attributes(last_submission: DateTime.now)
     Submission.create(team_id:  current_user.team_id,
                       user_id: current_user.id,
                       problem_id: @problem.id,
