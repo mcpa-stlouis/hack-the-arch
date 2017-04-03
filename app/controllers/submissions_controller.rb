@@ -25,7 +25,7 @@ class SubmissionsController < ApplicationController
     end
 
     # If the user is trying to brute force
-    unless (!current_user.last_submission || current_user.last_submission > DateTime.now + 15.seconds)
+    unless (!current_user.last_submission || DateTime.now + 15.seconds < current_user.last_submission)
       flash[:warning] = "Slow down!  You can only attempt to answer once every fifteen seconds!"
       redirect_to @problem
       return
