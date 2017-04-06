@@ -78,7 +78,7 @@ class Team < ActiveRecord::Base
 	end
 
 	def Team.get_top_teams(top_teams = 5)
-		Team.all.sort_by { |team| team.get_score }.reject {|team| team.name == 'admins' }.reverse.first 5
+		Team.all.sort_by { |team| team.get_score }.reject {|team| team.name == 'admins' }.reverse.first top_teams
 	end
 
 	def Team.invalidate_top_teams_score_progression
