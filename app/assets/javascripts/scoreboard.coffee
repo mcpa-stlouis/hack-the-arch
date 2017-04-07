@@ -9,7 +9,7 @@ draw_scoreboard = (chart) ->
   $.get 'teams/get_score_data', (response,status) ->
 
     if !chart
-      chart = c3.generate
+      scoreboard = c3.generate
         bindto: '#scoreboard_graph'
         data:
           xs: JSON.parse(response.teams)
@@ -23,10 +23,10 @@ draw_scoreboard = (chart) ->
           y: label: text: 'Score'
         zoom: enabled: true
     else
-      chart.load
+      scoreboard.load
         xs: JSON.parse(response.teams)
         columns: JSON.parse(response.scores)
-    setTimeout draw_scoreboard(chart), 30000
+    setTimeout draw_scoreboard(scoreboard), 30000
 
     return
   return
