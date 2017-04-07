@@ -9,7 +9,7 @@ draw_scoreboard = ->
 
   $.get 'teams/get_score_data', (response,status) ->
 
-    if chart == ""
+    if chart == "" || typeof chart == "undefined"
       chart = c3.generate
         bindto: '#scoreboard_graph'
         data:
