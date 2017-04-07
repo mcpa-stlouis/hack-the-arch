@@ -1,7 +1,7 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
-chart = ""
+this.chart = ""
 
 draw_scoreboard = ->
   if !document.getElementById('scoreboard_graph')
@@ -9,8 +9,8 @@ draw_scoreboard = ->
 
   $.get 'teams/get_score_data', (response,status) ->
 
-    if chart == "" || typeof chart == "undefined"
-      chart = c3.generate
+    if this.chart == "" || typeof this.chart == "undefined"
+      this.chart = c3.generate
         bindto: '#scoreboard_graph'
         data:
           xs: JSON.parse(response.teams)
@@ -24,7 +24,7 @@ draw_scoreboard = ->
           y: label: text: 'Score'
         zoom: enabled: true
     else
-      chart.load
+      this.chart.load
         xs: JSON.parse(response.teams)
         columns: JSON.parse(response.scores)
     setTimeout draw_scoreboard, 30000
