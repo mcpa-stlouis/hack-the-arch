@@ -2,14 +2,14 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-draw_scoreboard = ->
+draw_scoreboard = (chart) ->
   if !document.getElementById('scoreboard_graph')
     return
 
   $.get 'teams/get_score_data', (response,status) ->
 
-    if typeof this.chart == "undefined"
-      this.chart = c3.generate
+    if typeof chart == "undefined"
+      chart = c3.generate
         bindto: '#scoreboard_graph'
         data:
           xs: JSON.parse(response.teams)
@@ -23,12 +23,12 @@ draw_scoreboard = ->
           y: label: text: 'Score'
         zoom: enabled: true
     else
-      this.chart.load
+      chart.load
         xs: JSON.parse(response.teams)
         columns: JSON.parse(response.scores)
-    setTimeout draw_scoreboard, 30000
+    setTimeout draw_scoreboard(chart), 30000
 
     return
   return
 
-$(document).on('turbolinks:load', draw_scoreboard)
+$(document).on('turbolinks:load', draw_scoreboard(null))
