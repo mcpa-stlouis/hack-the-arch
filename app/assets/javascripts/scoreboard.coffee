@@ -14,7 +14,7 @@ draw_scoreboard = ->
         bindto: '#scoreboard_graph'
         data:
           xs: JSON.parse(response.teams)
-          columns: JSON.parse(resonse.scores)
+          columns: JSON.parse(response.scores)
           type: 'step'
         axis:
           x: tick:
@@ -26,7 +26,7 @@ draw_scoreboard = ->
     else
       chart.load
         xs: JSON.parse(response.teams)
-        columns: JSON.parse(resonse.scores)
+        columns: JSON.parse(response.scores)
     setTimeout draw_scoreboard, 30000
 
     return
