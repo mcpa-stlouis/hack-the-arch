@@ -337,7 +337,6 @@ DEPENDENCIES
   bootstrap-switch-rails (= 3.3.2)
   bootstrap-will_paginate (= 0.0.10)
   bootstrap3-datetimepicker-rails (= 4.14.30)
-  bundler (= 1.14.3)
   byebug (= 9.0.0)
   c3-rails (= 0.4.10)
   carrierwave (= 0.10.0)
@@ -378,4 +377,4 @@ RUBY VERSION
    ruby 2.3.3p222
 
 BUNDLED WITH
-   1.14.3
+   1.14.6

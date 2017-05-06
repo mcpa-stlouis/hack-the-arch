@@ -3,7 +3,6 @@ ruby '>= 2.3.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails',                 '5.0.0'
-gem 'bundler',               '1.14.3'
 gem 'puma',                  '3.4.0'
 gem 'uglifier',              '3.0.0'
 gem 'coffee-rails',          '4.2.1'
