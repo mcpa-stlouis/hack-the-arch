@@ -1,7 +1,7 @@
 HackTheArch 
 ===========
 
-![Build Status](https://travis-ci.org/mcpa-stlouis/hack-the-arch.svg?branch=master)
+[![Build Status](https://travis-ci.org/mcpa-stlouis/hack-the-arch.svg?branch=master)](https://travis-ci.org/mcpa-stlouis/hack-the-arch)
 ![Heroku](https://heroku-badge.herokuapp.com/?app=hackthearch&svg=1)
 ![Code Climate](https://codeclimate.com/github/mcpa-stlouis/hack-the-arch/badges/gpa.svg)
 [![Coverage](https://coveralls.io/repos/github/mcpa-stlouis/hack-the-arch/badge.svg)](https://coveralls.io/github/mcpa-stlouis/hack-the-arch)
