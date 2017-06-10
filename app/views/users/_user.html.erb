@@ -17,7 +17,7 @@
             form: {style: 'display:inline-block;'} do %>
           <span class='glyphicon glyphicon-check' aria-hidden='true'></span>
         <% end %>
-      <% elsif !user.authorized? %>
+      <% elsif admin_account_auth? and !user.authorized? %>
         <%= link_to authorize_user_url(user), class: 'btn btn-success',
             title: "Authorize",
             data: {toggle: "tooltip", placement:"bottom"}, 
