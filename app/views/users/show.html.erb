@@ -12,6 +12,12 @@
 			<%= content_tag :p,  class: 'text-right' do %>
 				<b>Hints:</b> <%= @number_of_hints %>, <b>Points:</b> <%= @score %>
 			<% end %>
+      <% unless @user.about.blank? %>
+        <%= content_tag :h4, 'About' %>
+        <%= content_tag :p do %>
+          <%= simple_format(@user.about) %>
+        <% end %>
+      <% end %>
       <%= content_tag :h4, 'Completion', class: 'text-center' %>
       <%= content_tag :ul, class: 'list-group' do %>
         <% @performance.each do |cat| %>
