@@ -8,8 +8,6 @@
       <% end %>
 			<%= content_tag :h2, class: 'text-right' do %>
         <%= "#{@user.fname} #{@user.lname}" %>
-				<%= tag :br %>
-				<%= mail_to @user.email %>
 			<% end %>
 			<%= content_tag :p,  class: 'text-right' do %>
 				<b>Hints:</b> <%= @number_of_hints %>, <b>Points:</b> <%= @score %>
