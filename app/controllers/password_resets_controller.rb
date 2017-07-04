@@ -1,12 +1,12 @@
 class PasswordResetsController < ApplicationController
-	before_action :get_user,   only: [:edit, :update]
+  before_action :get_user,   only: [:edit, :update]
   before_action :valid_user, only: [:edit, :update]
-	before_action :check_expiration, only: [:edit, :update]
+  before_action :check_expiration, only: [:edit, :update]
 
   def new
   end
 
-	def create
+  def create
     @user = User.find_by(email: params[:password_reset][:email].downcase)
     if @user
       @user.create_reset_digest
@@ -17,12 +17,12 @@ class PasswordResetsController < ApplicationController
       flash.now[:danger] = "Email address not found"
       render 'new'
     end
-  end	
+  end 
 
   def edit
   end
 
-	def update
+  def update
     if params[:user][:password].empty?
       @user.errors.add(:password, "can't be empty")
       render 'edit'

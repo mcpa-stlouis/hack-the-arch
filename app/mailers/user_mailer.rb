@@ -1,14 +1,14 @@
 class UserMailer < ApplicationMailer
-	include SettingsHelper
+  include SettingsHelper
 
-	def account_activation(user)
+  def account_activation(user)
     @user = user
     @competition_name = competition_name
     @admin_email = contact_email
     mail to: user.email, subject: "[#{competition_name}] Account activation"
   end
 
-	def account_authorized(user)
+  def account_authorized(user)
     @user = user
     @competition_name = competition_name
     @admin_email = contact_email
@@ -16,9 +16,9 @@ class UserMailer < ApplicationMailer
   end
 
   def password_reset(user)
-		@user = user
+    @user = user
     @competition_name = competition_name
     @admin_email = contact_email
-		mail to: user.email, subject: "[#{competition_name}] Password reset"
+    mail to: user.email, subject: "[#{competition_name}] Password reset"
   end
 end

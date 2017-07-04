@@ -1,5 +1,5 @@
 class AdminMailer < ApplicationMailer
-	include SettingsHelper
+  include SettingsHelper
 
   def new_user(user)
     @user = user

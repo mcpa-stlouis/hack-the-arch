@@ -1,15 +1,15 @@
 require 'test_helper'
 
 class TeamsControllerTest < ActionController::TestCase
-	def setup
-		@user = users(:archer)
-		@team = teams(:example_team)
+  def setup
+    @user = users(:archer)
+    @team = teams(:example_team)
     @opponent = users(:malory)
     @opponent_team = teams(:opponent_team)
-		@admins = teams(:admins)
-	end
+    @admins = teams(:admins)
+  end
 
-	test "should get index" do
+  test "should get index" do
     get :index
     assert_response :success
   end
@@ -26,7 +26,7 @@ class TeamsControllerTest < ActionController::TestCase
   end
 
   test "should not update team for logged in user without invalid params" do
-		log_in_as(@user)
+    log_in_as(@user)
     @short_passphrase = "l33t"
     patch :update, params: {id: @user.team.id, team: { name: @user.team.name,
                                                        passphrase: @short_passphrase, 
@@ -35,7 +35,7 @@ class TeamsControllerTest < ActionController::TestCase
   end
 
   test "should update team for logged in user" do
-		log_in_as(@user)
+    log_in_as(@user)
     @new_team_name = "L33t Hax0rs"
     patch :update, params: {id: @team.id, team: { name: @new_team_name,
                                                   passphrase: @team.passphrase, 
@@ -71,40 +71,40 @@ class TeamsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-	test "should get show when logged in" do
-		log_in_as(@user)
+  test "should get show when logged in" do
+    log_in_as(@user)
     get :show, params: {id: @user.team.id}
     assert_response :success
   end
 
-	test "should redirect show when not logged in" do
+  test "should redirect show when not logged in" do
     get :show, params: {id: @team.id}
     assert_not flash.empty?
     assert_redirected_to login_url
   end
 
-	test "should redirect edit when not logged in" do
+  test "should redirect edit when not logged in" do
     get :edit, params: {id: @team.id}
     assert_not flash.empty?
     assert_redirected_to login_url
   end
 
-	test "should redirect edit when not logged in as member of team" do
-		log_in_as(@user)
+  test "should redirect edit when not logged in as member of team" do
+    log_in_as(@user)
     get :edit, params: {id: @admins.id}
     assert_not flash.empty?
     assert_redirected_to root_url
   end
 
-	test "should redirect update when not logged in as member of team" do
-		log_in_as(@user)
+  test "should redirect update when not logged in as member of team" do
+    log_in_as(@user)
     patch :update, params: {id: @admins.id, team: { name: @admins.name, passphrase: @admins.passphrase, bracket_id: @admins.bracket_id }}
     assert_not flash.empty?
     assert_redirected_to root_url
   end
 
-	test "should redirect destroy when not logged in as member of team" do
-		log_in_as(@user)
+  test "should redirect destroy when not logged in as member of team" do
+    log_in_as(@user)
     delete :destroy, params: {id: @admins.id}
     assert_not flash.empty?
     assert_redirected_to root_url

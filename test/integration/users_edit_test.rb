@@ -1,12 +1,12 @@
 require 'test_helper'
 
 class UsersEditTest < ActionDispatch::IntegrationTest
-	def setup
-		@user = users(:example_user)
-	end
+  def setup
+    @user = users(:example_user)
+  end
 
-	test "unsuccessful edit" do
-		log_in_as(@user)
+  test "unsuccessful edit" do
+    log_in_as(@user)
     get edit_user_path(@user)
     assert_template 'users/edit'
     patch user_path(@user), params: {user: { name:  "",
@@ -14,26 +14,26 @@ class UsersEditTest < ActionDispatch::IntegrationTest
                                              password:              "foo",
                                              password_confirmation: "bar" }}
     assert_template 'users/edit'
-	end
+  end
 
-	test "successful edit with friendly redirect" do
+  test "successful edit with friendly redirect" do
     get edit_user_path(@user)
-		log_in_as(@user)
-		assert_redirected_to edit_user_path(@user)
-		fname = "Foo"
-		lname = "Bar"
-		email = "foo@bar.com"
+    log_in_as(@user)
+    assert_redirected_to edit_user_path(@user)
+    fname = "Foo"
+    lname = "Bar"
+    email = "foo@bar.com"
     patch user_path(@user), params: {user: { fname:  fname,
                                              lname:  lname,
                                              email: email,
                                              password:              "",
                                              password_confirmation: "" }}
-		assert_not flash.empty?
-		assert_redirected_to @user
-		@user.reload
-		assert_equal fname, @user.fname
-		assert_equal lname, @user.lname
-		assert_equal email, @user.email
+    assert_not flash.empty?
+    assert_redirected_to @user
+    @user.reload
+    assert_equal fname, @user.fname
+    assert_equal lname, @user.lname
+    assert_equal email, @user.email
   end
 
 end
