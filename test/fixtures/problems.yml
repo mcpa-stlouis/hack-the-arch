@@ -9,6 +9,7 @@ example_problem:
   correct_message: Correct!
   false_message: Incorrect
   visible: true
+  regex: false
   hints: "1,2,3"
   solution_case_sensitive: true
 
@@ -22,4 +23,18 @@ example_problem_2:
   false_message: Incorrect
   hints: 1
   visible: true
+  regex: false
+  solution_case_sensitive: true
+
+regex_problem:
+  name: HackTheArch2
+  description: Help us hack the arch again!
+  category: NetEx
+  points: 100
+  solution: answer|otheranswer
+  correct_message: Correct!
+  false_message: Incorrect
+  hints: 1
+  visible: true
+  regex: true
   solution_case_sensitive: true

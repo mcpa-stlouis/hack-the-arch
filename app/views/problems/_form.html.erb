@@ -35,6 +35,12 @@
   <% end %>
 	<%= tag :br %>
 
+	<%= f.label :regex, class: 'checkbox-inline' do %>
+  	<%= f.check_box :regex %>
+  	<%= content_tag :span, 'Solution is a regular expression' %>
+  <% end %>
+	<%= tag :br %>
+
 	<%= f.label :solution_case_sensitive, class: 'checkbox-inline' do %>
   	<%= f.check_box :solution_case_sensitive %>
   	<%= content_tag :span, 'Solution is case sensitive' %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170704155035) do
+ActiveRecord::Schema.define(version: 20170704213125) do
 
   create_table "brackets", force: :cascade do |t|
     t.string   "name"
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 20170704155035) do
     t.boolean  "visible"
     t.boolean  "solution_case_sensitive"
     t.integer  "parent_problem_id"
+    t.boolean  "regex"
     t.index ["parent_problem_id"], name: "index_problems_on_parent_problem_id"
   end
 

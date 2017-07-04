@@ -5,6 +5,7 @@ class SubmissionsTest < ActionDispatch::IntegrationTest
     @admin = users(:example_user)
     @non_admin = users(:archer)
     @problem = problems(:example_problem)
+    @regex_problem = problems(:regex_problem)
   end
 
   def make_problem_case_insensitive
@@ -55,6 +56,18 @@ class SubmissionsTest < ActionDispatch::IntegrationTest
     assert_response :success
     post submit_path, params: {submission: { id: @problem.id, 
                                     value: @problem.solution.capitalize! }}
+    assert_not_equal @score, Team.find(@non_admin.team_id).get_score
+  end
+
+  test "should allow solution to regex question" do
+    log_in_as(@non_admin)
+    get problems_path
+    assert flash.empty?
+
+    @score = Team.find(@non_admin.team_id).get_score
+    assert_response :success
+    post submit_path, params: {submission: { id: @regex_problem.id, 
+                                    value: @regex_problem.solution[/[a-z]+/] }}
     assert_not_equal @score, Team.find(@non_admin.team_id).get_score
   end
     

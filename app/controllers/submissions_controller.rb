@@ -46,7 +46,8 @@ class SubmissionsController < ApplicationController
       return
 
     # If the solution is correct
-    elsif user_solution == correct_solution
+    elsif (!@problem.regex? and user_solution == correct_solution) or
+          (@problem.regex? and /#{correct_solution}/.match(user_solution))
       correct = true
 
       # And it has not already been solved

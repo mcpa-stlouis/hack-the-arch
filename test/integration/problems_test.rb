@@ -61,6 +61,7 @@ class ProblemsTest < ActionDispatch::IntegrationTest
                                             correct_message: @problem.correct_message,
                                             false_message: @problem.false_message,
                                             visible: @problem.visible,
+                                            regex: @problem.regex,
                                             solution_case_sensitive: @problem.solution_case_sensitive}}
     assert_redirected_to problems_url
     get problems_path

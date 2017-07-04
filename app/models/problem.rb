@@ -10,11 +10,15 @@ class Problem < ActiveRecord::Base
   validates :category,  presence: true, length: { maximum: 100 }
   validates :description,  presence: true, length: { maximum: 500 }
   validates :points,  presence: true, numericality: { only_integer: true, greater_than: 0 }
+  validates :hints, absence: true, on: :create
+
+  # Boolean fields
   validates :visible, inclusion: { in: [true, false] }
   validates :visible, exclusion: { in: [nil] }
-  validates :hints, absence: true, on: :create
   validates :solution_case_sensitive, inclusion: { in: [true, false] }
   validates :solution_case_sensitive, exclusion: { in: [nil] }
+  validates :regex, inclusion: { in: [true, false] }
+  validates :regex, exclusion: { in: [nil] }
   validate  :picture_size
 
    def Problem.find_parents(problem)
