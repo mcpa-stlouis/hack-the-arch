@@ -61,7 +61,7 @@
 		<%= content_tag :h3, 'Correct Submissions', class: 'col-md-12 text-center' %>
 		<%= content_tag :h5, "#{number_with_precision (@accuracy * 100), :precision => 2}% accuracy", class: 'text-center' %>
 		<%= content_tag :ul do %>
-			<%= render @submissions.where(correct: true) %>
+			<%= render @user.submissions.where(correct: true) %>
 		<% end %>
 	<% end %>
 
