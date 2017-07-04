@@ -152,6 +152,18 @@ class User < ActiveRecord::Base
     result.map { |key, value| [key, value] }
 	end
 
+  def get_performance_data
+    performance = {}
+    Problem.all.group_by(&:category).sort.each do |c|  
+      performance[c[0]] = { total: c[1].count, correct: 0 }
+    end
+
+    self.submissions.preload(:problem).where(correct: true).each do |s|
+      performance[s.problem.category][:correct] += 1
+    end
+    performance
+  end
+
 	private
 
     # Converts email to all lower-case.
