@@ -32,7 +32,7 @@ Setting.create!(label: "Subtract hint deductions before problem is solved?",
                 name: "subtract_hint_points_before_solve", value: "1", setting_type: "boolean", category: "Scoring")
 Setting.create!(label: "Scoreboard (on/off):", 
                 name: "scoreboard_on", value: "1", setting_type: "boolean", category: "Scoring")
-Setting.create!(label: "Maximum number of submissions per team:", tooltip: "0 means no limit",
+Setting.create!(label: "Maximum number of submissions per team:", tooltip: "per challenge; 0 means no limit",
                 name: "max_submissions_per_team", value: "0", setting_type: "text", category: "Scoring")
 
 # Console Category
