@@ -6,7 +6,7 @@ before_install:
 before_script:
 - bundle exec rails db:migrate
 rvm:
-- 2.3.3
+- 2.5
 install:
 - gem install bundler
 - bundle install --jobs=3 --retry=3
