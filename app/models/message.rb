@@ -1,5 +1,8 @@
 class Message < ApplicationRecord
-  after_create_commit { MessageBroadcastJob.perform_later self }
+  unless ENV.fetch("RAILS_ENV") == "test" 
+    after_create_commit { MessageBroadcastJob.perform_later self }
+  end
+
   belongs_to :user
   validates :message, presence: true, length: { maximum: 2048 }
   validates :priority, inclusion: {in: ['success', 'danger', 'warning', 'info'] }
