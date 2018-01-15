@@ -12,8 +12,8 @@
   </h4>
   <p class='list-group-item-text'>
     <ul>
-      <li><b>User:</b> <%= submission.user.username %></li>
-      <li><b>Team:</b> <%= submission.team.name %></li>
+      <li><b>User:</b> <%= submission.user.nil? ? "User Deleted" : submission.user.username %></li>
+      <li><b>Team:</b> <%= submission.team.nil? ? "Team Deleted" : submission.team.name %></li>
       <li><b>Submission:</b> <%= h submission.submission %></li>
     </ul>
   </p>
