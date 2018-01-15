@@ -1,11 +1,11 @@
 require 'test_helper'
 
 class HintRequestsControllerTest < ActionController::TestCase
-	def setup
-		@problem = problems(:example_problem)
-	end
+  def setup
+    @problem = problems(:example_problem)
+  end
 
-	test "should redirect request when not logged in" do
+  test "should redirect request when not logged in" do
     post :create, params: {problem_id: @problem.id}
     assert_not flash.empty?
     assert_redirected_to login_url

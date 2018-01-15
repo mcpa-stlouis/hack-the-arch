@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class TeamTest < ActiveSupport::TestCase
-	def setup
+  def setup
     @team = teams(:opponent_team)
     @user1 = users(:archer)
     @user2 = users(:malory)
@@ -22,9 +22,9 @@ class TeamTest < ActiveSupport::TestCase
                       submission: @problem.solution,
                       correct: true,
                       points: @problem.points)
-		assert_not Cache.find_by(key: 'top_teams_score_progression')
+    assert_not Cache.find_by(key: 'top_teams_score_progression')
     Team.get_top_teams_score_progression(5)
-		assert Cache.find_by(key: 'top_teams_score_progression').cache_valid
+    assert Cache.find_by(key: 'top_teams_score_progression').cache_valid
     Team.get_top_teams_score_progression(5)
   end
 

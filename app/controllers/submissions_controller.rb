@@ -16,8 +16,22 @@ class SubmissionsController < ApplicationController
     points = 0
     user_solution = params[:submission][:value]
     @problem = Problem.find(params[:submission][:id])
-    correct_solution = @problem.solution
 
+    # If the dependent problems haven't been solved
+    unless (@problem.dependencies_solved_by_team?(current_team) || @problem.visible)
+      flash[:warning] = "Access Denied"
+      redirect_to problems_path
+      return
+    end
+
+    # If the user is trying to brute force
+    unless (!current_user.last_submission || (current_user.last_submission + 15.seconds) < DateTime.now)
+      flash[:warning] = "Slow down!  You can only attempt to answer once every fifteen seconds!"
+      redirect_to @problem
+      return
+    end
+
+    correct_solution = @problem.solution
     # If the solution is not case sensitive
     if (!@problem.solution_case_sensitive?)
       user_solution.upcase!
@@ -32,7 +46,8 @@ class SubmissionsController < ApplicationController
       return
 
     # If the solution is correct
-    elsif user_solution == correct_solution
+    elsif (!@problem.solution_regex? and user_solution == correct_solution) or
+          (@problem.solution_regex? and /#{correct_solution}/.match(user_solution))
       correct = true
 
       # And it has not already been solved
@@ -54,6 +69,7 @@ class SubmissionsController < ApplicationController
       redirect_to @problem
     end
 
+    current_user.update_attributes(last_submission: DateTime.now)
     Submission.create(team_id:  current_user.team_id,
                       user_id: current_user.id,
                       problem_id: @problem.id,

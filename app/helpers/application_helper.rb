@@ -1,5 +1,5 @@
 module ApplicationHelper
-	# Returns full title on per-page basis
+  # Returns full title on per-page basis
   def full_title(page_title = '')
     base_title = competition_name
     if page_title.empty?

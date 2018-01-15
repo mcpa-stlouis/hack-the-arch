@@ -8,12 +8,27 @@
       <% end %>
 			<%= content_tag :h2, class: 'text-right' do %>
         <%= "#{@user.fname} #{@user.lname}" %>
-				<%= tag :br %>
-				<%= mail_to @user.email %>
 			<% end %>
 			<%= content_tag :p,  class: 'text-right' do %>
 				<b>Hints:</b> <%= @number_of_hints %>, <b>Points:</b> <%= @score %>
 			<% end %>
+      <% unless @user.about.blank? %>
+        <%= content_tag :h4, 'About' %>
+        <%= content_tag :p do %>
+          <%= simple_format(@user.about) %>
+        <% end %>
+      <% end %>
+      <%= content_tag :h4, 'Completion', class: 'text-center' %>
+      <%= content_tag :ul, class: 'list-group' do %>
+        <% @performance.each do |cat| %>
+          <%= content_tag :a, href: "#{problems_path}##{cat[0]}", class: 'list-group-item' do %>
+            <span class='badge'>
+              <%= "#{cat[1][:correct]} / #{cat[1][:total]}" %>
+            </span>
+            <b><%= cat[0] %></b>: 
+          <% end %>
+        <% end %>
+      <% end %>
 			<% if @user.team %>
 
 				<% # Team Name and Score # %>
@@ -61,7 +76,7 @@
 		<%= content_tag :h3, 'Correct Submissions', class: 'col-md-12 text-center' %>
 		<%= content_tag :h5, "#{number_with_precision (@accuracy * 100), :precision => 2}% accuracy", class: 'text-center' %>
 		<%= content_tag :ul do %>
-			<%= render @submissions.where(correct: true) %>
+			<%= render @user.submissions.where(correct: true) %>
 		<% end %>
 	<% end %>
 

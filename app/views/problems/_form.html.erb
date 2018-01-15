@@ -22,9 +22,22 @@
   <%= f.label :false_message %>
   <%= f.text_field :false_message, class: 'form-control' %>
 
+  <%= f.label :dependent_problems %>
+  <% @available_dependencies ||= Problem.all %>
+  <%= f.select :dependent_problems, 
+    options_for_select(@available_dependencies.pluck(:name, :id),
+    @problem.dependent_problem_ids),
+    { include_blank: "None", class: 'form-control' }, { multiple: true } %>
+
 	<%= f.label :visible, class: 'checkbox-inline' do %>
   	<%= f.check_box :visible %>
   	<%= content_tag :span, 'Problem enabled' %>
+  <% end %>
+	<%= tag :br %>
+
+	<%= f.label :solution_regex, class: 'checkbox-inline' do %>
+  	<%= f.check_box :solution_regex %>
+  	<%= content_tag :span, 'Solution is a regular expression' %>
   <% end %>
 	<%= tag :br %>
 

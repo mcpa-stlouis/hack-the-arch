@@ -7,7 +7,7 @@ class ValidateDates < ActiveModel::Validator
 end
 
 class Setting < ActiveRecord::Base
-	validates :name, presence: true, length: { maximum: 255 }, uniqueness: true
-	validates :setting_type, presence: true, length: { maximum: 255 }
-	validates_with ValidateDates
+  validates :name, presence: true, length: { maximum: 255 }, uniqueness: true
+  validates :setting_type, presence: true, length: { maximum: 255 }
+  validates_with ValidateDates
 end

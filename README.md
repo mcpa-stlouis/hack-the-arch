@@ -37,7 +37,7 @@ hate, would like to see added, etc...
 
 Requirements
 ------------
-* Ruby version 2.3.1p112
+* Ruby version 2.5.0p0
 * Activation and password reset e-mails depend on Heroku SendGrid add-on
   configuration (this feature can be optionally disabled or easily modified to
   be used with other mailers)
@@ -72,9 +72,9 @@ Getting Started
 * To initialize the database, run: `bundle exec rake db:seed`.  After
   initialization, the admin login credentials will be: **admin@gmail.com** :
   **password**
-* **Important**: It is highly advised that you change the admin credentials
-  post-deployment
-* For other deployment options, keep reading.
+* **Important**: It is highly advised that you immediately change the admin
+  credentials post-deployment
+* For other deployment options, keep reading...
 
 Docker 
 ------
@@ -82,7 +82,7 @@ Docker
 
 * A Dockerfile is included along with a docker-compose.yml for deploying a
   containerized version of HackTheArch.  More detailed instructions can be
-  found in: [DOCKER_README.md](https://github.com/mcpa-stlouis/hack-the-arch/blob/dev/DOCKER_README.md).
+  found in: the [Docker README](https://github.com/mcpa-stlouis/hack-the-arch/blob/dev/DOCKER_README.md).
 
 ### More configuration details on our project [wiki](https://github.com/mcpa-stlouis/hack-the-arch/wiki).
 
