@@ -48,7 +48,7 @@ class ProblemsControllerTest < ActionController::TestCase
                                       solution: @problem.solution,
                                       correct_message: @problem.correct_message,
                                       false_message: @problem.false_message,
-                                      regex: @problem.regex,
+                                      solution_regex: @problem.solution_regex,
                                       visible: @problem.visible}}
     assert_not flash.empty?
     assert_redirected_to root_url
@@ -64,7 +64,7 @@ class ProblemsControllerTest < ActionController::TestCase
                                       correct_message: @problem.correct_message,
                                       false_message: @problem.false_message,
                                       visible: @problem.visible,
-                                      regex: @problem.regex,
+                                      solution_regex: @problem.solution_regex,
                                       solution_case_sensitive: @problem.solution_case_sensitive}}
     assert_redirected_to problems_url
   end
@@ -115,7 +115,7 @@ class ProblemsControllerTest < ActionController::TestCase
                                                      solution: @problem.solution,
                                                      correct_message: @problem.correct_message,
                                                      false_message: @problem.false_message,
-                                                     regex: @problem.regex,
+                                                     solution_regex: @problem.solution_regex,
                                                      visible: @problem.visible}}
     assert_not flash.empty?
     assert_redirected_to login_url
@@ -130,7 +130,7 @@ class ProblemsControllerTest < ActionController::TestCase
                                                      solution: @problem.solution,
                                                      correct_message: @problem.correct_message,
                                                      false_message: @problem.false_message,
-                                                     regex: @problem.regex,
+                                                     solution_regex: @problem.solution_regex,
                                                      visible: @problem.visible}}
     assert_not flash.empty?
     assert_redirected_to root_url

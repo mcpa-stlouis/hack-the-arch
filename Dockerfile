@@ -1,7 +1,7 @@
 # HackTheArch Dockerfile
 # VERSION 1.0
 
-FROM ruby:2.3
+FROM ruby:2.5
 MAINTAINER Paul Jordan <paullj1@gmail.com>
 
 HEALTHCHECK --interval=5m --timeout=3s \

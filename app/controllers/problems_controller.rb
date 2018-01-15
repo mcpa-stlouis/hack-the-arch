@@ -117,7 +117,7 @@ class ProblemsController < ApplicationController
 
   private
     def problem_params
-      params.require(:problem).permit(:name, :category, :description, :points, :solution, :correct_message, :false_message, :picture, :visible, :solution_case_sensitive, :regex, :dependent_problems)
+      params.require(:problem).permit(:name, :category, :description, :points, :solution, :correct_message, :false_message, :picture, :visible, :solution_case_sensitive, :solution_regex, :dependent_problems)
     end
 
     def belong_to_team

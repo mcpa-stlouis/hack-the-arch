@@ -95,6 +95,7 @@ problem = Problem.create!(name: "Who's that scientist?",
                           correct_message: "Very good!",
                           false_message: "Try again!",
                           solution_case_sensitive: "1",
+                          solution_regex: "0",
                           visible: "1")
 problem.add(hint.id)
 
@@ -106,5 +107,6 @@ Problem.create!(name: "Google Foo",
                 correct_message: "Scary, right!?",
                 false_message: "Try again!",
                 solution_case_sensitive: "1",
+                solution_regex: "0",
                 visible: "1")
 

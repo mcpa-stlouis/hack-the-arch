@@ -9,7 +9,7 @@ example_problem:
   correct_message: Correct!
   false_message: Incorrect
   visible: true
-  regex: false
+  solution_regex: false
   hints: "1,2,3"
   solution_case_sensitive: true
 
@@ -23,7 +23,7 @@ example_problem_2:
   false_message: Incorrect
   hints: 1
   visible: true
-  regex: false
+  solution_regex: false
   solution_case_sensitive: true
 
 regex_problem:
@@ -36,5 +36,5 @@ regex_problem:
   false_message: Incorrect
   hints: 1
   visible: true
-  regex: true
+  solution_regex: true
   solution_case_sensitive: true

@@ -17,8 +17,8 @@ class Problem < ActiveRecord::Base
   validates :visible, exclusion: { in: [nil] }
   validates :solution_case_sensitive, inclusion: { in: [true, false] }
   validates :solution_case_sensitive, exclusion: { in: [nil] }
-  validates :regex, inclusion: { in: [true, false] }
-  validates :regex, exclusion: { in: [nil] }
+  validates :solution_regex, inclusion: { in: [true, false] }
+  validates :solution_regex, exclusion: { in: [nil] }
   validate  :picture_size
 
    def Problem.find_parents(problem)
