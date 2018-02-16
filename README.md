@@ -25,11 +25,11 @@ It was okay, but we found it lacking some features that we wanted.  We wanted a
 way to be able to offer competitors hints for a cost, and we also wanted a way
 to create and modify problems from a web interface.  We looked around and
 didn't see any others that met our requirements.
-[CTFd](https://github.com/isislab/CTFd): no web admin interface for creating
-challenges.  [Root The Box](https://github.com/moloch--/RootTheBox): We didn't
-like all the extra stuff with the bank accounts and it just seemed too complex
-for our needs.  So we decided to roll our own scoring server and now you can
-benefit from our hard work!  This application implements an optional dynamic
+[CTFd](https://github.com/isislab/CTFd): at the time, had no web admin interface 
+for creating challenges.  [Root The Box](https://github.com/moloch--/RootTheBox):
+We didn't like all the extra stuff with the bank accounts and it just seemed too
+complex for our needs.  So we decided to roll our own scoring server and now you
+can benefit from our hard work!  This application implements an optional dynamic
 hint system which will deduct points for requesting hints and also implements a
 web interface for creating and modifying hints and challenges.  We hope you
 enjoy this application and are open to feedback so let us know what you like,
