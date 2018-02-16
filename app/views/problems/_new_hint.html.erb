@@ -16,7 +16,7 @@
 					<span class="input-group-addon">Search</span>
 					<%= text_field nil, 'filter', class: 'filter form-control' %>
 				</div>
-				<%= content_tag :table, id: add_id('hint_table_for',@problem), class: 'table' do %>
+				<%= content_tag :table, id: add_id('hint_table_for',@problem), class: 'table', style: 'table-layout: fixed' do %>
 					<%= content_tag :thead do %>
 						<%= content_tag :tr do %>
 							<%= content_tag :th, 'ID', class: 'col-md-2' %>
@@ -28,7 +28,7 @@
 						<% for hint in Hint.all %>
 							<%= content_tag :tr, class: 'hint_row', 'data-hint-id' => hint.id, 'data-problem-id' => @problem.id do %>
 								<%= content_tag :td, hint.id %>
-								<%= content_tag :td, hint.hint %>
+								<%= content_tag :td, hint.hint, style: 'word-wrap:break-word' %>
 								<%= content_tag :td, hint.points %>
 							<% end %>
 						<% end %>
