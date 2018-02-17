@@ -31,3 +31,6 @@
 /certs/*.key
 /certs/*.crt
 /certs/*.csr
+
+# Ignore .env file
+.env
