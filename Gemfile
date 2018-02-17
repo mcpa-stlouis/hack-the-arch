@@ -35,6 +35,7 @@ gem 'momentjs-rails',                  '~> 2.15'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.14'
 gem 'c3-rails',                        '~> 0.4'
 gem 'd3-rails',                        '~> 3.5'
+gem 'tzinfo-data',                     '~> 1.2018'
 
 group :development,:test do
 	gem 'sqlite3', '~> 1.3'

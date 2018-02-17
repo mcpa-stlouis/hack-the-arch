@@ -15,7 +15,7 @@ services:
     env_file: .env
     command: bundle exec puma -C "config/puma.rb" -b "ssl://0.0.0.0:3000?key=certs/server.key&cert=certs/server.crt"
     volumes:
-      - 'hta:/hta'
+      - './:/opt/hta/'
     ports:
       - "443:3000"
     depends_on:
@@ -26,6 +26,5 @@ services:
       - rd:rd
 
 volumes:
-  hta:
   redis:
   postgres:

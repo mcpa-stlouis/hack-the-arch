@@ -1,26 +1,24 @@
 # HackTheArch Dockerfile
-# VERSION 1.0
+# VERSION 2.1
 
-FROM ruby:2.5
+FROM ruby:2.5-alpine
 MAINTAINER Paul Jordan <paullj1@gmail.com>
 
 HEALTHCHECK --interval=5m --timeout=3s \
   CMD curl -kf https://localhost/ || exit 1
 
-ARG secret
-
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        build-essential \
+RUN apk --no-cache add --update \
+        build-base \
         nodejs \
-        postgresql-client \
-    && rm -rf /var/lib/apt/lists/*
+        curl \
+        sqlite-dev \
+        postgresql-dev \
+        postgresql-client
 
-RUN mkdir /hta
-WORKDIR /hta
-ADD Gemfile Gemfile.lock /hta/
+WORKDIR /opt/hta
+VOLUME /opt/hta
+ADD Gemfile Gemfile.lock ./
 RUN bundle install
-ADD . /hta
-RUN chown -R $USER:$USER .
+ADD . ./
 
 EXPOSE 3000
