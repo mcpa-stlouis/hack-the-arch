@@ -74,6 +74,8 @@ Getting Started
   **password**
 * **Important**: It is highly advised that you immediately change the admin
   credentials post-deployment
+  * While any user may be made an admin, it can only be done manually in the
+    database.  This is to prevent privilege escalation through the web interface.
 * For other deployment options, keep reading...
 
 Docker 
