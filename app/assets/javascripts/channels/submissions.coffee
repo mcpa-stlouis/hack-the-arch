@@ -6,5 +6,10 @@ App.submissions = App.cable.subscriptions.create "SubmissionsChannel",
     # Called when the subscription has been terminated by the server
 
   received: (data) ->
-    $(data.submission).hide().prependTo('#submissions').slideDown()
-    $('.filter').keyup() # Call the filter function
+    url = new URL(document.location)
+
+    page = url.searchParams.get('page')
+    search = url.searchParams.get('search')
+
+    if !page or page == '1' or $(data.submission).match('/'+search+'/').length > 0
+      $(data.submission).hide().prependTo('#submissions').slideDown()

@@ -4,8 +4,22 @@ class SubmissionsController < ApplicationController
   before_action :competition_active, only: [:create, :new]
   before_action :admin_user, only: [:index]
 
+  rescue_from 'ActionView::Template::Error' do |e|
+    redirect_to controller: :submissions, action: :index, search: 'Invalid Regix'
+  end
+
   def index
-    @submissions = Submission.order(id: :desc)
+    @submissions = if params[:search]
+      Submission.joins(:problem, :user, :team)
+                .where('problems.name SIMILAR TO :q OR ' \
+                       'users.username SIMILAR TO :q OR ' \
+                       'teams.name SIMILAR TO :q OR ' \
+                       'submission SIMILAR TO :q',
+                  q: "%#{params[:search]}%")
+                .reorder(id: :desc).page(params[:page]).per_page(100)
+    else
+      Submission.reorder(id: :desc).page(params[:page]).per_page(100)
+    end
   end
 
   def new

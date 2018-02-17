@@ -1,15 +1,21 @@
 <% provide(:title, 'Feed') %>
 
 <h1>Submissions Feed</h1>
-<div class='input-group'> 
-	<span class='input-group-addon'>Search</span>
-	<input id='filter' type='text' class='filter form-control'>
-</div>
-<br />
 
-<ul id='submissions' class='list-group filter_list'>
+<div class='row'>
+  <%= form_tag submissions_path, method: :get, class: 'form-inline pull-right', style: 'padding-top:40px' do %>
+    <div class='form-group'> 
+      <%= text_field_tag :search, params[:search], placeholder: 'Regex search...', class: 'form-control' %>
+      <%= submit_tag 'Search', class: 'form-control' %>
+    </div>
+  <% end %>
+  <%= will_paginate %>
+</div>
+
+<ul id='submissions' class='list-group'>
   <% for submission in @submissions %>
     <%= render partial: 'submissions/submission_feed', 
                locals: { submission: submission } %>
   <% end %>
 </ul>
+<%= will_paginate %>
