@@ -4,8 +4,9 @@ This guide will help you setup a docker network for running the HackTheArch
 platform.  First, make sure your private/public key pair are in the `certs`
 directory (instructions for creating a self-signed cert are there as well).
 
-Then, set the desired variables in `.env` (most importantly `SECRET_KEY_BASE`,
-you can run: `bundle exec rails secret` to get a sufficient key).
+Then, copy `.env_sample` to `.env` and set desired variables in it (most
+importantly `SECRET_KEY_BASE`, you can run: `bundle exec rails secret` to get a
+sufficient key).
 
 Finally, from the root directory, with your docker-machine running:
 
