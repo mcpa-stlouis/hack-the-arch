@@ -25,13 +25,15 @@
 						<% end %>
 					<% end %>
 					<%= content_tag :tbody, class: 'searchable' do %>
-						<% for hint in Hint.all %>
-							<%= content_tag :tr, class: 'hint_row', 'data-hint-id' => hint.id, 'data-problem-id' => @problem.id do %>
-								<%= content_tag :td, hint.id %>
-								<%= content_tag :td, hint.hint, style: 'word-wrap:break-word' %>
-								<%= content_tag :td, hint.points %>
-							<% end %>
-						<% end %>
+						<% for @hint in Hint.all %>
+              <% cache @hint do %>
+                <%= content_tag :tr, class: 'hint_row', 'data-hint-id' => @hint.id, 'data-problem-id' => @problem.id do %>
+                  <%= content_tag :td, @hint.id %>
+                  <%= content_tag :td, @hint.hint, style: 'word-wrap:break-word' %>
+                  <%= content_tag :td, @hint.points %>
+                <% end %>
+              <% end %>
+            <% end %>
 					<% end %>
 				<% end %>
 			</div>

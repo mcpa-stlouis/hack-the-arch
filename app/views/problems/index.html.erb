@@ -9,50 +9,50 @@
 
 <%= content_tag :div, class: 'panel-group', id: 'accordion', role: 'tablist', 'aria-multiselectable' => 'true' do %>
 	<% for @problem in @problems do %>
-    <% cache @problem do %>
-      <% if !@category || @category != @problem.category %>
-        <% @category = @problem.category %>
-        <h3 id='<%= @category %>'><%= @category %></h3>
-      <% end %>
-      <%= content_tag :div, class: 'panel panel-default' do %>
-        <%= content_tag :div, class: 'panel-heading', role: 'tab', id: add_id('heading',@problem) do %>
-          <%= content_tag :h4, class: 'panel-title' do %>
-            <span class="btn-group pull-right">
-              <% if admin_user? %>
-                <%= link_to edit_problem_path(@problem), class: "btn btn-#{(@problem.visible?) ? 'success' : 'warning'}",
-                      title: "Visible", data: {toggle: "tooltip", placement:"bottom"}  do %>
-                  <%= content_tag :span, nil, aria: {hidden: 'true'},
-                        class: "glyphicon glyphicon-eye-#{(@problem.visible?) ? 'open' : 'close'}" %>
-                <% end %>
-                <%= link_to edit_problem_path(@problem), class: 'btn btn-primary',
-                      title: "Edit", data: {toggle: "tooltip", placement:"bottom"}  do %>
-                  <span class='glyphicon glyphicon-pencil' aria-hidden='true'></span>
-                <% end %>
-                <%= link_to @problem, method: :delete, class: 'btn btn-danger', 
-                      title: "Delete", data: {confirm: 'Are you sure?', toggle: "tooltip", placement:"bottom"} do %>
-                  <span class='glyphicon glyphicon-trash' aria-hidden='true'></span>
-                <% end %>
-              <% elsif !admin_user? && @problem.solved_by?(current_team.id) %>
-                <%= link_to "#", class: 'btn btn-success',
-                      title: "Solved",
-                      data: {toggle: "tooltip", placement:"bottom"} do %>
-                  <span class='glyphicon glyphicon-ok' aria-hidden='true'></span>
-                <% end %>
+    <% if !@category || @category != @problem.category %>
+      <% @category = @problem.category %>
+      <h3 id='<%= @category %>'><%= @category %></h3>
+    <% end %>
+    <%= content_tag :div, class: 'panel panel-default' do %>
+      <%= content_tag :div, class: 'panel-heading', role: 'tab', id: add_id('heading',@problem) do %>
+        <%= content_tag :h4, class: 'panel-title' do %>
+          <span class="btn-group pull-right">
+            <% if admin_user? %>
+              <%= link_to edit_problem_path(@problem), class: "btn btn-#{(@problem.visible?) ? 'success' : 'warning'}",
+                    title: "Visible", data: {toggle: "tooltip", placement:"bottom"}  do %>
+                <%= content_tag :span, nil, aria: {hidden: 'true'},
+                      class: "glyphicon glyphicon-eye-#{(@problem.visible?) ? 'open' : 'close'}" %>
               <% end %>
-            </span>
-            <%= content_tag :h4, class: 'navbar-btn', role: 'button', 
-                  data: {toggle: 'collapse', parent: '#accordion'}, 
-                  aria: {expanded: 'true', controls: @problem.id.to_s},
-                  href: add_id('#main_problem',@problem) do %>
-              <%= @problem.name %> : <%= @problem.points.to_s %>
-              <% if admin_user? %>
-                | Solves: <%= Submission.get_solves_for_problem(@problem.id) %>
+              <%= link_to edit_problem_path(@problem), class: 'btn btn-primary',
+                    title: "Edit", data: {toggle: "tooltip", placement:"bottom"}  do %>
+                <span class='glyphicon glyphicon-pencil' aria-hidden='true'></span>
               <% end %>
+              <%= link_to @problem, method: :delete, class: 'btn btn-danger', 
+                    title: "Delete", data: {confirm: 'Are you sure?', toggle: "tooltip", placement:"bottom"} do %>
+                <span class='glyphicon glyphicon-trash' aria-hidden='true'></span>
+              <% end %>
+            <% elsif !admin_user? && @problem.solved_by?(current_team.id) %>
+              <%= link_to "#", class: 'btn btn-success',
+                    title: "Solved",
+                    data: {toggle: "tooltip", placement:"bottom"} do %>
+                <span class='glyphicon glyphicon-ok' aria-hidden='true'></span>
+              <% end %>
+            <% end %>
+          </span>
+          <%= content_tag :h4, class: 'navbar-btn', role: 'button', 
+                data: {toggle: 'collapse', parent: '#accordion'}, 
+                aria: {expanded: 'true', controls: @problem.id.to_s},
+                href: add_id('#main_problem',@problem) do %>
+            <%= @problem.name %> : <%= @problem.points.to_s %>
+            <% if admin_user? %>
+              | Solves: <%= Submission.get_solves_for_problem(@problem.id) %>
             <% end %>
           <% end %>
         <% end %>
-        <%= content_tag :div, id: add_id('main_problem',@problem), class: panel_collapsed(@problem_view, @problem), role: 'tabpanel', 'aria-labelledby' => add_id('heading',@problem) do %> 
-          <%= content_tag :div, class: 'panel-body' do %>
+      <% end %>
+      <%= content_tag :div, id: add_id('main_problem',@problem), class: panel_collapsed(@problem_view, @problem), role: 'tabpanel', 'aria-labelledby' => add_id('heading',@problem) do %> 
+        <%= content_tag :div, class: 'panel-body' do %>
+          <% cache_if admin_user?, @problem do %>
             <%= render @problem %>
           <% end %>
         <% end %>

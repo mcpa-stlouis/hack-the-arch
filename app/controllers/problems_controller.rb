@@ -8,6 +8,7 @@ class ProblemsController < ApplicationController
     if current_user && current_user.admin?
       @problems = Problem.all.order!(category: 'ASC', points: 'ASC')
       @points_created = Problem.sum(:points)
+      @is_admin = true
     else
       @problems = Problem.where(visible: true)
         .order!(category: 'ASC', points: 'ASC')

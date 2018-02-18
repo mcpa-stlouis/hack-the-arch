@@ -1,8 +1,8 @@
 class HintRequest < ActiveRecord::Base
   before_save :invalidate_cache
-  belongs_to :user
-  belongs_to :team
-  belongs_to :problem
+  belongs_to :user, touch: true
+  belongs_to :team, touch: true
+  belongs_to :problem, touch: true
   validates :team_id,  presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :user_id,  presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :hint_id,  presence: true, numericality: { only_integer: true, greater_than: 0 }

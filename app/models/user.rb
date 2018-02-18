@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   include SettingsHelper
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save   :downcase_email
-  belongs_to :team
+  belongs_to :team, touch: true
   has_many :submissions, dependent: :destroy, inverse_of: :user
   has_many :hint_requests, dependent: :destroy, inverse_of: :user
   validates :fname,  presence: true, length: { maximum: 50 }
