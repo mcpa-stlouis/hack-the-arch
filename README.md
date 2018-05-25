@@ -15,7 +15,7 @@ recommended, this server can be hosted with your challenges but we do recommend
 sand-boxing your challenges so they do not affect the scoring server.
 
 **Want to see it in action?  Live Demo hosted
-[here](https://hta-demo.mcpa-stl.org)!**
+[here](https://hta-demo.mcpa-stl.org) and screenshots [here](https://github.com/mcpa-stlouis/hack-the-arch/wiki/Screenshots)!**
 
 What's different about HackTheArch?
 -----------------------------------
@@ -25,11 +25,11 @@ It was okay, but we found it lacking some features that we wanted.  We wanted a
 way to be able to offer competitors hints for a cost, and we also wanted a way
 to create and modify problems from a web interface.  We looked around and
 didn't see any others that met our requirements.
-[CTFd](https://github.com/isislab/CTFd): no web admin interface for creating
-challenges.  [Root The Box](https://github.com/moloch--/RootTheBox): We didn't
-like all the extra stuff with the bank accounts and it just seemed too complex
-for our needs.  So we decided to roll our own scoring server and now you can
-benefit from our hard work!  This application implements an optional dynamic
+[CTFd](https://github.com/isislab/CTFd): at the time, had no web admin interface 
+for creating challenges.  [Root The Box](https://github.com/moloch--/RootTheBox):
+We didn't like all the extra stuff with the bank accounts and it just seemed too
+complex for our needs.  So we decided to roll our own scoring server and now you
+can benefit from our hard work!  This application implements an optional dynamic
 hint system which will deduct points for requesting hints and also implements a
 web interface for creating and modifying hints and challenges.  We hope you
 enjoy this application and are open to feedback so let us know what you like,
@@ -74,6 +74,8 @@ Getting Started
   **password**
 * **Important**: It is highly advised that you immediately change the admin
   credentials post-deployment
+  * While any user may be made an admin, it can only be done manually in the
+    database.  This is to prevent privilege escalation through the web interface.
 * For other deployment options, keep reading...
 
 Docker 

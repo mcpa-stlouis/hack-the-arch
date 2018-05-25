@@ -6,7 +6,7 @@ class ProblemsController < ApplicationController
   
   def index
     if current_user && current_user.admin?
-      @problems = Problem.all.order!(category: 'ASC', points: 'ASC')
+      @problems = Problem.all.order!(category: 'ASC', points: 'ASC', name: 'ASC')
       @points_created = Problem.sum(:points)
       @is_admin = true
     else
