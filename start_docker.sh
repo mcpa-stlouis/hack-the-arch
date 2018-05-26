@@ -65,4 +65,4 @@ docker-compose run web rails db:migrate
 docker-compose run web rails db:seed
 docker-compose run web rails assets:precompile
 
-echo 'All done!  HTA should now be browsable on your local IP!'
+echo 'All done!  HTA should now be browsable on your local IP (https://127.0.0.1)!'
