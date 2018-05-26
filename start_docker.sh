@@ -57,7 +57,7 @@ fi
 
 if [ $(docker-compose ps | wc -l) -gt 2 ]; then
   echo 'Detected existing instance of HTA running... kill it, then restart...'
-  docker-compose down
+  docker-compose down -v
 fi
 
 docker-compose up -d
