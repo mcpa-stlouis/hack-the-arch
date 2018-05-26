@@ -33,7 +33,7 @@ if [ $DOCKER_COMPOSE_MAJOR_VER -ge '1' ] && [ $DOCKER_COMPOSE_MINOR_VER -lt '21'
   exit -1
 fi
 
-if [ $(stat -f %m ./certs/server.key) -eq 1476129400 ]; then
+if [ ! -f ./certs/server.key ]; then
   echo 'You MUST generate your own certificates to deploy HTA. See instructions in ./certs/README.md'
   exit -1
 fi
