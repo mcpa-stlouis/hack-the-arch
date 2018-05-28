@@ -84,7 +84,11 @@ Docker
 
 * A Dockerfile is included along with a docker-compose.yml for deploying a
   containerized version of HackTheArch.  More detailed instructions can be
-  found in: the [Docker README](https://github.com/mcpa-stlouis/hack-the-arch/blob/dev/DOCKER_README.md).
+  found in the [Docker README](https://github.com/mcpa-stlouis/hack-the-arch/blob/dev/DOCKER_README.md).
+
+Ubuntu 17.10
+------------
+* Instructions for installing on Ubuntu 17.10 can be found in the [Ubuntu-17.10 README](https://github.com/mcpa-stlouis/hack-the-arch/UBUNTU-17.10_README.md).
 
 ### More configuration details on our project [wiki](https://github.com/mcpa-stlouis/hack-the-arch/wiki).
 
