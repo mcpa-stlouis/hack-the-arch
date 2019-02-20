@@ -23,7 +23,7 @@ RUN chown -R root:root ./* \
   && chmod -R a+r ./* \
   && mkdir tmp logs \
   && touch logs/production.log \
-  && chmod 777 tmp logs Gemfile.lock logs/production.log
+  && chmod 777 . tmp logs Gemfile.lock logs/production.log
 
 USER nobody
 EXPOSE 3000

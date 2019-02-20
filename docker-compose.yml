@@ -21,7 +21,7 @@ services:
       mode: replicated
       replicas: 1
   web:
-    build: paullj1/hackthearch:latest
+    image: paullj1/hackthearch:latest
     env_file: .env
     volumes:
       - hta:/hta/public/assets
