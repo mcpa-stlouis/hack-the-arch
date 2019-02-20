@@ -37,7 +37,7 @@ hate, would like to see added, etc...
 
 Requirements
 ------------
-* Ruby version 2.5.0p0
+* Ruby version 2.6.1
 * Activation and password reset e-mails depend on Heroku SendGrid add-on
   configuration (this feature can be optionally disabled or easily modified to
   be used with other mailers)
@@ -48,15 +48,24 @@ Requirements
 
 Deployment Options
 ==================
-Getting Started
----------------
-* For the latest stable release either download the latest tagged release
+Manual Deployment
+-----------------
+* To manually deploy HackTheArch, be sure to download the latest stable release 
   [here](https://github.com/mcpa-stlouis/hack-the-arch/releases), or checkout
   the 'master' branch.  For the latest features and a less-stable version,
-  checkout the 'dev' branch.
-* This app is presently designed to be deployed in a heroku environment.  We
-  highly recommend this configuration.  A few things must be configured to
-  deploy to Heroku:
+  checkout the 'dev' branch.  
+
+Docker 
+------
+[![](https://images.microbadger.com/badges/image/paullj1/hackthearch.svg)](https://microbadger.com/images/paullj1/hackthearch)
+
+* A Dockerfile is included along with a docker-compose.yml for deploying a
+  containerized version of HackTheArch.  More detailed instructions can be
+  found in: the [Docker README](https://github.com/mcpa-stlouis/hack-the-arch/blob/master/DOCKER_README.md).
+
+Heroku
+------
+* A few things must be configured to deploy to Heroku:
 
   1.  Create a `HOST` environment variable that contains the url for your app
       (e.g., HOST=hackthearch.herokuapp.com).
@@ -66,25 +75,19 @@ Getting Started
   3.  For live streaming (submissions, chat, etc...), add the Redis To Go
       addon.
   
-* It can be deployed outside a heroku environment but will require some
-  alternative for sending account activation e-mails (or alternatively
-  activation e-mails can be disabled in the admin console)
-* To initialize the database, run: `bundle exec rake db:seed`.  After
+Notes
+-----
+* All deployments of HackTheArch require some a way to send account activation
+  e-mails (or alternatively activation e-mails can be disabled in the admin
+  console).  With Heroku, you can use the Sendgrid plugin, otherwise, you'll
+  need to configure the mailer options in `config/environments/production.rb`.
+* To initialize the database, run: `bundle exec rails db:seed`.  After
   initialization, the admin login credentials will be: **admin@gmail.com** :
   **password**
 * **Important**: It is highly advised that you immediately change the admin
   credentials post-deployment
   * While any user may be made an admin, it can only be done manually in the
     database.  This is to prevent privilege escalation through the web interface.
-* For other deployment options, keep reading...
-
-Docker 
-------
-[![](https://images.microbadger.com/badges/image/paullj1/hackthearch.svg)](https://microbadger.com/images/paullj1/hackthearch)
-
-* A Dockerfile is included along with a docker-compose.yml for deploying a
-  containerized version of HackTheArch.  More detailed instructions can be
-  found in: the [Docker README](https://github.com/mcpa-stlouis/hack-the-arch/blob/dev/DOCKER_README.md).
 
 ### More configuration details on our project [wiki](https://github.com/mcpa-stlouis/hack-the-arch/wiki).
 

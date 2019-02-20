@@ -1,38 +1,32 @@
 ### Docker-Compose
 
-This guide will help you setup a docker network for running the HackTheArch
-platform.  First, make sure your private/public key pair are in the `certs`
-directory (instructions for creating a self-signed cert are there as well).
+This guide will help you setup a docker swarm environment for running the
+HackTheArch platform.  Note that this compose file does not include a reverse
+proxy, and to simplify things, does not provide TLS/SSL.  We *highly* suggest
+you deploy HackTheArch with TLS!  Using a reverse proxy can do this for you.
+Something like [nginx](http://nginx.org), or [Caddy](https://caddyserver.com)
+will work just fine.
 
-Then, copy `.env_sample` to `.env` and set desired variables in it (most
-importantly `SECRET_KEY_BASE`, you can run: `bundle exec rails secret` to get a
-sufficient key).
+Moving on, to make sure the environment is setup for your deployment, copy
+`.env_sample` to `.env` and set desired variables in it (most importantly
+`SECRET_KEY_BASE`, you can run: `bundle exec rails secret` to get a sufficient
+key, but a long random string is just fine).
 
-Finally, from the root directory, with your docker-machine running:
+Finally, from the root directory: 
 
-
-1. Build and launch the HTA image:
-
-```
-docker-compose up -d
-```
-
-2. Build the database:
+1. Deploy the stack
 
 ```
-docker-compose run web rails db:migrate
+docker stack deploy -c docker-compose.yml hackthearch
 ```
 
-3. Seed the database:
-
+2. Build the database (find the node that's hosting the hta service), then
+   against the container on that node:
 ```
-docker-compose run web rails db:seed
-```
-
-4. Pre-Compile assets:
-
-```
-docker-compose run web rails assets:precompile
+docker exec -it web /bin/sh
+rails db:migrate
+rails db:seed
+rails assets:precompile
 ```
 
-HackTheArch should now be browsable on your docker-machine's IP!
+HackTheArch should now be browsable on port 3000 on any node in your swarm!
