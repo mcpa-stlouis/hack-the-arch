@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
-ruby '>= 2.5'
+ruby '>= 2.6'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails',                 '~> 5.1'
+gem 'rails',                 '~> 5.2'
 gem 'puma',                  '~> 3.4'
 gem 'uglifier',              '~> 3.0'
 gem 'coffee-rails',          '~> 4.2'
@@ -37,8 +37,14 @@ gem 'c3-rails',                        '~> 0.4'
 gem 'd3-rails',                        '~> 3.5'
 gem 'tzinfo-data',                     '~> 1.2018'
 
+# Fix vulnerabilities & Rails 5.2 enhancements
+gem 'sprockets',             '~> 3.7'
+gem 'ffi',                   '~> 1.9'
+gem 'loofah',                '~> 2.2'
+gem 'bootsnap', require: false
+
 group :development,:test do
-	gem 'sqlite3', '~> 1.3'
+	gem 'sqlite3', '~> 1.3.6'
 end
 
 group :development do
@@ -54,8 +60,8 @@ end
 
 # Configured for Heroku 
 group :production do
-  gem 'rack',           '2.0.1'
-  gem 'pg',	            '0.18.4'
-  gem 'rails_12factor', '0.0.2'
-  gem 'redis',          '3.3.1'
+  gem 'rack',           '~> 2.0'
+  gem 'pg',	            '~> 0.18'
+  gem 'rails_12factor', '~> 0.0.2'
+  gem 'redis',          '~> 3.3'
 end

@@ -1,11 +1,11 @@
 # HackTheArch Dockerfile
-# VERSION 2.1
+# VERSION 2.2
 
-FROM ruby:2.5-alpine
+FROM ruby:2.6-alpine
 MAINTAINER Paul Jordan <paullj1@gmail.com>
 
 HEALTHCHECK --interval=5m --timeout=3s \
-  CMD curl -kf https://localhost/ || exit 1
+  CMD curl -f http://localhost:3000/ || exit 1
 
 RUN apk --no-cache add --update \
         build-base \
@@ -15,10 +15,17 @@ RUN apk --no-cache add --update \
         postgresql-dev \
         postgresql-client
 
-WORKDIR /opt/hta
-VOLUME /opt/hta
+WORKDIR /hta
 ADD Gemfile Gemfile.lock ./
 RUN bundle install
 ADD . ./
+RUN chown -R root:root ./* \
+  && chmod -R a+r ./* \
+  && mkdir tmp logs \
+  && touch logs/production.log \
+  && chmod 777 tmp logs Gemfile.lock logs/production.log
 
+USER nobody
 EXPOSE 3000
+ENTRYPOINT ["bundle", "exec"]
+CMD ["puma", "-C", "/hta/config/puma.rb", "-b", "tcp://0.0.0.0:3000"]
