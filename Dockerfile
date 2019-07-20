@@ -1,31 +1,53 @@
 # HackTheArch Dockerfile
 # VERSION 2.2
 
-FROM ruby:2.6-alpine
-MAINTAINER Paul Jordan <paullj1@gmail.com>
-
-HEALTHCHECK --interval=5m --timeout=3s \
-  CMD curl -f http://localhost:3000/ || exit 1
-
-RUN apk --no-cache add --update \
+################################################################################
+# Builder
+################################################################################
+FROM ruby:2.6-alpine as builder
+RUN apk add --no-cache --update \
         build-base \
-        nodejs \
-        curl \
+        curl-dev \
         sqlite-dev \
+        nodejs \
+        libpq \
+        postgresql \
+        imagemagick \
+        libxml2-dev \
         postgresql-dev \
         postgresql-client
 
-WORKDIR /hta
-ADD Gemfile Gemfile.lock ./
-RUN bundle install
-ADD . ./
-RUN chown -R root:root ./* \
-  && chmod -R a+r ./* \
-  && mkdir tmp logs \
-  && touch logs/production.log \
-  && chmod 777 . tmp logs Gemfile.lock logs/production.log
+WORKDIR /src
+COPY Gemfile* ./
+RUN bundle install --with production -j4 --retry 3 \
+  && rm -rf /usr/local/bundle/cache/*.gem \
+  && find /usr/local/bundle/gems/ -name "*.c" -delete \
+  && find /usr/local/bundle/gems/ -name "*.o" -delete
 
-USER nobody
+ADD . ./
+RUN mkdir -p ./tmp/cache ./log
+
+################################################################################
+# Production
+################################################################################
+FROM ruby:2.6-alpine as prod
+MAINTAINER Paul Jordan <paullj1@gmail.com>
+
+RUN apk add --no-cache --update \
+        imagemagick \
+        nodejs \
+        postgresql-client \
+        tzdata \
+  && addgroup -g 1000 -S app \
+  && adduser -u 1000 -S app -G app
+
+WORKDIR /app
+COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
+COPY --from=builder --chown=app:app /src ./
+
+HEALTHCHECK --interval=30s --timeout=3s \
+  CMD echo -e 'require "net/http"\nNet::HTTP.get(URI("http://127.0.0.1:3000/"))' | ruby
+
+USER app
+CMD [ "bundle", "exec", "puma", "-C", "/app/config/puma.rb" ]
 EXPOSE 3000
-ENTRYPOINT ["bundle", "exec"]
-CMD ["puma", "-C", "/hta/config/puma.rb", "-b", "tcp://0.0.0.0:3000"]
