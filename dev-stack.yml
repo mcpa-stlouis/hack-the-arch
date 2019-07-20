@@ -19,8 +19,8 @@ services:
   web:
     image: paullj1/hackthearch:latest
     environment:
-      - RAILS_ENV=production
-      - RACK_ENV=production
+      - RAILS_ENV=development
+      - RACK_ENV=development
       - RAILS_SERVE_STATIC_FILES=enabled
       - LANG=en_US.UTF-8
       - PORT=3000
