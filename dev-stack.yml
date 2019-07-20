@@ -6,15 +6,11 @@ services:
       - hta_network
     ports:
       - "6379:6379"
-    volumes:
-      - 'redis:/var/lib/redis/data'
     deploy:
       mode: replicated
       replicas: 1
   db:
     image: postgres:9.6
-    volumes:
-      - 'postgres:/var/lib/postgresql/data'
     networks: 
       - hta_network
     deploy:
@@ -22,9 +18,20 @@ services:
       replicas: 1
   web:
     image: paullj1/hackthearch:latest
-    env_file: .env
+    environment:
+      - RAILS_ENV=production
+      - RACK_ENV=production
+      - RAILS_SERVE_STATIC_FILES=enabled
+      - LANG=en_US.UTF-8
+      - PORT=3000
+      - DATABASE_URL=postgresql://postgres@db/postgres
+      - REDIS_URL=redis://rd:6379/
+      - HOST=localhost
+      - SECRET_KEY_BASE=NOTASECRET
     volumes:
-      - hta:/hta/public/assets
+      - type: bind
+        source: /Users/pj/Documents/workspace/hack-the-arch/
+        target: /app
     ports:
       - "3000:3000"
     networks: 
@@ -32,14 +39,6 @@ services:
     deploy:
       mode: replicated
       replicas: 1
-    depends_on:
-      - db
-      - rd
-
-volumes:
-  hta:
-  redis:
-  postgres:
 
 networks:
   hta_network:
