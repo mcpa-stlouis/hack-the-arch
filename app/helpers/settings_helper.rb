@@ -19,6 +19,10 @@ module SettingsHelper
     Setting.find_by(name: 'competition_name').value
   end
 
+  def swarm_services_enabled?
+    (Setting.find_by(name: 'swarm_services_enabled').value == "0") ? false : true
+  end
+
   def subtract_hint_points_before_solve?
     (Setting.find_by(name: 'subtract_hint_points_before_solve').value == "0") ? false : true
   end
