@@ -14,7 +14,8 @@ LICENSE
 Procfile
 README.md
 ReleaseNotes.md
-docker-compose.yml
+dev-stack.yml
+prod-stack.yml
 
 ./scripts/
 ./log/
