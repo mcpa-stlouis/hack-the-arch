@@ -7,6 +7,30 @@
 	<%= link_to "Create", new_problem_path, class: 'btn btn-primary' %>
 <% end %>
 
+<% # Show xterm.js if assessment requires it %>
+<% unless current_user.problem_id.nil? or current_user.problem_id <= 0 %>
+  <%= check_box_tag 'drawer-toggle' %>
+  <%= label_tag 'label', nil, id: "drawer-toggle-label", for: "drawer-toggle" do %><%end%>
+  <%= content_tag :div, id: 'console-header' do %>
+    Console
+    <%= content_tag :span, id: 'expiration', class: "expiration pull-right" do %>
+      <% if @expiration > Time.now() %>
+        <%= javascript_tag do %>
+          var expiration = '<%=(@expiration - Time.now()).seconds %>';
+        <% end %>
+        Expires in 
+        <%= content_tag :span, nil, class: 'hours' %>:<%= content_tag :span, nil, class: 'minutes' %>:<%= content_tag :span, nil, class: 'seconds' %>
+      <% else %>
+        This session has expired.  Re-authenticate for a new one.
+      <% end %> 
+    <%end%>
+  <% end %>
+  <%= content_tag :div, id: 'drawer' do %>
+    <iframe class='docker_term' id='docker_term' scrolling='no' name='docker_term'></iframe>
+    <%= content_tag :div, nil, id: 'loader' %>
+  <% end %>
+<% end %>
+
 <%= content_tag :div, class: 'panel-group', id: 'accordion', role: 'tablist', 'aria-multiselectable' => 'true' do %>
 	<% for @problem in @problems do %>
     <% if !@category || @category != @problem.category %>

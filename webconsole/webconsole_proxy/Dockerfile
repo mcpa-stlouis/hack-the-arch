@@ -1,0 +1,35 @@
+# Webconsole Dockerfile v1.0
+# Build stage
+FROM debian:jessie as builder
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update \
+  && apt-get upgrade -yy \
+  && apt-get install -yy \
+    automake \
+    build-essential \
+    curl \
+    git  \
+    pkg-config \
+    libwrap0-dev \
+    linux-libc-dev \
+  && apt-get clean
+
+ADD build.sh /
+ENV MUSL_VERSION      1.1.16
+ENV SOCAT_VERSION     1.7.3.2
+ENV NCURSES_VERSION   6.1
+ENV READLINE_VERSION  7.0
+ENV OPENSSL_VERSION   1.0.2k
+RUN /build.sh
+
+# Package stage
+FROM scratch as package
+COPY --from=builder /socat /
+
+EXPOSE 2376
+ENTRYPOINT ["/socat"]
+CMD [ "-d", "-d", \
+  "openssl-listen:2376,fork,reuseaddr,cert=/run/secrets/SERVER_PEM,cafile=/run/secrets/CLIENT_CRT", \
+  "unix-connect:/docker.sock" ]
+

@@ -27,4 +27,65 @@ setup_hooks = ->
       return
   return
 
+setup_console = ->
+  if !document.getElementById('drawer') 
+    return
+
+  # Update deadlines
+  deadline = new Date(Date.parse(new Date) + expiration * 1000)
+
+  getTimeRemaining = (endtime) ->
+    t = Date.parse(endtime) - Date.parse(new Date)
+    seconds = Math.floor(t / 1000 % 60)
+    minutes = Math.floor(t / 1000 / 60 % 60)
+    hours = Math.floor(t / (1000 * 60 * 60) % 24)
+    {
+      'total': t
+      'hours': hours
+      'minutes': minutes
+      'seconds': seconds
+    }
+
+  initializeClock = (id, endtime) ->
+    clock = document.getElementById(id)
+    hoursSpan = clock.querySelector('.hours')
+    minutesSpan = clock.querySelector('.minutes')
+    secondsSpan = clock.querySelector('.seconds')
+
+    updateClock = ->
+      t = getTimeRemaining(endtime)
+      hoursSpan.innerHTML = ('0' + t.hours).slice(-2)
+      minutesSpan.innerHTML = ('0' + t.minutes).slice(-2)
+      secondsSpan.innerHTML = ('0' + t.seconds).slice(-2)
+      if t.total <= 0
+        clearInterval timeinterval
+        clock.innerHTML = "This session has expired. Re-authenticate for a new one."
+      return
+
+    updateClock()
+    timeinterval = setInterval(updateClock, 1000)
+    return
+
+  initializeClock 'expiration', deadline
+
+  # Get the console URL
+  check_url = ->
+    $.ajax
+      url: '/console_url'
+      method: 'GET'
+      accepts: text: 'application/json'
+      statusCode:
+        200: (data) ->
+          $('#loader').remove()
+          window.open(data.url, 'docker_term')
+          return
+        102: ->
+          setTimeout check_url, 1000
+          return
+    return
+
+  check_url()
+  return
+
 $(document).on('turbolinks:load', setup_hooks)
+$(document).on('turbolinks:load', setup_console)

@@ -16,6 +16,9 @@ class ProblemsController < ApplicationController
     end
     @points_available = Problem.where(visible: true).sum(:points)
 
+    # Build URL for webconsole
+    @expiration = current_user.stack_expiry
+
     if params[:problem_id]
       # If a specific problem was open, keep it open
       @problem_view = Problem.find(params[:problem_id])
@@ -116,9 +119,57 @@ class ProblemsController < ApplicationController
     end
   end
 
+  def console_url
+    unless current_user.container_id.nil? or current_user.container_id.empty?
+      @console_host = ENV.fetch("CONSOLE_HOST") { "http://127.0.0.1:8888" }
+      @hash = Digest::SHA1.hexdigest(
+        "#{current_user.id}#{current_user.container_id}"
+      )
+      @params = CGI.escape(Base64.strict_encode64(
+        "#{@hash},#{current_user.problem_id},#{current_user.id}"
+      ))
+      @status = :ok
+      @render = { url: "#{@console_host}/?q=#{@params}" }
+    else
+      @status = :processing
+      @render = { error: 'Container not ready yet...' }
+
+    end
+    respond_to do |format|
+      format.json { render json: @render.to_json, status: @status }
+    end
+  end
+
+  def start_stack
+    if swarm_services_enabled?
+      @problem = Problem.find(params[:id])
+
+      if @problem.stack.empty? or @problem.network.empty?
+        flash[:danger] = "No stack or network defined for that challenge!"
+        redirect_to @problem
+        return
+      end
+
+      challenge = Hash.new(0)
+      challenge["user_id"] = current_user.id
+      challenge["problem_id"] = @problem.id
+      challenge["network"] = @problem.network
+      challenge["containers"] = @problem.stack
+      challenge["lifespan"] = "30"
+      CreateStackJob.perform_later challenge
+      DestroyStackJob.set(wait: 30.minutes)
+                               .perform_later(challenge)
+
+      redirect_to :back
+    else
+      flash[:danger] = "Unauthorized"
+      redirect_to @problem
+    end
+  end
+
   private
     def problem_params
-      params.require(:problem).permit(:name, :category, :description, :points, :solution, :correct_message, :false_message, :picture, :visible, :solution_case_sensitive, :solution_regex, :dependent_problems)
+      params.require(:problem).permit(:name, :category, :description, :points, :solution, :correct_message, :false_message, :picture, :visible, :solution_case_sensitive, :solution_regex, :dependent_problems, :network, :stack)
     end
 
     def belong_to_team

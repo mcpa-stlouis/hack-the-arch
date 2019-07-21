@@ -1,4 +1,4 @@
-class Problem < ActiveRecord::Base
+class Problem < ApplicationRecord
   mount_uploader :picture, PictureUploader
   has_many :hint_requests, dependent: :destroy, inverse_of: :problem
   has_many :submissions, dependent: :destroy, inverse_of: :problem
@@ -20,6 +20,7 @@ class Problem < ActiveRecord::Base
   validates :solution_regex, inclusion: { in: [true, false] }
   validates :solution_regex, exclusion: { in: [nil] }
   validate  :picture_size
+  validate  :json_format
 
    def Problem.find_parents(problem)
      unless problem.parent
@@ -93,6 +94,17 @@ class Problem < ActiveRecord::Base
     num_hints_requested = @team.get_hints_requested(problem_id).count
     hints_array[num_hints_requested]
   end
+
+  protected 
+    def json_format
+      if self.stack.nil? and self.network.nil?
+        return
+      end
+
+			unless self.stack.is_json? and self.network.is_json?
+				errors[:base] << "Containers or network are not valid json"
+			end
+    end
 
   private
 
