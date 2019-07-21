@@ -15,7 +15,7 @@ recommended, this server can be hosted with your challenges but we do recommend
 sand-boxing your challenges so they do not affect the scoring server.
 
 **Want to see it in action?  Live Demo hosted
-[here](https://hta-demo.mcpa-stl.org) and screenshots [here](https://github.com/mcpa-stlouis/hack-the-arch/wiki/Screenshots)!**
+[here](https://hackthearch.herokuapp.com) and screenshots [here](https://github.com/mcpa-stlouis/hack-the-arch/wiki/Screenshots)!**
 
 What's different about HackTheArch?
 -----------------------------------
