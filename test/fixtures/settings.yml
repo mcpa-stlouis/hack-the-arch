@@ -21,6 +21,11 @@ setting_subtract_hint_points_before_solve:
   value: "0"
   setting_type: "boolean"
 
+setting_swarm_services_enabled:
+  name: "swarm_services_enabled"
+  value: "0"
+  setting_type: "boolean"
+
 setting_scoreboard_on:
   name: "scoreboard_on"
   value: "1"
