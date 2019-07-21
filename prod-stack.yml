@@ -6,25 +6,73 @@ services:
       - hta_network
     ports:
       - "6379:6379"
-    volumes:
-      - 'redis:/var/lib/redis/data'
     deploy:
       mode: replicated
       replicas: 1
   db:
     image: postgres:9.6
-    volumes:
-      - 'postgres:/var/lib/postgresql/data'
     networks: 
       - hta_network
     deploy:
       mode: replicated
       replicas: 1
+  webconsole:
+    image: paullj1/webconsole:latest
+    networks: 
+      - webconsole
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+    ports:
+      - "8888:8888"
+    secrets:
+      - CLIENT_CRT
+      - CLIENT_KEY
+      - SERVER_CRT
+    volumes:
+      - type: bind
+        source: /var/run/docker.sock
+        target: /docker.sock
+  webconsole_proxy:
+    image: paullj1/webconsole_proxy:latest
+    networks: 
+      - webconsole
+    ports:
+      - target: 2376
+        published: 2376
+        mode: host
+    secrets:
+      - CLIENT_CRT
+      - SERVER_PEM
+    deploy:
+      mode: global
+    volumes:
+      - type: bind
+        source: /var/run/docker.sock
+        target: /docker.sock
   web:
     image: paullj1/hackthearch:latest
-    env_file: .env
+    environment:
+      - RAILS_ENV=production
+      - RACK_ENV=production
+      - CONSOLE_HOST=https://console.ctf.com
+      - RAILS_SERVE_STATIC_FILES=enabled
+      - LANG=en_US.UTF-8
+      - PORT=3000
+      - DATABASE_URL=postgresql://postgres@db/postgres
+      - REDIS_URL=redis://rd:6379/
+      - HOST=localhost
+      - SECRET_KEY_BASE=NOTASECRET
     volumes:
-      - hta:/hta/public/assets
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+      - type: bind
+        source: /Users/pj/Documents/workspace/hack-the-arch/
+        target: /app
     ports:
       - "3000:3000"
     networks: 
@@ -32,11 +80,22 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
 
-volumes:
-  hta:
-  redis:
-  postgres:
+secrets:
+  REGISTRY_AUTH:
+    external: true
+  CLIENT_CRT:
+    external: true
+  CLIENT_KEY:
+    external: true
+  SERVER_PEM:
+    external: true
+  SERVER_CRT:
+    external: true
 
 networks:
   hta_network:
+  webconsole:
