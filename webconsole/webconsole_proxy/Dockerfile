@@ -1,6 +1,6 @@
 # Webconsole Dockerfile v1.0
 # Build stage
-FROM debian:jessie as builder
+FROM debian:buster as builder
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
@@ -16,7 +16,7 @@ RUN apt-get update \
   && apt-get clean
 
 ADD build.sh /
-ENV MUSL_VERSION      1.1.16
+ENV MUSL_VERSION      1.1.22
 ENV SOCAT_VERSION     1.7.3.2
 ENV NCURSES_VERSION   6.1
 ENV READLINE_VERSION  7.0
@@ -25,7 +25,7 @@ RUN /build.sh
 
 # Package stage
 FROM scratch as package
-COPY --from=builder /socat /
+COPY --from=builder /socat-*/socat /
 
 EXPOSE 2376
 ENTRYPOINT ["/socat"]

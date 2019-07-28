@@ -1,6 +1,6 @@
 # Webconsole Dockerfile v1.0
 # Build stage
-FROM golang:1.11.4 as builder
+FROM golang:1.12 as builder
 MAINTAINER Paul Jordan <paullj1@gmail.com>
 
 COPY webconsole.go .
