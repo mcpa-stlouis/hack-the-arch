@@ -160,7 +160,7 @@ class ProblemsController < ApplicationController
       DestroyStackJob.set(wait: 30.minutes)
                                .perform_later(challenge)
 
-      redirect_to :back
+      redirect_back fallback_location: problems_url
     else
       flash[:danger] = "Unauthorized"
       redirect_to @problem

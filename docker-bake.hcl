@@ -1,6 +1,6 @@
 
 group "default" {
-  targets = ["web", "webconsole", "webconsole_proxy"]
+  targets = ["web", "webconsole", "socat_static"]
 }
 
 target "web" {
@@ -21,12 +21,12 @@ target "webconsole" {
   platforms = ["linux/amd64", "linux/arm64"]
 }
 
-target "webconsole_proxy" {
-  context = "./webconsole/webconsole_proxy/"
+target "socat_static" {
+  context = "./webconsole/socat_static/"
   dockerfile = "Dockerfile"
   output = ["type=registry"]
   driver = "docker-container"
-  tags = ["docker.io/paullj1/webconsole_proxy"]
+  tags = ["docker.io/paullj1/socat_static"]
   platforms = ["linux/amd64", "linux/arm64", "linux/arm/v6", "linux/arm/v7"]
 }
 

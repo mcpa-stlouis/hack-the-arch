@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.7'
 services:
   rd:
     image: redis:3.2
@@ -37,7 +37,7 @@ services:
         source: /var/run/docker.sock
         target: /docker.sock
   webconsole_proxy:
-    image: paullj1/webconsole_proxy:latest
+    image: paullj1/socat_static:latest
     networks: 
       - webconsole
     ports:
@@ -53,26 +53,27 @@ services:
       - type: bind
         source: /var/run/docker.sock
         target: /docker.sock
+    command: ["-d", "-d",
+      "openssl-listen:2376,fork,reuseaddr,cert=/run/secrets/SERVER_PEM,cafile=/run/secrets/CLIENT_CRT",
+      "unix-connect:/docker.sock"]
   web:
     image: paullj1/hackthearch:latest
     environment:
       - RAILS_ENV=production
       - RACK_ENV=production
-      - CONSOLE_HOST=https://console.ctf.com
       - RAILS_SERVE_STATIC_FILES=enabled
       - LANG=en_US.UTF-8
       - PORT=3000
       - DATABASE_URL=postgresql://postgres@db/postgres
       - REDIS_URL=redis://rd:6379/
-      - HOST=localhost
+      # CHANGE THESE
       - SECRET_KEY_BASE=NOTASECRET
+      - CONSOLE_HOST=http://ubuntu.local:8888
+      - HOST=localhost
     volumes:
       - type: bind
         source: /var/run/docker.sock
         target: /var/run/docker.sock
-      - type: bind
-        source: /Users/pj/Documents/workspace/hack-the-arch/
-        target: /app
     ports:
       - "3000:3000"
     networks: 

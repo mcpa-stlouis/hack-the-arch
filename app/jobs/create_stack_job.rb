@@ -45,11 +45,14 @@ class CreateStackJob < DockerApiJob
       # Then build containers
       containers = JSON(challenge['containers'])
       containers.each do |container|
-        container['Labels'] = {
-          "user_id" => "#{challenge['user_id']}",
-          "problem_id" => "#{challenge['problem_id']}",
-          "lifetime" => "#{challenge['lifespan']}"
-        }
+
+        if container['Labels'].nil?
+          container['Labels'] = {}
+        end
+
+        container['Labels']["user_id"] = "#{challenge['user_id']}"
+        container['Labels']["problem_id"] = "#{challenge['problem_id']}"
+        container['Labels']["lifetime"] = "#{challenge['lifespan']}"
 
         # Make sure the container is reachable by its designed name
         container['Networks'] = [{ 

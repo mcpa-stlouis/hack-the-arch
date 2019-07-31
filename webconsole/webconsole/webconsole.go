@@ -109,6 +109,12 @@ func ExecContainer(websock *websocket.Conn) {
   }
   log.Print("Authorized request!  Connecting to container...")
 
+  entry := "/bin/sh"
+  if val, ok := services[0].Spec.Labels["entry"]; ok {
+    entry = val
+    log.Print("Using entry point other than /bin/sh: ", entry)
+  }
+
   // This was a valid request, wait up to five minutes to be ready...
   var tasks []swarm.Task
   websock.Write([]byte("Initializing assessment.."))
@@ -166,7 +172,7 @@ func ExecContainer(websock *websocket.Conn) {
       AttachStdout: true,
       AttachStderr: true,
       Tty: true,
-      Cmd: []string{"/bin/sh"},
+      Cmd: []string{entry},
     })
   if err != nil {
     log.Print(err)

@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.7'
 services:
   rd:
     image: redis:3.2
@@ -37,7 +37,7 @@ services:
         source: /var/run/docker.sock
         target: /docker.sock
   webconsole_proxy:
-    image: paullj1/webconsole_proxy:latest
+    image: paullj1/socat_static:latest
     networks: 
       - webconsole
     ports:
@@ -53,6 +53,9 @@ services:
       - type: bind
         source: /var/run/docker.sock
         target: /docker.sock
+    command: ["-d", "-d",
+      "openssl-listen:2376,fork,reuseaddr,cert=/run/secrets/SERVER_PEM,cafile=/run/secrets/CLIENT_CRT",
+      "unix-connect:/docker.sock"]
   web:
     image: paullj1/hackthearch:latest
     environment:
@@ -70,9 +73,9 @@ services:
       - type: bind
         source: /var/run/docker.sock
         target: /var/run/docker.sock
-      - type: bind
-        source: /Users/pj/Documents/workspace/hack-the-arch/
-        target: /app
+#     - type: bind
+#       source: ./
+#       target: /app
     ports:
       - "3000:3000"
     networks: 

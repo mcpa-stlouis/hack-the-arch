@@ -27,9 +27,5 @@ RUN /build.sh
 FROM scratch as package
 COPY --from=builder /socat-*/socat /
 
-EXPOSE 2376
 ENTRYPOINT ["/socat"]
-CMD [ "-d", "-d", \
-  "openssl-listen:2376,fork,reuseaddr,cert=/run/secrets/SERVER_PEM,cafile=/run/secrets/CLIENT_CRT", \
-  "unix-connect:/docker.sock" ]
 

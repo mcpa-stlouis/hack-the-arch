@@ -1,4 +1,4 @@
-class DestroyStackJob < ApplicationJob
+class DestroyStackJob < DockerApiJob
   queue_as :default
 
   def perform(challenge)
@@ -7,7 +7,7 @@ class DestroyStackJob < ApplicationJob
 
     # If stack hasn't exceeded its lifetime, then it probably has it's own
     # delayed job to clean it up
-    if get_age(containers.first) > challenge['lifespan']
+    if get_age(containers.first) > challenge['lifespan'].to_f
 
       user_id = challenge['user_id']
       User.find(user_id).update_attribute(:container_id, '')
