@@ -32,6 +32,8 @@ setup_console = ->
     return
 
   # Update deadlines
+  if typeof expiration == 'undefined'
+    expiration = 0
   deadline = new Date(Date.parse(new Date) + expiration * 1000)
 
   getTimeRemaining = (endtime) ->
