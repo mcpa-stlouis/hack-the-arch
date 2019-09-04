@@ -26,7 +26,7 @@ gem 'animate-rails',         '~> 1.0'
 gem 'CFPropertyList',        '~> 2.3'
 
 # Javascript and CSS
-gem 'sass-rails',                      '~> 5.0'
+gem 'sassc-rails',                     '~> 2.1'
 gem 'bootstrap-sass',                  '~> 3.4'
 gem 'jquery-rails',                    '~> 4.2'
 gem 'bootstrap-will_paginate',         '~> 0.0'

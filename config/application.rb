@@ -18,5 +18,11 @@ module HackTheArch
     config.time_zone = ENV.fetch("TIMEZONE") { 'Central Time (US & Canada)' }
     host = ENV.fetch("HOST") { 'localhost' }
     config.action_mailer.default_url_options = { :host => host }
+
+    # Allow Web Console
+    con_host = ENV.fetch("CONSOLE_HOST") { host }
+    config.action_dispatch.default_headers = {
+      'Access-Control-Allow-Origin' => con_host
+    } 
   end
 end

@@ -172,7 +172,7 @@ func ExecContainer(websock *websocket.Conn) {
       AttachStdout: true,
       AttachStderr: true,
       Tty: true,
-      Cmd: []string{entry},
+      Cmd: strings.Fields(entry),
     })
   if err != nil {
     log.Print(err)

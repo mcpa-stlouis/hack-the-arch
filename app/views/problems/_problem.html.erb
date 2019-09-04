@@ -18,7 +18,7 @@
     <% #  Start VM Button # %>
     <% if swarm_services_enabled? && !(@problem.stack.nil? || @problem.stack.empty?) %>
       <%= content_tag :span, class: 'pull-right' do %>
-        <% if current_user.problem_id == @problem.id && !(current_user.stack_expiry.nil?) && (current_user.stack_expiry > DateTime.now) %>
+        <% if (current_user.problem_id == @problem.id && !(current_user.stack_expiry.nil?) && (current_user.stack_expiry > DateTime.now)) %>
           <%= content_tag(:h4, "Challenge Activated") %>
         <% else %>
           <%= form_tag(start_stack_path(@problem.id), method: :get, class: "form-inline col-md-12") do %>

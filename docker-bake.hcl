@@ -8,7 +8,8 @@ target "web" {
   dockerfile = "Dockerfile"
   output = ["type=registry"]
   driver = "docker-container"
-  tags = ["docker.io/paullj1/hackthearch"]
+  tags = ["docker.io/paullj1/hackthearch:latest",
+          "docker.io/paullj1/hackthearch:2.3.1" ]
   platforms = ["linux/amd64", "linux/arm64", "linux/arm/v6", "linux/arm/v7"]
 }
 
