@@ -20,4 +20,4 @@ COPY --from=builder /go/webconsole ./
 ADD assets.tar.gz /
 
 ENTRYPOINT ["./webconsole"]
-CMD ["--port", "8888", "--daemon", "unix:///docker.sock"]
+CMD ["-p", "8888", "-d", "unix:///docker.sock"]

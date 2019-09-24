@@ -50,7 +50,7 @@ func main() {
       http.ServeFile(w, r, "/web/vnc.html")
     } else if r.URL.Path == "/core/display.js" {
       w.Header().Set("Content-Type", "application/javascript")
-      http.ServeFile(w, r, "/web/novnc//web/novnc//web/novnc/core/display.js")
+      http.ServeFile(w, r, "/web/novnc/core/display.js")
     } else if r.URL.Path == "/core/inflator.js" {
       http.ServeFile(w, r, "/web/novnc/core/inflator.js")
       w.Header().Set("Content-Type", "application/javascript")
@@ -362,7 +362,7 @@ func ExecContainer(websock *websocket.Conn) {
   // Base64 decode params
   param_array := strings.Split(string(decoded_params), ",")
   hash := param_array[0]
-  session_id := param_array[1]
+  problem_id := param_array[1]
   user_id := param_array[2]
 
   // Build Docker CLI context for localhost
@@ -556,3 +556,4 @@ func AttachExec(ctx context.Context, cli *client.Client,
   }()
 
   return nil
+}
