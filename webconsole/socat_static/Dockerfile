@@ -8,19 +8,20 @@ RUN apt-get update \
   && apt-get install -yy \
     automake \
     build-essential \
+    ca-certificates \
     curl \
     git  \
-    pkg-config \
     libwrap0-dev \
     linux-libc-dev \
+    pkg-config \
   && apt-get clean
 
 ADD build.sh /
-ENV MUSL_VERSION      1.1.22
-ENV SOCAT_VERSION     1.7.3.2
+ENV MUSL_VERSION      1.1.23
+ENV SOCAT_VERSION     1.7.3.3
 ENV NCURSES_VERSION   6.1
 ENV READLINE_VERSION  7.0
-ENV OPENSSL_VERSION   1.0.2k
+ENV OPENSSL_VERSION   1.0.2t
 RUN /build.sh
 
 # Package stage

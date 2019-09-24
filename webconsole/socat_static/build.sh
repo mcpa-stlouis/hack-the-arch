@@ -4,37 +4,22 @@ set -e
 set -o pipefail
 
 function build_musl() {
-    cd /
-
-    # Download
-    curl -sSL http://www.musl-libc.org/releases/musl-${MUSL_VERSION}.tar.gz | tar zxf -
-    cd musl-${MUSL_VERSION}
-
-    # Build
+    cd /musl-${MUSL_VERSION}
     ./configure 2>&1 > /var/log/build.log
     make -j4 2>&1 > /var/log/build.log
     make install 2>&1 > /var/log/build.log
 }
 
 function build_ncurses() {
-    cd /
-
-    # Download
-    curl -ksSL https://ftp.gnu.org/pub/gnu/ncurses/ncurses-${NCURSES_VERSION}.tar.gz | tar zxf - 
-    cd ncurses-${NCURSES_VERSION}
-
-    # Build
+    cd /ncurses-${NCURSES_VERSION}
     CC='/usr/local/musl/bin/musl-gcc -static' CFLAGS='-fPIC' ./configure \
         --disable-shared \
         --enable-static 2>&1 > /var/log/build.log
 }
 
 function build_readline() {
-    cd /
 
-    # Download
-    curl -sSL ftp://ftp.cwru.edu/pub/bash/readline-${READLINE_VERSION}.tar.gz | tar zxf -
-    cd readline-${READLINE_VERSION}
+    cd /readline-${READLINE_VERSION}
     ln -s /readline-${READLINE_VERSION} /readline
 
     # Build
@@ -46,13 +31,9 @@ function build_readline() {
 }
 
 function build_openssl() {
-    cd /
-
-    # Download
-    curl -ksSL https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz | tar zxf -
-    cd openssl-${OPENSSL_VERSION}
 
     # Configure
+    cd /openssl-${OPENSSL_VERSION}
     UNAME=`uname -m`
     case "$UNAME" in
       *aarch64*) BUILD_ARCH="linux-aarch64" ;;
@@ -72,15 +53,10 @@ function build_openssl() {
 }
 
 function build_socat() {
-    cd /
 
-    # Download
-    curl -sSL http://www.dest-unreach.org/socat/download/socat-${SOCAT_VERSION}.tar.gz | tar zxf -
-    cd socat-${SOCAT_VERSION}
-
-    # Build
     # NOTE: `NETDB_INTERNAL` is non-POSIX, and thus not defined by MUSL.
     # We define it this way manually.
+    cd /socat-${SOCAT_VERSION}
     CC='/usr/local/musl/bin/musl-gcc -static' \
         CFLAGS="-fPIC -DWITH_OPENSSL -I/ -I/openssl-${OPENSSL_VERSION}/include -I/readline-${READLINE_VERSION} -DNETDB_INTERNAL=-1" \
         CPPFLAGS="-DWITH_OPENSSL -I/ -I/openssl-${OPENSSL_VERSION}/include -I/readline -DNETDB_INTERNAL=-1" \
@@ -91,6 +67,15 @@ function build_socat() {
 }
 
 function doit() {
+
+    echo "[+] Downloading assets.."
+    cd /
+    curl -ksSL http://www.musl-libc.org/releases/musl-${MUSL_VERSION}.tar.gz | tar zxf -
+    curl -ksSL https://ftp.gnu.org/pub/gnu/ncurses/ncurses-${NCURSES_VERSION}.tar.gz | tar zxf - 
+    curl -ksSL ftp://ftp.cwru.edu/pub/bash/readline-${READLINE_VERSION}.tar.gz | tar zxf -
+    curl -ksSL https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz | tar zxf -
+    curl -ksSL http://www.dest-unreach.org/socat/download/socat-${SOCAT_VERSION}.tar.gz | tar zxf -
+
     echo "[+] Building musl libc"
     build_musl
     echo "[+] Building ncurses"
