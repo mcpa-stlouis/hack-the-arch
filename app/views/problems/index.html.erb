@@ -7,22 +7,19 @@
 	<%= link_to "Create", new_problem_path, class: 'btn btn-primary' %>
 <% end %>
 
+
 <% # Show xterm.js if assessment requires it %>
-<% unless current_user.problem_id.nil? or current_user.problem_id <= 0 %>
+<% if swarm_services_enabled? && @active_stack %>
   <%= check_box_tag 'drawer-toggle' %>
   <%= label_tag 'label', nil, id: "drawer-toggle-label", for: "drawer-toggle" do %><%end%>
   <%= content_tag :div, id: 'console-header' do %>
     Console
     <%= content_tag :span, id: 'expiration', class: "expiration pull-right" do %>
-      <% if @expiration > Time.now() %>
-        <%= javascript_tag do %>
-          var expiration = '<%=(@expiration - Time.now()).seconds %>';
-        <% end %>
-        Expires in 
-        <%= content_tag :span, nil, class: 'hours' %>:<%= content_tag :span, nil, class: 'minutes' %>:<%= content_tag :span, nil, class: 'seconds' %>
-      <% else %>
-        This session has expired.  Re-authenticate for a new one.
-      <% end %> 
+      <%= javascript_tag do %>
+        var expiration = <%= @expire_seconds %>;
+      <% end %>
+      Expires in 
+      <%= content_tag :span, nil, class: 'hours' %>:<%= content_tag :span, nil, class: 'minutes' %>:<%= content_tag :span, nil, class: 'seconds' %>
     <%end%>
   <% end %>
   <%= content_tag :div, id: 'drawer' do %>
@@ -76,9 +73,7 @@
       <% end %>
       <%= content_tag :div, id: add_id('main_problem',@problem), class: panel_collapsed(@problem_view, @problem), role: 'tabpanel', 'aria-labelledby' => add_id('heading',@problem) do %> 
         <%= content_tag :div, class: 'panel-body' do %>
-          <% cache_if admin_user?, @problem do %>
-            <%= render @problem %>
-          <% end %>
+          <%= render @problem %>
         <% end %>
       <% end %>
     <% end %>

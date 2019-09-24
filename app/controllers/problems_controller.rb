@@ -5,6 +5,16 @@ class ProblemsController < ApplicationController
   before_action :competition_active, only: [:index, :show]
   
   def index
+
+    # Page-wide variables
+    @points_available = Problem.where(visible: true).sum(:points)
+    @expiration = current_user.stack_expiry
+    @active_stack = (!@expiration.nil? && @expiration > DateTime.now())
+    if @active_stack
+      @expire_seconds = (@expiration - DateTime.now()).to_i 
+    end
+
+    # Get problems
     if current_user && current_user.admin?
       @problems = Problem.all.order!(category: 'ASC', points: 'ASC', name: 'ASC')
       @points_created = Problem.sum(:points)
@@ -14,16 +24,13 @@ class ProblemsController < ApplicationController
         .order!(category: 'ASC', points: 'ASC')
         .select { |p| p.dependencies_solved_by_team?(current_team) }
     end
-    @points_available = Problem.where(visible: true).sum(:points)
 
-    # Build URL for webconsole
-    @expiration = current_user.stack_expiry
-
+    # Open problem if it was passed
     if params[:problem_id]
       # If a specific problem was open, keep it open
       @problem_view = Problem.find(params[:problem_id])
 
-      # If the hints tab was active, keep it active
+      # If the hints tab was active, try to keep it active
       if session[:hint_requested]
         @hint_requested = true
         session.delete(:hint_requested)
@@ -129,7 +136,8 @@ class ProblemsController < ApplicationController
         "#{@hash},#{current_user.problem_id},#{current_user.id}"
       ))
       @status = :ok
-      @render = { url: "#{@console_host}/?q=#{@params}" }
+      @render = { url: "#{@console_host}/?q=#{@params}",
+                  vnc_link: "#{@console_host}/vnc.html?q=#{@params}" }
     else
       @status = :processing
       @render = { error: 'Container not ready yet...' }
@@ -150,17 +158,19 @@ class ProblemsController < ApplicationController
         return
       end
 
+      lifespan = 30
       challenge = Hash.new(0)
       challenge["user_id"] = current_user.id
       challenge["problem_id"] = @problem.id
       challenge["network"] = @problem.network
       challenge["containers"] = @problem.stack
-      challenge["lifespan"] = "30"
+      challenge["lifespan"] = lifespan.to_s
+
       CreateStackJob.perform_later challenge
-      DestroyStackJob.set(wait: 30.minutes)
+      DestroyStackJob.set(wait: lifespan.minutes)
                                .perform_later(challenge)
 
-      redirect_back fallback_location: problems_url
+      redirect_to @problem
     else
       flash[:danger] = "Unauthorized"
       redirect_to @problem
@@ -169,7 +179,7 @@ class ProblemsController < ApplicationController
 
   private
     def problem_params
-      params.require(:problem).permit(:name, :category, :description, :points, :solution, :correct_message, :false_message, :picture, :visible, :solution_case_sensitive, :solution_regex, :dependent_problems, :network, :stack)
+      params.require(:problem).permit(:name, :category, :description, :points, :solution, :correct_message, :false_message, :picture, :visible, :solution_case_sensitive, :solution_regex, :dependent_problems, :network, :stack, :vnc)
     end
 
     def belong_to_team

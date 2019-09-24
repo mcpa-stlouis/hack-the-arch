@@ -32,9 +32,10 @@ setup_console = ->
     return
 
   # Update deadlines
-  if typeof expiration == 'undefined'
-    expiration = 0
-  deadline = new Date(Date.parse(new Date) + expiration * 1000)
+  while typeof expiration == 'undefined'
+    sleep(500)
+
+  deadline = new Date(Date.parse(new Date) + (expiration * 1000))
 
   getTimeRemaining = (endtime) ->
     t = Date.parse(endtime) - Date.parse(new Date)
@@ -80,6 +81,8 @@ setup_console = ->
         200: (data) ->
           $('#loader').remove()
           window.open(data.url, 'docker_term')
+          $('#vnc_link').attr("href", data.vnc_link)
+          $('#vnc_link').removeAttr("disabled")
           return
         102: ->
           setTimeout check_url, 1000

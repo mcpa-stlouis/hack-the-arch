@@ -57,6 +57,12 @@
     <%= f.label :stack %>
     <%= f.text_area :stack, class: 'form-control' %>
 
+    <%= f.label :vnc, class: 'checkbox-inline' do %>
+      <%= f.check_box :vnc %>
+      <%= content_tag :span, 'Entrypoint supports VNC', class: 'cydefe-text' %>
+    <% end %>
+    <%= tag :br %>
+
     <%= f.label :network %>
     <%= f.text_area :network, class: 'form-control' %>
   <% end %>

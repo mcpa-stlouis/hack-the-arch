@@ -17,6 +17,7 @@ class CreateStackJob < DockerApiJob
       containers = docker_get_containers(challenge)
       networks = docker_get_networks(challenge)
 
+      # If this user already has a stack initiated, reset it
       if networks.length > 0 or containers.length > 0
         user_id = challenge['user_id']
         User.find(user_id).update_attribute(:container_id, '')
