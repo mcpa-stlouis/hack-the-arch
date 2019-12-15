@@ -3,7 +3,7 @@ ruby '>= 2.6'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails',                 '~> 5.2'
-gem 'puma',                  '~> 3.4'
+gem 'puma',                  '~> 3.12'
 gem 'uglifier',              '~> 3.0'
 gem 'coffee-rails',          '~> 4.2'
 gem 'turbolinks',            '~> 5.1'
