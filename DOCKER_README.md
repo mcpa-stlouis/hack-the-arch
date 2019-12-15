@@ -17,7 +17,7 @@ Finally, from the root directory:
 1. Deploy the stack
 
 ```
-docker stack deploy -c docker-compose.yml hackthearch
+docker stack deploy -c prod-stack.yml hackthearch
 ```
 
 2. Build the database (find the node that's hosting the hta service), then
