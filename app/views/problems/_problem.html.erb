@@ -19,7 +19,7 @@
     <% if swarm_services_enabled? && !(@problem.stack.nil? || @problem.stack.empty?) %>
       <%= content_tag :span, class: 'pull-right' do %>
         <% if (current_user.problem_id == @problem.id && @active_stack) %>
-          <%= content_tag(:h4, "Challenge Activated ", style: "display:inline") %>
+          <%= content_tag(:h4, "Challenge Activated", style: "display:inline;padding-right:10px") %>
           <% if @problem.vnc %>
             <%= link_to "VNC", nil, id: "vnc_link", class: "btn btn-primary", disabled: :true, target: "_blank" %>
           <% end %>

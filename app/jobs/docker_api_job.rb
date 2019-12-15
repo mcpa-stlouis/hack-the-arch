@@ -7,8 +7,22 @@ class DockerApiJob < ApplicationJob
   @@socket_path = "/var/run/docker.sock"
 
   protected
-    # Returns array of containers for assessment
-    def docker_get_containers(assessment)
+    # Get all services
+    def docker_get_hta_services()
+      filter = Hash.new(0)
+      filter['label'] = ["hackthearch"]
+      query = URI.encode_www_form('filters' => filter.to_json)
+
+      res = docker_get_request("/services?#{query}")
+
+      if res.code == '200'
+        return JSON(res.body)
+      end
+      raise Exception.new("HTTP #{res.code} communicating with Docker!")
+    end
+
+    # Returns array of services for assessment
+    def docker_get_services(assessment)
       filter = Hash.new(0)
       filter['label'] = ["user_id=#{assessment['user_id']}"]
       query = URI.encode_www_form('filters' => filter.to_json)
@@ -35,9 +49,9 @@ class DockerApiJob < ApplicationJob
       raise Exception.new("HTTP #{res.code} communicating with Docker!")
     end
 
-    def delete_stack(containers, networks)
+    def delete_stack(services, networks)
 
-      containers.each do |service|
+      services.each do |service|
         docker_delete_service(service['ID'])
       end
 
@@ -85,7 +99,7 @@ class DockerApiJob < ApplicationJob
       end
 
       # If auth token exists, use it:
-      auth = "/run/secrets/registry_auth"
+      auth = "/run/secrets/REGISTRY_AUTH"
       if File.exist?(auth) || File.symlink?(auth)
         request["X-Registry-Auth"] = Base64.encode64(File.read(auth, 'r'))
       end

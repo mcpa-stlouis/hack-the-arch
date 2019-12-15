@@ -7,6 +7,10 @@ setup_hooks = ->
   if !document.getElementById('new_hint') 
     return
 
+  $(document).on 'confirm:complete', (evt, answer) ->
+    if evt.target.value == "Start VM" && answer
+      evt.target.value = "Starting..."
+
   $('.filter').keyup ->
     rex = new RegExp($(this).val(), 'i')
     $('.searchable tr').hide()

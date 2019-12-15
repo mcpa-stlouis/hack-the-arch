@@ -163,12 +163,12 @@ class ProblemsController < ApplicationController
       challenge["user_id"] = current_user.id
       challenge["problem_id"] = @problem.id
       challenge["network"] = @problem.network
-      challenge["containers"] = @problem.stack
+      challenge["services"] = @problem.stack
       challenge["lifespan"] = lifespan.to_s
 
-      CreateStackJob.perform_later challenge
       DestroyStackJob.set(wait: lifespan.minutes)
                                .perform_later(challenge)
+      CreateStackJob.perform_now challenge
 
       redirect_to @problem
     else

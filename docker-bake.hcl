@@ -10,7 +10,7 @@ target "web" {
   driver = "docker-container"
   tags = ["docker.io/paullj1/hackthearch:latest",
           "docker.io/paullj1/hackthearch:2.4" ,
-          "docker.io/paullj1/hackthearch:2.4.0" ]
+          "docker.io/paullj1/hackthearch:2.4.1" ]
   platforms = ["linux/amd64", "linux/arm64", "linux/arm/v6", "linux/arm/v7"]
 }
 
@@ -20,7 +20,7 @@ target "webconsole" {
   output = ["type=registry"]
   driver = "docker-container"
   tags = ["docker.io/paullj1/webconsole:latest",
-          "docker.io/paullj1/webconsole:1.0.1"]
+          "docker.io/paullj1/webconsole:1.1.0"]
   platforms = ["linux/amd64", "linux/arm64"]
 }
 
