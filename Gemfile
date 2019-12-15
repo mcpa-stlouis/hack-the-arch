@@ -40,7 +40,7 @@ gem 'tzinfo-data',                     '~> 1.2018'
 # Fix vulnerabilities & Rails 5.2 enhancements
 gem 'sprockets',             '~> 3.7'
 gem 'ffi',                   '~> 1.9'
-gem 'loofah',                '~> 2.2'
+gem 'loofah',                '~> 2.3'
 gem 'bootsnap', require: false
 
 group :development,:test do
