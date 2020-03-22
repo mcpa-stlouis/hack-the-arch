@@ -46,7 +46,7 @@ COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
 COPY --from=builder --chown=app:app /src ./
 
 HEALTHCHECK --interval=30s --timeout=3s \
-  CMD echo -e 'require "net/http"\nNet::HTTP.get(URI("http://127.0.0.1:3000/"))' | ruby
+  CMD echo -e 'require "net/http"\nexit(Net::HTTP.get_response(URI("http://127.0.0.1:3000/")).code.to_i < 400)' | ruby
 
 USER app
 CMD [ "bundle", "exec", "puma", "-C", "/app/config/puma.rb" ]
