@@ -83,6 +83,7 @@ func ExecContainer(websock *websocket.Conn) {
 	if err != nil {
 		panic(err)
 	}
+  defer cli.Close()
 
   // Get services
 	svc_filter := filters.NewArgs(
@@ -193,6 +194,7 @@ func ExecContainer(websock *websocket.Conn) {
     if err != nil {
       panic(err)
     }
+    defer r_cli.Close()
   }
 
   // Exec cmd against container on remote host
