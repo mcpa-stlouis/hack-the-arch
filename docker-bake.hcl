@@ -10,7 +10,7 @@ target "web" {
   tags = ["docker.io/paullj1/hackthearch:latest",
           "docker.io/paullj1/hackthearch:3.0" ,
           "docker.io/paullj1/hackthearch:3.0.0" ]
-  platforms = ["linux/amd64", "linux/arm64", "linux/arm/v6", "linux/arm/v7"]
+  platforms = ["linux/amd64", "linux/arm64", "linux/arm/v7"]
 }
 
 target "webconsole" {
@@ -30,6 +30,6 @@ target "socat_static" {
           "docker.io/paullj1/socat_static:1.7",
           "docker.io/paullj1/socat_static:1.7.3",
           "docker.io/paullj1/socat_static:1.7.3.3"]
-  platforms = ["linux/amd64", "linux/arm64", "linux/arm/v6", "linux/arm/v7"]
+  platforms = ["linux/amd64", "linux/arm64", "linux/arm/v7"]
 }
 
