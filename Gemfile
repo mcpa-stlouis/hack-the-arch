@@ -61,7 +61,7 @@ end
 # Configured for Heroku 
 group :production do
   gem 'rack',           '~> 2.1'
-  gem 'pg',	        '~> 0.18'
+  gem 'pg',	            '~> 1.1'
   gem 'rails_12factor', '~> 0.0.2'
   gem 'redis',          '~> 3.3'
 end
