@@ -22,7 +22,7 @@ class BracketsController < ApplicationController
 
   def update
     @bracket = Bracket.find(params[:id])
-    if @bracket.update_attributes(bracket_params)
+    if @bracket.update(bracket_params)
       flash[:success] = "Changes saved successfully"
       redirect_to admin_url
     else

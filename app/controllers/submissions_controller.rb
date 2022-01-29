@@ -83,7 +83,7 @@ class SubmissionsController < ApplicationController
       redirect_to @problem
     end
 
-    current_user.update_attributes(last_submission: DateTime.now)
+    current_user.update(last_submission: DateTime.now)
     Submission.create(team_id:  current_user.team_id,
                       user_id: current_user.id,
                       problem_id: @problem.id,

@@ -20,6 +20,7 @@ class ScoreboardTest < ActionDispatch::IntegrationTest
     @scoreboard_on.value = '0'
     @scoreboard_on.save
     log_out
+    log_in_as(@non_admin)
   end
 
   test "should get score progressions" do

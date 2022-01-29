@@ -2,7 +2,7 @@ class ValidateAtCapacity < ActiveModel::Validator
 
   def validate(record)
     if record.at_capacity?
-      record.errors[:capacity] << 'Team has reached capcity'
+      record.errors.add(:capacity, 'Team has reached capacity')
     end
   end
 end

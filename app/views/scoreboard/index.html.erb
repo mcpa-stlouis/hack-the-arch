@@ -2,7 +2,7 @@
 <h1>Scoreboard</h1> 
 <h4 class='text-center'>Points available: <%= @points_available %></h4>
 
-<% if @scoreboard_on || (current_user && current_user.admin?) %>
+<% if current_user && (@scoreboard_on || current_user.admin?) %>
 	<div class='jumbotron row hidden-xs'>
 		<div id='scoreboard_graph' class='col-sm-12' style='width:100%;height:400px'></div>
 	</div>

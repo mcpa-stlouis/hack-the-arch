@@ -37,7 +37,7 @@ hate, would like to see added, etc...
 
 Requirements
 ------------
-* Ruby version 2.6.1
+* Ruby version 3.1
 * Activation and password reset e-mails depend on Heroku SendGrid add-on
   configuration (this feature can be optionally disabled or easily modified to
   be used with other mailers)

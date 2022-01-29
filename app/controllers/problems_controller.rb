@@ -118,7 +118,7 @@ class ProblemsController < ApplicationController
       @problem.save
     end
 
-    if @problem.update_attributes(problem_params)
+    if @problem.update(problem_params)
       flash[:success] = "Changes saved successfully"
       redirect_to @problem
     else

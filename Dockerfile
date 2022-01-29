@@ -1,10 +1,10 @@
 # HackTheArch Dockerfile
-# VERSION 2.2
+# VERSION 3.0
 
 ################################################################################
 # Builder
 ################################################################################
-FROM ruby:2.6-alpine as builder
+FROM ruby:3-alpine as builder
 RUN apk add --no-cache --update \
         build-base \
         curl-dev \
@@ -30,7 +30,7 @@ RUN mkdir -p ./tmp/cache ./log
 ################################################################################
 # Production
 ################################################################################
-FROM ruby:2.6-alpine as prod
+FROM ruby:3-alpine as prod
 MAINTAINER Paul Jordan <paullj1@gmail.com>
 
 RUN apk add --no-cache --update \

@@ -136,7 +136,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update_attributes(user_params)
+    if @user.update(user_params)
       flash[:success] = "Changes saved successfully"
       redirect_to @user
     else
@@ -187,7 +187,7 @@ class UsersController < ApplicationController
     end
 
     def activate_user(user)
-      user.update_attributes(paid: true)
+      user.update(paid: true)
   
       if send_activation_emails?
         user.create_activation_digest

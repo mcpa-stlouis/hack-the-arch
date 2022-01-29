@@ -30,7 +30,7 @@ class TeamsController < ApplicationController
   end
 
   def update
-    if @team.update_attributes(team_params)
+    if @team.update(team_params)
       flash[:success] = "Changes saved successfully"
       redirect_to @team
     else

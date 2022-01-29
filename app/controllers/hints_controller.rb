@@ -26,7 +26,7 @@ class HintsController < ApplicationController
 
   def update
     @hint = Hint.find(params[:id])
-    if @hint.update_attributes(hint_params)
+    if @hint.update(hint_params)
       @problem = Problem.find(params[:hint][:problem_id])
       redirect_to @problem
     else
