@@ -24,6 +24,8 @@ gem 'bootstrap-growl-rails', '~> 3.1'
 gem 'animate-rails',         '~> 1.0'
 gem 'CFPropertyList',        '~> 2.3'
 gem 'net-smtp'
+gem 'net-pop'
+gem 'net-imap'
 
 # Javascript and CSS
 gem 'sassc-rails',                     '~> 2.1'

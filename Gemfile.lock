@@ -350,6 +350,14 @@ GEM
     multi_json (1.15.0)
     multipart-post (2.1.1)
     nenv (0.3.0)
+    net-imap (0.2.3)
+      digest
+      net-protocol
+      strscan
+    net-pop (0.1.1)
+      digest
+      net-protocol
+      timeout
     net-protocol (0.1.2)
       io-wait
       timeout
@@ -459,6 +467,7 @@ GEM
     ssrf_filter (1.0.7)
     stripe (1.58.0)
       rest-client (>= 1.4, < 4.0)
+    strscan (3.0.1)
     sync (0.5.0)
     term-ansicolor (1.7.1)
       tins (~> 1.0)
@@ -526,6 +535,8 @@ DEPENDENCIES
   loofah (~> 2.3)
   mini_magick (~> 4.9)
   momentjs-rails (~> 2.15)
+  net-imap
+  net-pop
   net-smtp
   net-ssh (~> 3.2)
   nokogiri (~> 1.12)
